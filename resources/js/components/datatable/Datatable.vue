@@ -4,7 +4,7 @@
             <input 
                 type="text" 
                 v-model="textFilter"
-                class="block w-1/2 mr-auto p-1 border border-grey-200 rounded"
+                class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto"
                 placeholder="Search..."
             >
 
@@ -24,12 +24,6 @@
                         :key="column.field"
                         v-text="column.title"
                         class="text-left p-1"
-                    ></th>
-
-                    <th 
-                        v-if="dropdown.length"
-                        class="text-left p-1"
-                        v-text="dropdownTitle"
                     ></th>
 
                     <th 
@@ -59,23 +53,6 @@
                         v-text="item[column.field]"
                         class="p-1"
                     ></td>
-
-                    <td v-if="dropdown.length" class="p-1">
-                        <select 
-                            @change="pushDropdown"
-                            v-model="selectedDropdownVModel"
-                            class="block w-full p-1 border border-grey-200 hover:border-grey-300 rounded"
-                        >
-                            <option :value="item.id"></option>
-
-                            <option
-                                v-for="dropdownItem in dropdown"
-                                :key="dropdownItem[dropdownKey]"
-                                :value="`${item.id}:${dropdownItem[dropdownKey]}`"
-                                v-text="dropdownItem[dropdownTextKey]"
-                            ></option>
-                        </select>
-                    </td>
 
                     <td v-if="hasAction || hasEvent" class="p-1">
                         <template v-if="hasAction">
@@ -156,21 +133,6 @@ export default {
             required: false,
             default: () => []
         },
-        dropdownTitle: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        dropdownKey: {
-            type: String,
-            required: false,
-            default: ''
-        },
-        dropdownTextKey: {
-            type: String,
-            required: false,
-            default: ''
-        },
         selectedValues: {
             type: Array,
             required: false,
@@ -210,6 +172,11 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        selectedItems: {
+            type: Array,
+            required: false,
+            default: () => []
         }
     },
 
@@ -218,9 +185,7 @@ export default {
             currentPage: 1,
             textFilter: '',
             pages: 1,
-            selected: [],
-            selectedDropdown: [],
-            selectedDropdownVModel: []
+            selected: this.selectedItems
         }
     },
 
@@ -275,28 +240,8 @@ export default {
             this.currentPage = page
         },
 
-        async pushDropdown (e) {
-            let arr = e.target.value.split(':')
-
-            if (arr.length === 1) {
-                this.selectedDropdown = await filter(this.selectedDropdown, 
-                    x => x.itemId !== parseInt(arr[0])
-                )
-
-                return
-            }
-
-            await this.selectedDropdown.push({
-                itemId: parseInt(arr[0]),
-                dropdownItemId: parseInt(arr[1])
-            })
-
-            window.events.$emit('datatable:dropdown', this.selectedDropdown)
-        },
-
         reset () {
             this.selected = []
-            this.selectedDropdown = []
             this.currentPage = 1
             this.textFilter = ''
             this.pages = 1

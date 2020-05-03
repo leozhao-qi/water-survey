@@ -4,7 +4,9 @@ namespace App;
 
 use App\User;
 use App\MoodleUser;
+use App\Supervisor;
 use App\Deactivation;
+use App\Traits\HasSupervisors;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +16,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable,
-        HasRoles;
+        HasRoles,
+        HasSupervisors;
 
     /**
      * The attributes that are mass assignable.
@@ -51,6 +54,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Deactivation::class)
             ->latest();
+    }
+
+    public function supervisor()
+    {
+        return $this->hasOne(Supervisor::class);
+    }
+
+    public function moodleuser()
+    {
+        return $this->hasOne(MoodleUser::class, 'id', 'moodle_id');
     }
 
     public function getFirstnameAttribute()

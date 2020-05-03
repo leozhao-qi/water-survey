@@ -4,7 +4,11 @@
             {{ user.firstname }} {{ user.lastname }}
         </h1>
 
+        <change-password />
+
         <profile-deactivations />
+
+        <reporting-structure />
     </div>
 </template>
 

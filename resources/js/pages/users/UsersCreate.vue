@@ -4,6 +4,37 @@
             Add users
         </h1> 
 
+        <div class="flex justify-center w-full mb-6 pb-6 border-b border-gray-200">
+            <div>
+                <label 
+                    for="roles"
+                    class="block text-gray-700 font-bold mb-2"
+                >
+                    Register users as...
+                </label>
+                <div class="relative">
+                    <select 
+                        id="roles"
+                        v-model="role"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="r.name"
+                            v-for="r in roles"
+                            :key="r.id"
+                            v-text="r.name"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <datatable 
             :data="users"
             :columns="columns"
@@ -12,10 +43,6 @@
             :order-key-directions="['asc', 'asc']"
             :has-text-filter="true"
             :checkable="true"
-            :dropdown="roles"
-            dropdown-title="Role"
-		    dropdown-key="id"
-		    dropdown-text-key="name"
         >
             <button
                 @click.prevent="cancel"
@@ -43,55 +70,29 @@ export default {
                 { field: 'email', title: 'Email', sortable: false }
             ],
             selected: [],
-            selectedRoles: [],
-            roles: []
+            roles: [],
+            role: ''
         }
     },
 
     methods: {
         async store () {
-            let submitData = []
-
-            let data = map(this.selected, async x => {
-                let roleId = ''
-
-                for await (const role of this.selectedRoles) {
-                    if (x === role.itemId) {
-                        roleId = role.dropdownItemId
-                    }
-                }
-
-                if (!roleId) {
-                    return Promise.resolve({})
-                }
-
-                return Promise.resolve({
-                    userId: x,
-                    roleId
-                })
+            let { data } = await axios.post('/api/users/moodle', {
+                role: this.role,
+                users: this.selected
             })
 
-            for await (const y of data) {
-                submitData.push(y)
-            }
+            this.reset()
 
-            submitData = reject(submitData, isEmpty)
+            window.events.$emit('datatable:clear')
 
-            if (submitData.length) {
-                let response = await axios.post('/api/users/moodle', submitData)
-
-                this.reset()
-
-                window.events.$emit ('datatable:clear')
-
-                this.$toasted.success(response.data.data.message)
-            }
+            this.$toasted.success(data.data.message)
         },
 
         reset () {
             this.selected = []
-            this.selectedRoles = []
             this.roles = []
+            this.role = ''
         },
 
         cancel () {
@@ -110,10 +111,6 @@ export default {
 
         window.events.$on('users:selected', users => {
             this.selected = users
-        })
-
-        window.events.$on('datatable:dropdown', items => {
-            this.selectedRoles = items
         })
     }
 }

@@ -20,7 +20,9 @@ class UserResource extends JsonResource
             'lastname' => $this->lastname,
             'email' => $this->email,
             'deactivations' => $this->deactivations,
-            'active' => $this->active
+            'active' => $this->active,
+            'role' => $this->roles->first()->name,
+            'reportingStructure' => $this->reportingStructure()
         ];
     }
 }

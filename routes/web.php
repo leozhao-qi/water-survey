@@ -39,7 +39,15 @@ Route::get(
 );
 
 Route::post(
+    '/api/users/{user}/role/{role}', 'Supervisors\Api\SupervisorsController@store'
+);
+
+Route::post(
     '/api/users/moodle', 'MoodleUsers\Api\MoodleUsersController@store'
+);
+
+Route::put(
+    '/api/users/{user}/password', 'Users\Api\PasswordChangeController@update'
 );
 
 Route::get(
@@ -64,6 +72,10 @@ Route::put(
 
 Route::delete(
     '/api/deactivations/{deactivation}', 'Deactivations\Api\DeactivationController@destroy'
+);
+
+Route::get(
+    '/api/supervisors/{role}', 'Supervisors\Api\SupervisorsController@index'
 );
 
 Auth::routes();

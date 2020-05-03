@@ -1,11 +1,12 @@
 <template>
-    <div class="min-w-full min-h-scren flex justify-center items-center">
+    <div>
         <overlay 
             @close="close"
         />
 
         <div 
-            class="z-20 p-5 bg-white rounded shadow-xl w-10/12 xl:w-9/12 block"
+            class="absolute z-20 p-5 bg-white rounded shadow-xl w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12"
+            style="left: 50%; top: 50%; transform: translate(-50%, -50%);"
         >
             <h1
                 v-if="this.$slots.header"
