@@ -8,6 +8,10 @@ axios.interceptors.response.use(
 			store.dispatch('setErrors', error.response.data.errors)
 		}
 
+		if (error.response.status === 403) {
+			window.events.$emit('errors-general', error.response.data.message)
+		}
+
 		return Promise.reject(error)
 	}
 )

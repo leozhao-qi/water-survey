@@ -6,12 +6,18 @@ window.Vue = require('vue')
 window.events = new Vue()
 
 import error from './mixins/errors'
+import authUser from './mixins/authUser'
 Vue.mixin(error)
+Vue.mixin(authUser)
 
 import Toasted from 'vue-toasted'
 Vue.use(Toasted, {
     duration: 3000,
     position: 'top-center'
+})
+
+window.events.$on('errors-general', error => {
+    Vue.toasted.error(error)
 })
 
 import store from './store'

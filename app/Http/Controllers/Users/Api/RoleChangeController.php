@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class RoleChangeController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function update(User $user)
     {
         request()->validate([

@@ -14,6 +14,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        window.User = {
+            'name': '{{ auth()->user() ? auth()->user()->moodleuser->firstname : '' }} {{ auth()->user() ? auth()->user()->moodleuser->lastname : '' }}',
+            'id': '{{ auth()->id() }}',
+            'role': '{{ auth()->user() ? auth()->user()->roles->first()->type : '' }}',
+            'rank': '{{ auth()->user() ? auth()->user()->roles->first()->rank : '' }}'
+        };
+    </script>
 </head>
 <body>
     <div id="app" class="relative">

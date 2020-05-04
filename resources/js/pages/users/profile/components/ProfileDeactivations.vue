@@ -7,7 +7,7 @@
 
             <button
                 class="btn btn-text text-sm ml-2"
-                v-if="user.active"
+                v-if="user.active && hasRole(['administrator'])"
                 @click.prevent="modalCreateDeactivation = true"
             >Deactivate</button>
         </div>
@@ -23,7 +23,7 @@
             <dd class="pl-2">{{ currentDeactivation.deactivation_rationale }}</dd>
         </dl>
 
-        <template v-if="user.deactivations && user.deactivations.length">
+        <template v-if="user.deactivations && user.deactivations.length && hasRole(['administrator'])">
             <button 
                 class="btn btn-blue text-sm mt-3"
                 @click.prevent="modalShowDeactivations = true"

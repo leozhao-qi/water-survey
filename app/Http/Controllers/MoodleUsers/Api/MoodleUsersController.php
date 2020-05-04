@@ -13,6 +13,11 @@ use App\Http\Requests\Users\CreateRequest;
 
 class MoodleUsersController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function create()
     {
         return DB::connection('mysql2')

@@ -3337,6 +3337,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3978,6 +3979,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4231,6 +4233,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -40682,19 +40685,21 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-text text-sm",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.changing = true
-                    }
-                  }
-                },
-                [_vm._v("\n                Change date\n            ")]
-              )
+              _vm.hasRole(["administrator"])
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-text text-sm",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.changing = true
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Change date\n            ")]
+                  )
+                : _vm._e()
             ])
           ]
         : _vm._e(),
@@ -41091,7 +41096,7 @@ var render = function() {
       _c("div", { staticClass: "flex items-center" }, [
         _c("span", [_vm._v(_vm._s(_vm.user.active ? "Active" : "Inactive"))]),
         _vm._v(" "),
-        _vm.user.active
+        _vm.user.active && _vm.hasRole(["administrator"])
           ? _c(
               "button",
               {
@@ -41126,7 +41131,9 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.user.deactivations && _vm.user.deactivations.length
+      _vm.user.deactivations &&
+      _vm.user.deactivations.length &&
+      _vm.hasRole(["administrator"])
         ? [
             _c(
               "button",
@@ -41241,20 +41248,22 @@ var render = function() {
           _vm._v("\n            Reporting Structure\n        ")
         ]),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "text-l ml-2",
-            attrs: { href: "#" },
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.reportingModal = true
-              }
-            }
-          },
-          [_vm._v("Edit")]
-        )
+        _vm.hasRole(["administrator"])
+          ? _c(
+              "a",
+              {
+                staticClass: "text-l ml-2",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.reportingModal = true
+                  }
+                }
+              },
+              [_vm._v("Edit")]
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
       _vm.user.role !== "manager"
@@ -41566,19 +41575,21 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-text text-sm",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.changing = true
-                    }
-                  }
-                },
-                [_vm._v("\n                Change role\n            ")]
-              )
+              _vm.hasRole(["administrator"])
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-text text-sm",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.changing = true
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Change role\n            ")]
+                  )
+                : _vm._e()
             ])
           ]
         : _vm._e(),
@@ -57474,20 +57485,26 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_interceptors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helpers/interceptors */ "./resources/js/helpers/interceptors.js");
 /* harmony import */ var _mixins_errors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/errors */ "./resources/js/mixins/errors.js");
-/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
-/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _mixins_authUser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/authUser */ "./resources/js/mixins/authUser.js");
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
+/* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 window.events = new Vue();
 
-Vue.mixin(_mixins_errors__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
-Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_2___default.a, {
+Vue.mixin(_mixins_errors__WEBPACK_IMPORTED_MODULE_1__["default"]);
+Vue.mixin(_mixins_authUser__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_3___default.a, {
   duration: 3000,
   position: 'top-center'
+});
+window.events.$on('errors-general', function (error) {
+  Vue.toasted.error(error);
 });
 
 
@@ -57498,7 +57515,7 @@ files.keys().map(function (key) {
 });
 var app = new Vue({
   el: '#app',
-  store: _store__WEBPACK_IMPORTED_MODULE_3__["default"]
+  store: _store__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 
 /***/ }),
@@ -57954,6 +57971,10 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('setErrors', error.response.data.errors);
   }
 
+  if (error.response.status === 403) {
+    window.events.$emit('errors-general', error.response.data.message);
+  }
+
   return Promise.reject(error);
 });
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.request.use(function (config) {
@@ -58013,6 +58034,34 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (str) {
   var unSnakeCase = str.replace(/_/g, ' ');
   return "".concat(unSnakeCase.charAt(0).toUpperCase()).concat(unSnakeCase.slice(1));
+});
+
+/***/ }),
+
+/***/ "./resources/js/mixins/authUser.js":
+/*!*****************************************!*\
+  !*** ./resources/js/mixins/authUser.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      authUser: window.User
+    };
+  },
+  methods: {
+    hasRole: function hasRole(roles) {
+      if (this.authUser.role === 'administrator') {
+        return true;
+      }
+
+      return roles.indexOf(this.authUser.role) > -1;
+    }
+  }
 });
 
 /***/ }),

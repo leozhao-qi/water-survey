@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class DeactivationController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator']);
+    }
+
     public function store(User $user)
     {
         request()->validate([

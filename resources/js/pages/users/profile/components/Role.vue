@@ -15,6 +15,7 @@
 
                 <button 
                     class="btn btn-text text-sm"
+                    v-if="hasRole(['administrator'])"
                     @click.prevent="changing = true"
                 >
                     Change role

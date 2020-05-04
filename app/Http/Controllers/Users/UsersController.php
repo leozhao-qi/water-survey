@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator'])->except(['show']);
+    }
+
     public function index()
     {
         return view('users.index');

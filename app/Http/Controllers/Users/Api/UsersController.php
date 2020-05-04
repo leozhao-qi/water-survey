@@ -8,6 +8,11 @@ use App\Http\Resources\Users\UserResource;
 
 class UsersController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator'])->except(['show']);
+    }
+
     public function index()
     {
         return User::whereActive(1)->get();

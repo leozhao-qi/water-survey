@@ -9,6 +9,7 @@
                 href="#"
                 class="text-l ml-2"
                 @click.prevent="reportingModal = true"
+                v-if="hasRole(['administrator'])"
             >Edit</a>
         </div>
 

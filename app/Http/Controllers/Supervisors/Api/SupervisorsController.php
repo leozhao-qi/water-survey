@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 
 class SupervisorsController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function index($role)
     {
         return User::whereHas('roles', function ($query) use ($role) {

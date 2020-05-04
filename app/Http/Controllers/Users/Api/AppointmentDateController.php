@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class AppointmentDateController extends Controller
 {
+    public function __construct ()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function update(User $user)
     {
         request()->validate([
