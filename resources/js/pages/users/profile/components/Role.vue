@@ -58,7 +58,7 @@
                     class="btn btn-blue text-sm"
                     @click.prevent="update"
                 >
-                    Change date
+                    Change role
                 </button>
 
                 <button 

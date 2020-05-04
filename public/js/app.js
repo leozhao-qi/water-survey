@@ -41681,7 +41681,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                Change date\n            ")]
+                [_vm._v("\n                Change role\n            ")]
               ),
               _vm._v(" "),
               _c(

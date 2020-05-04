@@ -92,14 +92,16 @@ class User extends Authenticatable
 
     public function updateRole($role)
 	{
-		$this->roles()->detach();
+        $this->roles()->detach();
+        
+        if ($this->supervisor !== null) {
+            $this->supervisor()->delete();
+        }
 
 		if ($role !== 'apprentice') {
 			Supervisor::create([
 				'user_id' => $this->id
 			]);
-		} else {
-			$this->supervisor()->delete();
 		}
 
 		return $this->assignRole($role);
