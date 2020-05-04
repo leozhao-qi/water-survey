@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'moodle_id', 'password', 'email', 'active'
+        'moodle_id', 'password', 'email', 'active', 'appointment_date'
     ];
 
     /**
@@ -89,4 +89,19 @@ class User extends Authenticatable
             ->first()
             ->{$column};
     }
+
+    public function updateRole($role)
+	{
+		$this->roles()->detach();
+
+		if ($role !== 'apprentice') {
+			Supervisor::create([
+				'user_id' => $this->id
+			]);
+		} else {
+			$this->supervisor()->delete();
+		}
+
+		return $this->assignRole($role);
+	}
 }

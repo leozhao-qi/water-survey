@@ -50,6 +50,14 @@ Route::put(
     '/api/users/{user}/password', 'Users\Api\PasswordChangeController@update'
 );
 
+Route::put(
+    '/api/users/{user}/appointment', 'Users\Api\AppointmentDateController@update'
+);
+
+Route::put(
+    '/api/users/{user}/role', 'Users\Api\RoleChangeController@update'
+);
+
 Route::get(
     '/api/users', 'Users\Api\UsersController@index'
 );

@@ -6,6 +6,10 @@
 
         <change-password />
 
+        <role />
+
+        <appoitment-date />
+
         <profile-deactivations />
 
         <reporting-structure />
