@@ -10,9 +10,15 @@
                 :key="u.id"
                 class="pl-2"
             >
-                <a :href="`${u.id}`">
+                <template v-if="hasRole(['administrator']) || parseInt(authUser.rank) < u.rank">
+                    <a :href="`${u.id}`">
+                        {{ u.firstname }} {{ u.lastname }}
+                    </a>
+                </template>
+                
+                <span v-else>
                     {{ u.firstname }} {{ u.lastname }}
-                </a>
+                </span>
             </li>
         </ul>
 

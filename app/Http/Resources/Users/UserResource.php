@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'deactivations' => $this->deactivations,
             'active' => $this->active,
             'role' => $this->roles->first()->name,
+            'roleRank' => $this->roles->first()->rank,
             'reportingStructure' => $this->reportingStructure(),
             'appointment_date' => $this->appointment_date
         ];

@@ -19,7 +19,7 @@
         window.User = {
             'name': '{{ auth()->user() ? auth()->user()->moodleuser->firstname : '' }} {{ auth()->user() ? auth()->user()->moodleuser->lastname : '' }}',
             'id': '{{ auth()->id() }}',
-            'role': '{{ auth()->user() ? auth()->user()->roles->first()->type : '' }}',
+            'role': '{{ auth()->user() ? auth()->user()->roles->first()->name : '' }}',
             'rank': '{{ auth()->user() ? auth()->user()->roles->first()->rank : '' }}'
         };
     </script>

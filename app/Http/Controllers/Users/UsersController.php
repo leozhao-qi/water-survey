@@ -11,6 +11,7 @@ class UsersController extends Controller
     public function __construct ()
     {
         $this->middleware(['role:administrator'])->except(['show']);
+        $this->middleware(['profile'])->only(['show']);
     }
 
     public function index()

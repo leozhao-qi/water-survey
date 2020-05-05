@@ -4183,6 +4183,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -41511,17 +41517,35 @@ var render = function() {
       ? _c(
           "ul",
           _vm._l(_vm.users, function(u) {
-            return _c("li", { key: u.id, staticClass: "pl-2" }, [
-              _c("a", { attrs: { href: "" + u.id } }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(u.firstname) +
-                    " " +
-                    _vm._s(u.lastname) +
-                    "\n            "
-                )
-              ])
-            ])
+            return _c(
+              "li",
+              { key: u.id, staticClass: "pl-2" },
+              [
+                _vm.hasRole(["administrator"]) ||
+                parseInt(_vm.authUser.rank) < u.rank
+                  ? [
+                      _c("a", { attrs: { href: "" + u.id } }, [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(u.firstname) +
+                            " " +
+                            _vm._s(u.lastname) +
+                            "\n                "
+                        )
+                      ])
+                    ]
+                  : _c("span", [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(u.firstname) +
+                          " " +
+                          _vm._s(u.lastname) +
+                          "\n            "
+                      )
+                    ])
+              ],
+              2
+            )
           }),
           0
         )
