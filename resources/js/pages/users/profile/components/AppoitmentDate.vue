@@ -98,6 +98,16 @@ export default {
         })
     },    
 
+    watch: {
+        user: {
+            deep: true,
+
+            handler () {
+                this.appointment_date = this.user.appointment_date
+            }
+        }
+    },
+
     methods: {
         ...mapActions({
             fetch: 'user/fetch'

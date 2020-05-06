@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Deactivations\Api;
 
 use App\User;
 use App\Deactivation;
+use App\Rules\ValidDeactivation;
 use App\Http\Controllers\Controller;
+use App\Rules\NotBeforeAppointmentDate;
+use App\Rules\NotBeforeDeactivationDate;
 
 class DeactivationController extends Controller
 {
@@ -16,7 +19,12 @@ class DeactivationController extends Controller
     public function store(User $user)
     {
         request()->validate([
-            'deactivated_at' => 'required|date',
+            'deactivated_at' => [
+                'required', 
+                'date', 
+                new ValidDeactivation($user), 
+                new NotBeforeAppointmentDate($user)
+            ],
             'deactivation_rationale' => 'required|min:3'
         ]);
 
@@ -41,7 +49,11 @@ class DeactivationController extends Controller
     public function activate(User $user)
     {
         request()->validate([
-            'reactivated_at' => 'required|date'
+            'reactivated_at' => [
+                'required',
+                'date',
+                new NotBeforeDeactivationDate($user)
+            ]
         ]);
 
         $user->update([
@@ -65,7 +77,7 @@ class DeactivationController extends Controller
     public function update(Deactivation $deactivation)
     {
         request()->validate([
-            'reactivated_at' => 'sometimes|required|date',
+            'reactivated_at' => 'sometimes|required|date|after:deactivated_at',
             'deactivated_at' => 'required|date',
             'deactivation_rationale' => 'required|min:3'
         ]);

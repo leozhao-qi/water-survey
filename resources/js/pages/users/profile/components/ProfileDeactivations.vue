@@ -17,7 +17,7 @@
             class="w-full block mt-3"
         >
             <dt class="font-bold">Deactivated at:</dt>
-            <dd class="pl-2">{{ currentDeactivation.deactivated_at }}</dd>
+            <dd class="pl-2">{{ dayjs(currentDeactivation.deactivated_at).format('MM/DD/YYYY') }}</dd>
 
             <dt class="font-bold">Deactivation rationale:</dt>
             <dd class="pl-2">{{ currentDeactivation.deactivation_rationale }}</dd>
@@ -71,6 +71,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import toMySQLDateFormat from '../../../../helpers/toMySQLDateFormat'
 import { find, isEmpty } from 'lodash-es'
+import dayjs from 'dayjs'
 
 export default {
     data() {
@@ -102,6 +103,8 @@ export default {
         ...mapActions({
             fetch: 'user/fetch'
         }),
+
+        dayjs,
 
         close () {
             this.modalShowDeactivations = false

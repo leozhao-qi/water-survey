@@ -11,4 +11,9 @@ class Deactivation extends Model
         'deactivated_at',
         'deactivation_rationale'
     ];
+
+    protected $casts = [
+        'reactivated_at' => 'date',
+        'deactivated_at' => 'date'
+    ];
 }
