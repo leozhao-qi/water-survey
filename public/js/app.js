@@ -3338,6 +3338,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -40745,19 +40746,21 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-text text-sm",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.changing = true
-                    }
-                  }
-                },
-                [_vm._v("\n                Change date\n            ")]
-              )
+              _vm.hasRole(["administrator"])
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-text text-sm",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.changing = true
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Change date\n            ")]
+                  )
+                : _vm._e()
             ])
           ]
         : _vm._e(),
@@ -41126,7 +41129,8 @@ var render = function() {
       _c("div", { staticClass: "flex items-center" }, [
         _c("span", [_vm._v(_vm._s(_vm.user.active ? "Active" : "Inactive"))]),
         _vm._v(" "),
-        _vm.user.active && _vm.hasRole(["administrator"])
+        _vm.user.active &&
+        _vm.hasRole(["administrator", "manager", "head_of_operations"])
           ? _c(
               "button",
               {
@@ -41169,7 +41173,7 @@ var render = function() {
       _vm._v(" "),
       _vm.user.deactivations &&
       _vm.user.deactivations.length &&
-      _vm.hasRole(["administrator"])
+      _vm.hasRole(["administrator", "manager", "head_of_operations"])
         ? [
             _c(
               "button",
@@ -41284,7 +41288,7 @@ var render = function() {
           _vm._v("\n            Reporting Structure\n        ")
         ]),
         _vm._v(" "),
-        _vm.hasRole(["administrator"])
+        _vm.hasRole(["administrator", "manager", "head_of_operations"])
           ? _c(
               "a",
               {

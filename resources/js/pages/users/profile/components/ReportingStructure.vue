@@ -9,7 +9,7 @@
                 href="#"
                 class="text-l ml-2"
                 @click.prevent="reportingModal = true"
-                v-if="hasRole(['administrator'])"
+                v-if="hasRole(['administrator', 'manager', 'head_of_operations'])"
             >Edit</a>
         </div>
 

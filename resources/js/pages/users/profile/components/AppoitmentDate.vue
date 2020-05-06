@@ -33,6 +33,7 @@
                 <button 
                     class="btn btn-text text-sm"
                     @click.prevent="changing = true"
+                    v-if="hasRole(['administrator'])"
                 >
                     Change date
                 </button>
