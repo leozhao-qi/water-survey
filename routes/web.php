@@ -28,6 +28,8 @@ Route::prefix('api/users')->group(function () {
     Route::put('{user}/role', 'Users\Api\RoleChangeController@update');
 
     Route::get('/', 'Users\Api\UsersController@index');
+
+    Route::delete('{user}', 'Users\Api\UsersController@destroy');
 });
 
 Route::get(

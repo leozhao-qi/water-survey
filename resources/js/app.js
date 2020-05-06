@@ -7,8 +7,11 @@ window.events = new Vue()
 
 import error from './mixins/errors'
 import authUser from './mixins/authUser'
+import getUrlBase from './mixins/urlBase'
+
 Vue.mixin(error)
 Vue.mixin(authUser)
+Vue.mixin(getUrlBase)
 
 import Toasted from 'vue-toasted'
 Vue.use(Toasted, {

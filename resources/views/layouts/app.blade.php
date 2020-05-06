@@ -22,6 +22,8 @@
             'role': '{{ auth()->user() ? auth()->user()->roles->first()->name : '' }}',
             'rank': '{{ auth()->user() ? auth()->user()->roles->first()->rank : '' }}'
         };
+
+        window.urlBase = '{{ env('APP_URL') }}';
     </script>
 </head>
 <body>
