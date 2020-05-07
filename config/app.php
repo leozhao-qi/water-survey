@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        ied3vil\LanguageSwitcher\Providers\LanguageSwitcherProvider::class,
 
         /*
          * Application Service Providers...

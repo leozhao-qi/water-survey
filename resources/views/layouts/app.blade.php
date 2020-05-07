@@ -29,7 +29,9 @@
 <body>
     <div id="app" class="relative">
         <header class=" border-b border-gray-300">
-            <nav class="flex container mx-auto">
+            <nav class="flex container mx-auto items-center">
+                @include('layouts.partials._lang-switcher')
+
                 @auth
                     <div class="ml-auto">
                         <nav-dropdown />
