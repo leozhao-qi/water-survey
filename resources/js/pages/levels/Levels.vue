@@ -11,13 +11,13 @@
             >Add level</a>
         </nav>
 
-        <!-- <users-create 
+        <levels-create 
             v-if="creating"
         />
 
-        <users-deactivation 
+        <levels-edit 
             v-if="updating"
-        /> -->
+        />
 
         <levels-index 
             v-if="!creating && !updating"
@@ -32,6 +32,20 @@ export default {
             creating: false,
             updating: false
         }
-    }
+    },
+
+    mounted () {
+        window.events.$on('levels:edit', level => {
+            this.updating = true
+        })
+
+        window.events.$on('levels:edit-cancel', level => {
+            this.updating = false
+        })
+
+        window.events.$on('levels:create-cancel', level => {
+            this.creating = false
+        })
+    },
 }
 </script>

@@ -11,11 +11,9 @@
             :order-keys="['name']"
             :order-key-directions="['asc']"
             :has-text-filter="false"
-            :has-action="true"
-            action-text="Edit"
-            action-link="/levels"
-            action-id="id"
-            v-if="typeof levels !== 'undefined'"
+            :has-event="true"
+            event-text="Edit"
+            event="levels:edit"
         />
     </div>
 </template>
@@ -41,12 +39,17 @@ export default {
 
     methods: {
         ...mapActions({
-            fetch: 'levels/fetch'
+            fetch: 'levels/fetch',
+            setEdit: 'levels/setEdit'
         })
     },
 
     async mounted () {
         await this.fetch()
+
+        window.events.$on('levels:edit', level => {
+            this.setEdit(level)
+        })
     }
 }
 </script>

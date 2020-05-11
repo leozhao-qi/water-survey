@@ -57,8 +57,8 @@
             @close="close"
             @submit="updateReporting"
         >
-            <template slot="header">
-                Deactivate {{ user.firstname }} {{ user.lastname }}
+            <template slot="header" v-if="role">
+                {{ ucfirst(role) }} for {{ user.firstname }} {{ user.lastname }}
             </template>
 
             <template slot="body">
@@ -119,6 +119,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { filter, map } from 'lodash-es'
+import ucfirst from '../../../../helpers/ucfirst'
 
 export default {
     computed: {
@@ -163,6 +164,8 @@ export default {
         ...mapActions({
             fetch: 'user/fetch'
         }),
+
+        ucfirst,
 
         close () {
             this.reportingModal = false

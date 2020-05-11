@@ -5,3 +5,9 @@ export const fetch = async ({ commit }) => {
 
     return
 }
+
+export const setEdit = async ({ commit }, level) => {
+    await commit('SET_LEVEL', level)
+
+    return
+}
