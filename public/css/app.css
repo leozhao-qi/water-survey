@@ -710,6 +710,12 @@ a {
   color: #2b6cb0;
 }
 
+.alert-red {
+  background-color: #fff5f5;
+  border-color: #fc8181;
+  color: #c53030;
+}
+
 .alert-gray {
   background-color: #f7fafc;
   border-color: #cbd5e0;

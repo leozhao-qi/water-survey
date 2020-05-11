@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Supervisors\Api;
 
 use App\User;
 use App\Supervisor;
-use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Classes\UpdateUserReporting;
 use App\Http\Controllers\Controller;

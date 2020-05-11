@@ -1,0 +1,1 @@
+export const SET_LEVELS = (state, levels) => state.levels = levels

@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div class="flex w-full mb-4">
+        <div class="flex w-full mb-4" v-if="hasTextFilter">
             <input 
                 type="text" 
                 v-model="textFilter"

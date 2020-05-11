@@ -9,6 +9,7 @@ import * as actions from './actions'
 import * as getters from './getters'
 
 import user from './modules/user'
+import levels from './modules/levels'
 
 export default new Vuex.Store({
 	state, 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
 	actions,
 	getters,
 	modules: {
-		user
+		user,
+		levels
 	} 
 })

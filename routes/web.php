@@ -51,3 +51,7 @@ Route::get('/api/supervisors/{role}', 'Supervisors\Api\SupervisorsController@ind
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/levels', 'Levels\LevelsController@index');
+
+Route::resource('api/levels', 'Levels\Api\LevelsController');

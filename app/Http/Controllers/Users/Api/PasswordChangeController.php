@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Users\Api;
 
 use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PasswordChangeController extends Controller
