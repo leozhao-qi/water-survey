@@ -5,15 +5,15 @@
         </h1> 
 
         <datatable 
-            :data="levels"
+            :data="lessons"
             :columns="columns"
             :per-page="10"
-            :order-keys="['name']"
+            :order-keys="['number']"
             :order-key-directions="['asc']"
-            :has-text-filter="false"
+            :has-text-filter="true"
             :has-event="true"
             event-text="Edit"
-            event="levels:edit"
+            event="lessons:edit"
         />
     </div>
 </template>
@@ -25,29 +25,31 @@ export default {
     data() {
         return {
             columns: [
-                { field: 'name', title: 'Name', sortable: true }
+                { field: 'number', title: 'Number', sortable: true },
+                { field: 'name', title: 'Name', sortable: true },
+                { field: 'depricated', title: 'Depricated', sortable: true }
             ]
         }
     },
 
     computed: {
         ...mapGetters({
-            levels: 'levels/levels'
+            lessons: 'lessons/lessons'
         })
     },
 
     methods: {
         ...mapActions({
-            fetch: 'levels/fetch',
-            setEdit: 'levels/setEdit'
+            fetch: 'lessons/fetch',
+            setEdit: 'lessons/setEdit'
         })
     },
 
     async mounted () {
         await this.fetch()
 
-        window.events.$on('levels:edit', level => {
-            this.setEdit(level)
+        window.events.$on('lessons:edit', lesson => {
+            this.setEdit(lesson)
         })
     }
 }

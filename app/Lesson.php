@@ -2,21 +2,26 @@
 
 namespace App;
 
-use App\Lesson;
+use App\Level;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
-class Level extends Model
+class Lesson extends Model
 {
     use HasTranslations;
 
     public $translatable = ['name'];
     
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'level_id',
+        'number',
+        'name',
+        'depricated'
+    ];
 
-    public function lessons()
+    public function level ()
     {
-        return $this->hasMany(Lesson::class);
+        return $this->belongsTo(Level::class);
     }
 
     public function toArray()

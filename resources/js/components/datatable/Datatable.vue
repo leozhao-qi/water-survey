@@ -6,6 +6,7 @@
                 v-model="textFilter"
                 class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto"
                 placeholder="Search..."
+                @keydown.esc="textFilter = ''"
             >
 
             <slot></slot>
@@ -204,7 +205,7 @@ export default {
                     let isIndexOf = false
 
                     forEach(this.columns, column => {
-                        if (item[column.field].toLowerCase().indexOf(this.textFilter.toLowerCase()) >= 0) {
+                        if (this.matches(item[column.field])) {
                             isIndexOf = true
                         }
                     })
@@ -236,6 +237,10 @@ export default {
     },
 
     methods: {
+        matches (item) {
+            return item.toString().toLowerCase().indexOf(this.textFilter.toLowerCase()) >= 0
+        },
+
         paginate (page) {
             this.currentPage = page
         },

@@ -55,3 +55,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/levels', 'Levels\LevelsController@index');
 
 Route::resource('api/levels', 'Levels\Api\LevelsController');
+
+Route::get('/lessons', 'Lessons\LessonsController@index');
+
+Route::resource('api/lessons', 'Lessons\Api\LessonsController');
