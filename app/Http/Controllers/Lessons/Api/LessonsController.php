@@ -16,7 +16,7 @@ class LessonsController extends Controller
     public function index()
     {
         return LessonResource::collection(
-            Lesson::orderBy('number')->get()
+            Lesson::all()
         );
     }
 

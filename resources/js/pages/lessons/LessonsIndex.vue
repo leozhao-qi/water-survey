@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h1 class="text-3xl font-bold mb-4">
-            Levels
+            Lessons
         </h1> 
 
         <datatable 

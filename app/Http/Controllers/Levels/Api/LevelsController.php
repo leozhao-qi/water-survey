@@ -51,9 +51,6 @@ class LevelsController extends Controller
 
     public function destroy(Level $level)
     {
-        // Delete all associated lessons
-        $level->lessons->each->delete();
-
         $level->delete();
 
         return response()->json([

@@ -11,6 +11,7 @@ import * as getters from './getters'
 import user from './modules/user'
 import levels from './modules/levels'
 import lessons from './modules/lessons'
+import objectives from './modules/objectives'
 
 export default new Vuex.Store({
 	state, 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
 	modules: {
 		user,
 		levels,
-		lessons
+		lessons,
+		objectives
 	} 
 })

@@ -30,23 +30,6 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        $user->deactivations->each->delete();
-        
-        if (!$user->hasRole('apprentice')) {
-            $user->supervisor->users()->detach();
-        }
-        
-        // If the user is supervised, detach all associations to them.
-        $user->supervisors()->detach();
-
-		// Delete the user from the supervisors table.
-		if (!$user->hasRole('apprentice')) {
-			$user->supervisor->delete();
-		}
-
-		// Delete the users role associatons.
-		$user->roles()->detach();
-
         $user->delete();
 
         return response()->json([

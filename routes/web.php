@@ -59,3 +59,7 @@ Route::resource('api/levels', 'Levels\Api\LevelsController');
 Route::get('/lessons', 'Lessons\LessonsController@index');
 
 Route::resource('api/lessons', 'Lessons\Api\LessonsController');
+
+Route::get('/objectives', 'Objectives\ObjectivesController@index');
+
+Route::resource('api/objectives', 'Objectives\Api\ObjectivesController');

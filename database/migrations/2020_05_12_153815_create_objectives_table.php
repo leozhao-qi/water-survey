@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonsTable extends Migration
+class CreateObjectivesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateLessonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        Schema::create('objectives', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('level_id');
-            $table->string('number')->unique();
-            $table->boolean('depricated')->default(0);
+            $table->unsignedInteger('lesson_id');
+            $table->string('number');
             $table->text('name');
-            $table->timestamps(); 
+            $table->timestamps();
+            $table->string('type')->nullable();
 
-            $table->foreign('level_id')
+            $table->foreign('lesson_id')
                 ->references('id')
-                ->on('levels')
+                ->on('lessons')
                 ->onDelete('cascade');
         });
     }
@@ -35,6 +35,6 @@ class CreateLessonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('objectives');
     }
 }
