@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Level;
+use App\Package;
 use App\Objective;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -28,6 +29,11 @@ class Lesson extends Model
     public function objectives()
     {
         return $this->hasMany(Objective::class);
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
     }
 
     public function toArray()

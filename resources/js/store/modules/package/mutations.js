@@ -1,0 +1,1 @@
+export const SET_USERPACKAGE = (state, userPackage) => state.userPackage = userPackage

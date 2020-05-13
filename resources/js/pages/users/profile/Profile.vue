@@ -16,6 +16,10 @@
 
         <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
+        <user-packages />
+
+        <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
+
         <destroy-user 
             v-if="hasRole(['administrator'])"
         />

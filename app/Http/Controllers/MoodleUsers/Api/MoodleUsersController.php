@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\MoodleUsers\Api;
 
 use App\User;
+use App\Lesson;
+use App\Package;
 use App\Supervisor;
 use App\Mail\UserRegistered;
 use Illuminate\Support\Facades\DB;
@@ -55,10 +57,21 @@ class MoodleUsersController extends Controller
                 Role::whereName(request('role'))->get()->first()
             );
 
+            // For these roles, add them to the Supervisor table.
             if ($newUser->hasRole(['manager', 'head_of_operations', 'supervisor'])) {
                 Supervisor::create([ 
                     'user_id' => $newUser->id 
                 ]);
+            }
+
+            // Link all non-depricated packages to new apprentices.
+            if ($newUser->hasRole(['apprentice'])) {
+                foreach (Lesson::whereDepricated(0)->get() as $lesson) {
+                    $package = Package::create([
+                        'user_id' => $newUser->id,
+                        'lesson_id' => $lesson->id
+                    ]);
+                }
             }
 
             Mail::to($newUser)->send(new UserRegistered($newUser, $password));

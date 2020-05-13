@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Users;
 
+use App\Package;
+use App\Http\Resources\Packages\PackageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -24,7 +26,10 @@ class UserResource extends JsonResource
             'role' => $this->roles->first()->name,
             'roleRank' => $this->roles->first()->rank,
             'reportingStructure' => $this->reportingStructure(),
-            'appointment_date' => $this->appointment_date
+            'appointment_date' => $this->appointment_date,
+            'packages' => PackageResource::collection(
+                Package::whereUserId($this->id)->get()
+            )
         ];
     }
 }
