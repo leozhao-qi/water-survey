@@ -18,7 +18,12 @@ class Lesson extends Model
         'level_id',
         'number',
         'name',
-        'depricated'
+        'depricated',
+        'depricated_on'
+    ];
+
+    protected $casts = [
+        'depricated_on' => 'date'
     ];
 
     public function level ()

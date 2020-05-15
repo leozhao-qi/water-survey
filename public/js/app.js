@@ -2991,6 +2991,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2999,7 +3013,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_en: '',
         name_fr: '',
         number: null,
-        level_id: null
+        level_id: null,
+        replaces: false
       },
       depricatedValues: [{
         name: 'Yes',
@@ -3022,6 +3037,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.name_fr = '';
       this.form.number = null;
       this.form.level_id = null;
+      this.form.replaces = false;
     },
     store: function store() {
       var _this = this;
@@ -3088,6 +3104,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var _helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/toMySQLDateFormat */ "./resources/js/helpers/toMySQLDateFormat.js");
+/* harmony import */ var _helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/fromMySQLDateFormat */ "./resources/js/helpers/fromMySQLDateFormat.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3288,8 +3307,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       form: {
@@ -3297,7 +3349,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_fr: '',
         number: null,
         depricated: null,
-        level_id: null
+        level_id: null,
+        depricated_on: ''
       },
       depricatedValues: [{
         name: 'Yes',
@@ -3312,6 +3365,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     lesson: 'lessons/lesson',
     levels: 'levels/levels'
   })),
+  watch: {
+    'form.depricated': function formDepricated(val) {
+      if (val === 0) {
+        this.form.depricated_on = '';
+      }
+    }
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
     fetchLevels: 'levels/fetch'
   }), {
@@ -3322,6 +3382,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.number = null;
       this.form.level_id = null;
       this.form.depricated = null;
+      this.form.depricated_on = null;
     },
     update: function update() {
       var _this = this;
@@ -3333,10 +3394,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                if (!_this.form.depricated_on) {
+                  _context.next = 6;
+                  break;
+                }
+
+                _context.next = 3;
+                return Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_3__["default"])(_this.form.depricated_on);
+
+              case 3:
+                _context.t0 = _context.sent;
+                _context.next = 7;
+                break;
+
+              case 6:
+                _context.t0 = '';
+
+              case 7:
+                _this.form.depricated_on = _context.t0;
+                _context.next = 10;
                 return axios.put("/api/lessons/".concat(_this.lesson.id), _this.form);
 
-              case 2:
+              case 10:
                 _yield$axios$put = _context.sent;
                 data = _yield$axios$put.data;
 
@@ -3344,7 +3423,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 _this.$toasted.success(data.data.message);
 
-              case 6:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -3370,8 +3449,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this2.form.number = _this2.lesson.number;
               _this2.form.level_id = _this2.lesson.level_id;
               _this2.form.depricated = _this2.lesson.depricated === 'Yes' ? 1 : 0;
+              _this2.form.depricated_on = Object(_helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_4__["default"])(_this2.lesson.depricated_on);
 
-            case 7:
+            case 8:
             case "end":
               return _context2.stop();
           }
@@ -5817,7 +5897,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context.next = 2;
                 return axios.put("/api/users/".concat(_this.user.id, "/appointment"), {
-                  appointment_date: Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(_this.appointment_date)
+                  appointment_date: _this.appointment_date ? Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(_this.appointment_date) : null
                 });
 
               case 2:
@@ -43257,6 +43337,52 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.replaces,
+                expression: "form.replaces"
+              }
+            ],
+            attrs: { type: "checkbox", id: "replaces" },
+            domProps: {
+              checked: Array.isArray(_vm.form.replaces)
+                ? _vm._i(_vm.form.replaces, null) > -1
+                : _vm.form.replaces
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.form.replaces,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && _vm.$set(_vm.form, "replaces", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.form,
+                        "replaces",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.form, "replaces", $$c)
+                }
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "replaces" } }, [
+            _vm._v("\n                Replaces depricated lesson\n            ")
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "w-full" }, [
           _c("button", { staticClass: "btn btn-blue text-sm" }, [
             _vm._v("\n                Create lesson\n            ")
@@ -43653,6 +43779,58 @@ var render = function() {
                 })
               : _vm._e()
           ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.form.depricated,
+                  expression: "form.depricated"
+                }
+              ],
+              staticClass: "w-full mb-4"
+            },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "block text-gray-700 font-bold mb-2",
+                  attrs: { for: "depricated_on" }
+                },
+                [_vm._v("\n                Date of deprication\n            ")]
+              ),
+              _vm._v(" "),
+              _c("datepicker", {
+                class: { "border-red-500": _vm.errors.depricated_on },
+                attrs: {
+                  "input-class":
+                    "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                  format: "MM/dd/yyyy",
+                  id: "depricated_on"
+                },
+                model: {
+                  value: _vm.form.depricated_on,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "depricated_on", $$v)
+                  },
+                  expression: "form.depricated_on"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors.depricated_on
+                ? _c("p", {
+                    staticClass: "text-red-500 text-sm mb-2",
+                    domProps: {
+                      textContent: _vm._s(_vm.errors.depricated_on[0])
+                    }
+                  })
+                : _vm._e()
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "w-full" }, [
             _c("button", { staticClass: "btn btn-blue text-sm" }, [

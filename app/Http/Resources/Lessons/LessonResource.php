@@ -21,6 +21,7 @@ class LessonResource extends JsonResource
             'name' => $this->name,
             'number' => $this->number,
             'depricated' => $this->depricated === 0 ? 'No' : 'Yes',
+            'depricated_on' => $this->depricated_on,
             'level_id' => $this->level_id
         ];
     }

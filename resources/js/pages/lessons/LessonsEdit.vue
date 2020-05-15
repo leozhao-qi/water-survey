@@ -132,6 +132,7 @@
                 >
                     Is this lesson depricated?
                 </label>
+
                 <div class="relative">
                     <select 
                         id="depricated"
@@ -156,6 +157,32 @@
                     v-if="errors.depricated"
                     v-text="errors.depricated[0]"
                     class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
+                class="w-full mb-4"
+                v-show="form.depricated"
+            >
+                <label 
+                    for="depricated_on"
+                    class="block text-gray-700 font-bold mb-2"
+                >
+                    Date of deprication
+                </label>
+
+                <datepicker
+                    input-class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    :class="{ 'border-red-500': errors.depricated_on }"
+                    v-model="form.depricated_on"
+                    format="MM/dd/yyyy"
+                    id="depricated_on"
+                ></datepicker>
+
+                <p
+                    v-if="errors.depricated_on"
+                    v-text="errors.depricated_on[0]"
+                    class="text-red-500 text-sm mb-2"
                 ></p>
             </div>
 
@@ -188,8 +215,15 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Datepicker from 'vuejs-datepicker'
+import toMySQLDateFormat from '../../helpers/toMySQLDateFormat'
+import fromMySQLDateFormat from '../../helpers/fromMySQLDateFormat'
 
 export default {
+    components: {
+        Datepicker
+    },
+
     data() {
         return {
             form: {
@@ -197,7 +231,8 @@ export default {
                 name_fr: '',
                 number: null,
                 depricated: null,
-                level_id: null
+                level_id: null,
+                depricated_on: ''
             },
             depricatedValues: [
                 { name: 'Yes', value: 1 },
@@ -213,6 +248,14 @@ export default {
         })
     },
 
+    watch: {
+        'form.depricated' (val) {
+            if (val === 0) {
+                this.form.depricated_on = ''
+            }
+        }
+    },
+
     methods: {
         ...mapActions({
             fetchLevels: 'levels/fetch'
@@ -226,9 +269,12 @@ export default {
             this.form.number = null
             this.form.level_id = null
             this.form.depricated = null
+            this.form.depricated_on = null
         },
 
         async update () {
+            this.form.depricated_on = this.form.depricated_on ? await toMySQLDateFormat(this.form.depricated_on) : ''
+
             let { data } = await axios.put(`/api/lessons/${this.lesson.id}`, this.form)
 
             this.cancel()
@@ -245,6 +291,7 @@ export default {
         this.form.number = this.lesson.number
         this.form.level_id = this.lesson.level_id
         this.form.depricated = this.lesson.depricated === 'Yes' ? 1 : 0
+        this.form.depricated_on = fromMySQLDateFormat(this.lesson.depricated_on)
     }
 }
 </script>

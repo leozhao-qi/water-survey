@@ -123,6 +123,20 @@
                 ></p>
             </div>
 
+            <div 
+                class="w-full mb-4"
+            >
+                <input
+                    type="checkbox"
+                    id="replaces"
+                    v-model="form.replaces"
+                >
+
+                <label for="replaces">
+                    Replaces depricated lesson
+                </label>
+            </div>
+
             <div
                 class="w-full"
             >
@@ -153,7 +167,8 @@ export default {
                 name_en: '',
                 name_fr: '',
                 number: null,
-                level_id: null
+                level_id: null,
+                replaces: false
             },
             depricatedValues: [
                 { name: 'Yes', value: 1 },
@@ -180,6 +195,7 @@ export default {
             this.form.name_fr = ''
             this.form.number = null
             this.form.level_id = null
+            this.form.replaces = false
         },
 
         async store () {

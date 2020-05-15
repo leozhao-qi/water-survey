@@ -118,7 +118,7 @@ export default {
 
         async update () {
             let { data } = await axios.put(`/api/users/${this.user.id}/appointment`, {
-                appointment_date: toMySQLDateFormat(this.appointment_date)
+                appointment_date: this.appointment_date ? toMySQLDateFormat(this.appointment_date) : null
             })
 
             await this.fetch(this.user.id)
