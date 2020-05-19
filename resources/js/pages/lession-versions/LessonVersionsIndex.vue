@@ -26,7 +26,7 @@ export default {
         return {
             columns: [
                 { field: 'version', title: 'Version', sortable: true },
-                { field: 'valid_on', title: 'Valid on', sortable: true }
+                { field: 'valid_on_formatted', title: 'Valid on', sortable: true }
             ]
         }
     },

@@ -7,7 +7,7 @@ export const fetch = async ({ commit }) => {
 }
 
 export const setEdit = async ({ commit }, lessonVersion) => {
-    await commit('SET_LESSON_VERSIONS', lessonVersion)
+    await commit('SET_LESSON_VERSION', lessonVersion)
 
     return
 }
