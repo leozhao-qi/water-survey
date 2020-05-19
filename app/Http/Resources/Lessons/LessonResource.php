@@ -20,6 +20,7 @@ class LessonResource extends JsonResource
             'name_fr' => $this->getTranslation('name', 'fr'),
             'name' => $this->name,
             'number' => $this->number,
+            'version' => $this->lessonVersion->first()->version,
             'level_id' => $this->level_id
         ];
     }

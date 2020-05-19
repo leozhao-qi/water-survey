@@ -1,19 +1,19 @@
 <template>
     <div class="w-full">
         <h1 class="text-3xl font-bold mb-4">
-            Lessons
+            Lesson versions
         </h1> 
 
         <datatable 
-            :data="lessons"
+            :data="lessonVersions"
             :columns="columns"
             :per-page="10"
-            :order-keys="['number']"
+            :order-keys="['version']"
             :order-key-directions="['asc']"
-            :has-text-filter="true"
+            :has-text-filter="false"
             :has-event="true"
             event-text="Edit"
-            event="lessons:edit"
+            event="lesson-versions:edit"
         />
     </div>
 </template>
@@ -25,31 +25,30 @@ export default {
     data() {
         return {
             columns: [
-                { field: 'number', title: 'Number', sortable: true },
                 { field: 'version', title: 'Version', sortable: true },
-                { field: 'name', title: 'Name', sortable: true }
+                { field: 'valid_on', title: 'Valid on', sortable: true }
             ]
         }
     },
 
     computed: {
         ...mapGetters({
-            lessons: 'lessons/lessons'
+            lessonVersions: 'lessonVersions/lessonVersions'
         })
     },
 
     methods: {
         ...mapActions({
-            fetch: 'lessons/fetch',
-            setEdit: 'lessons/setEdit'
+            fetch: 'lessonVersions/fetch',
+            setEdit: 'lessonVersions/setEdit'
         })
     },
 
     async mounted () {
         await this.fetch()
 
-        window.events.$on('lessons:edit', lesson => {
-            this.setEdit(lesson)
+        window.events.$on('lesson-versions:edit', lessonVersion => {
+            this.setEdit(lessonVersion)
         })
     }
 }

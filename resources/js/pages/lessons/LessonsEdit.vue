@@ -4,6 +4,10 @@
             Edit: {{ lesson.number }} - {{ lesson.name }}
         </h1>
 
+        <p class="mb-4">
+            <strong>Lesson version:</strong> {{ lesson.version }}
+        </p>
+
         <form 
             @submit.prevent="update"
         >

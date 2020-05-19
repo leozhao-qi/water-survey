@@ -60,6 +60,10 @@ Route::get('/lessons', 'Lessons\LessonsController@index');
 
 Route::resource('api/lessons', 'Lessons\Api\LessonsController');
 
+Route::get('/lesson-versions', 'LessonVersions\LessonVersionsController@index');
+
+Route::resource('api/lesson-versions', 'LessonVersions\Api\LessonVersionsController');
+
 Route::get('/objectives', 'Objectives\ObjectivesController@index');
 
 Route::resource('api/objectives', 'Objectives\Api\ObjectivesController');
