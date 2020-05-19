@@ -64,16 +64,6 @@ class MoodleUsersController extends Controller
                 ]);
             }
 
-            // Link all non-depricated packages to new apprentices.
-            if ($newUser->hasRole(['apprentice'])) {
-                foreach (Lesson::whereDepricated(0)->get() as $lesson) {
-                    $package = Package::create([
-                        'user_id' => $newUser->id,
-                        'lesson_id' => $lesson->id
-                    ]);
-                }
-            }
-
             Mail::to($newUser)->send(new UserRegistered($newUser, $password));
         }
 

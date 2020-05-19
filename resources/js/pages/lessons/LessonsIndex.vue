@@ -26,8 +26,7 @@ export default {
         return {
             columns: [
                 { field: 'number', title: 'Number', sortable: true },
-                { field: 'name', title: 'Name', sortable: true },
-                { field: 'depricated', title: 'Depricated', sortable: true }
+                { field: 'name', title: 'Name', sortable: true }
             ]
         }
     },
