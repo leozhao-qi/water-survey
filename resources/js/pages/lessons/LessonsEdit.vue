@@ -124,69 +124,6 @@
             </div>
 
             <div
-                class="w-full mb-4"
-            >
-                <label 
-                    for="depricated"
-                    class="block text-gray-700 font-bold mb-2"
-                >
-                    Is this lesson depricated?
-                </label>
-
-                <div class="relative">
-                    <select 
-                        id="depricated"
-                        v-model="form.depricated"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500': errors.depricated }"
-                    >
-                        <option
-                            :value="depricated.value"
-                            v-for="depricated in depricatedValues"
-                            :key="depricated.value"
-                            v-text="depricated.name"
-                        ></option>
-                    </select>
-
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                </div>
-
-                <p
-                    v-if="errors.depricated"
-                    v-text="errors.depricated[0]"
-                    class="text-red-500 text-sm"
-                ></p>
-            </div>
-
-            <div
-                class="w-full mb-4"
-                v-show="form.depricated"
-            >
-                <label 
-                    for="depricated_on"
-                    class="block text-gray-700 font-bold mb-2"
-                >
-                    Date of deprication
-                </label>
-
-                <datepicker
-                    input-class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    :class="{ 'border-red-500': errors.depricated_on }"
-                    v-model="form.depricated_on"
-                    format="MM/dd/yyyy"
-                    id="depricated_on"
-                ></datepicker>
-
-                <p
-                    v-if="errors.depricated_on"
-                    v-text="errors.depricated_on[0]"
-                    class="text-red-500 text-sm mb-2"
-                ></p>
-            </div>
-
-            <div
                 class="w-full"
             >
                 <button 
@@ -215,29 +152,16 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import Datepicker from 'vuejs-datepicker'
-import toMySQLDateFormat from '../../helpers/toMySQLDateFormat'
-import fromMySQLDateFormat from '../../helpers/fromMySQLDateFormat'
 
 export default {
-    components: {
-        Datepicker
-    },
-
     data() {
         return {
             form: {
                 name_en: '',
                 name_fr: '',
                 number: null,
-                depricated: null,
-                level_id: null,
-                depricated_on: ''
-            },
-            depricatedValues: [
-                { name: 'Yes', value: 1 },
-                { name: 'No', value: 0 }
-            ]
+                level_id: null
+            }
         }
     },
 
@@ -246,14 +170,6 @@ export default {
             lesson: 'lessons/lesson',
             levels: 'levels/levels'
         })
-    },
-
-    watch: {
-        'form.depricated' (val) {
-            if (val === 0) {
-                this.form.depricated_on = ''
-            }
-        }
     },
 
     methods: {
@@ -268,13 +184,9 @@ export default {
             this.form.name_fr = ''
             this.form.number = null
             this.form.level_id = null
-            this.form.depricated = null
-            this.form.depricated_on = null
         },
 
         async update () {
-            this.form.depricated_on = this.form.depricated_on ? await toMySQLDateFormat(this.form.depricated_on) : ''
-
             let { data } = await axios.put(`/api/lessons/${this.lesson.id}`, this.form)
 
             this.cancel()
@@ -290,8 +202,6 @@ export default {
         this.form.name_fr = this.lesson.name_fr
         this.form.number = this.lesson.number
         this.form.level_id = this.lesson.level_id
-        this.form.depricated = this.lesson.depricated === 'Yes' ? 1 : 0
-        this.form.depricated_on = fromMySQLDateFormat(this.lesson.depricated_on)
     }
 }
 </script>

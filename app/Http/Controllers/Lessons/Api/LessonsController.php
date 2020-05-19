@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Lessons\Api;
 use App\Lesson;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Lessons\LessonResource;
-use App\Rules\NonDepricatedLessonAlreadyPresent;
-use App\Rules\UniqueIfNotReplacingDepricatedLesson;
 
 class LessonsController extends Controller
 {
@@ -26,10 +24,7 @@ class LessonsController extends Controller
     {
         request()->validate([
             'level_id' => 'required|integer|min:1|exists:levels,id',
-            'number' => [
-                'required',
-                new UniqueIfNotReplacingDepricatedLesson()
-            ],
+            'number' => 'required',
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
         ]);
@@ -57,15 +52,7 @@ class LessonsController extends Controller
             'level_id' => 'required|integer|min:1|exists:levels,id',
             'number' => 'required',
             'name_en' => 'required|min:3',
-            'name_fr' => 'required|min:3',
-            'depricated' => [
-                'required',
-                'integer',
-                'min:0',
-                'max:1',
-                new NonDepricatedLessonAlreadyPresent($lesson)
-            ],
-            'depricated_on' => 'required_if:depricated,1|date'
+            'name_fr' => 'required|min:3'
         ]);
 
         $lesson->update([
@@ -74,24 +61,8 @@ class LessonsController extends Controller
             'name' => [
                 'en' => request('name_en'),
                 'fr' => request('name_fr')
-            ],
-            'depricated' => request('depricated'),
-            'depricated_on' => request('depricated_on')
+            ]
         ]);
-
-        // $lessons = Lesson::whereNumber($lesson->number)->get();
-
-        // if ($lessons->count() === 2) {
-            // get all apprentices
-
-            // loop through all apprentices
-                // if appointment date is null, continue
-                // if deprication date on or before appointment date, continue
-                    // if there are more than two depricated packages, choose the one that is closest to before the appointment date
-                // end if
-                // else, delete current package and replace with this one
-            // end loop
-        // }
 
         return response()->json([
             'data' => [
