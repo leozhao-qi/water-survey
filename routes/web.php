@@ -62,6 +62,10 @@ Route::resource('api/lessons', 'Lessons\Api\LessonsController');
 
 Route::get('/lesson-versions', 'LessonVersions\LessonVersionsController@index');
 
+Route::get('/lesson-versions/create', 'LessonVersions\LessonVersionsController@create');
+
+Route::get('/api/lesson-versions/create-version', 'LessonVersions\Api\LessonsWIPController@index');
+
 Route::resource('api/lesson-versions', 'LessonVersions\Api\LessonVersionsController');
 
 Route::get('/objectives', 'Objectives\ObjectivesController@index');

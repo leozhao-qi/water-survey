@@ -1,5 +1,14 @@
 <template>
     <div class="flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto">
+        <nav 
+            class="flex justify-end w-full items-center"
+        >
+            <a 
+                :href="`${urlBase}/lesson-versions/create`"
+                class="btn btn-text"
+            >Create new version</a>
+        </nav>
+
         <lesson-versions-edit 
             v-if="updating"
         />

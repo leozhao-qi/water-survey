@@ -10,4 +10,9 @@ class LessonVersionsController extends Controller
     {
         return view('lesson_versions.index');
     }
+
+    public function create()
+    {
+        return view('lesson_versions.create');
+    }
 }
