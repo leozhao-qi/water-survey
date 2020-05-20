@@ -1,50 +1,51 @@
 <template>
-    <div class="w-full py-16">
-        <h1 class="text-3xl font-bold mb-4">
-            New lesson packages version
-        </h1>
+    <div class="flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto">
+        <nav 
+            class="flex justify-end w-full items-center"
+            v-if="!creating && !updating"
+        >
+            <a 
+                href=""
+                @click.prevent="creating = true"
+                class="btn btn-text"
+            >Add lesson</a>
+        </nav>
 
-        <datatable 
-            :data="lessons"
-            :columns="columns"
-            :per-page="10"
-            :order-keys="['number']"
-            :order-key-directions="['asc']"
-            :has-text-filter="true"
-            :has-event="true"
-            event-text="Edit"
-            event="lessons-wip-edit:edit"
+        <!-- <lessons-create 
+            v-if="creating"
+        /> -->
+
+        <lessons-wip-edit 
+            v-if="updating"
+        />
+
+        <lessons-wip-index 
+            v-if="!creating && !updating"
         />
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-
 export default {
     data() {
         return {
-            columns: [
-                { field: 'number', title: 'Number', sortable: true },
-                { field: 'name', title: 'Name', sortable: true }
-            ]
+            creating: false,
+            updating: false
         }
     },
 
-    computed: {
-        ...mapGetters({
-            lessons: 'lessonsWIP/lessons'
-        })    
-    },
+    mounted () {
+        window.events.$on('lessons-wip:edit', () => {
+            this.updating = true
+        })
 
-    methods: {
-        ...mapActions({
-            fetch: 'lessonsWIP/fetch'
-        })    
-    },
+        window.events.$on('lessons-wip:edit-cancel', level => {
+            this.updating = false
+        })
 
-    async mounted () {
-        await this.fetch()
+        window.events.$on('lessons-wip:create-cancel', () => {
+            this.creating = false
+        })
     }
 }
 </script>

@@ -39,7 +39,7 @@ export default {
             this.updating = true
         })
 
-        window.events.$on('lessons:edit-cancel', level => {
+        window.events.$on('lessons:edit-cancel', lesson => {
             this.updating = false
         })
 

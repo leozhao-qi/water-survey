@@ -23,6 +23,7 @@ class LessonWIPResource extends JsonResource
             'name' => $this->name,
             'number' => $this->number,
             'level_id' => $this->level_id,
+            'level' => $this->level,
             'objectives' => ObjectiveWIPResource::collection(
                 ObjectiveWIP::whereLessonId($this->id)->get()
             )

@@ -17,4 +17,30 @@ class LessonsWIPController extends Controller
             LessonWIP::all()
         );
     }
+
+    public function update(LessonWIP $lesson)
+    {
+        request()->validate([
+            'level_id' => 'required|integer|min:1|exists:levels,id',
+            'number' => 'required',
+            'name_en' => 'required|min:3',
+            'name_fr' => 'required|min:3'
+        ]);
+
+        $lesson->update([
+            'level_id' => request('level_id'),
+            'number' => request('number'),
+            'name' => [
+                'en' => request('name_en'),
+                'fr' => request('name_fr')
+            ]
+        ]);
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Lesson successfully updated'
+            ]
+        ], 200);
+    }
 }
