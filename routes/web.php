@@ -74,6 +74,8 @@ Route::get('/objectives', 'Objectives\ObjectivesController@index');
 
 Route::resource('api/objectives', 'Objectives\Api\ObjectivesController');
 
+Route::put('/api/objectives-wip/{objective}', 'LessonVersions\Api\ObjectivesWIPController@update');
+
 Route::get('/users/{user}/packages/{package}', 'Packages\PackageController@show');
 
 Route::get('api/users/{user}/packages/{package}', 'Packages\Api\PackageController@show');

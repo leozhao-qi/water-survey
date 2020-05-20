@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Objectives\Api;
 use App\Objective;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\Rules\UniqueObjectiveNumberForLesson;
 use App\Http\Resources\Objectives\ObjectiveResource;
 
 class ObjectivesController extends Controller
@@ -64,13 +65,16 @@ class ObjectivesController extends Controller
     {
         request()->validate([
             'lesson_id' => 'required|integer|min:1|exists:lessons,id',
-            'number' => 'required|min:1',
+            'number' => [
+                'required',
+                'min:1',
+                new UniqueObjectiveNumberForLesson($objective)
+            ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
             'type' => [
                 'sometimes',
-                'required',
-                Rule::in(['theory', 'practical_application']),
+                Rule::in(['', 'theory', 'practical_application']),
             ]
         ]);
 

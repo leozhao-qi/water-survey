@@ -189,7 +189,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { orderBy } from 'lodash-es'
 
 export default {
@@ -211,20 +211,24 @@ export default {
 
     computed: {
         ...mapGetters({
-            lessons: 'lessons/lessons',
-            objective: 'objectives/objective'
+            lessons: 'lessonsWIP/lessons',
+            objective: 'lessonsWIP/objective'
         })
     },
 
     methods: {
         ...mapActions({
-            fetchLessons: 'lessons/fetch'
+            fetchLessons: 'lessonsWIP/fetch'
+        }),
+
+        ...mapMutations({
+            setLesson: 'lessonsWIP/SET_LESSON'
         }),
 
         orderBy,
 
         cancel () {
-            window.events.$emit('objectives:edit-cancel')
+            window.events.$emit('objectives-wip:edit-cancel')
 
             this.form.name_en = ''
             this.form.name_fr = ''
@@ -234,7 +238,9 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`/api/objectives/${this.objective.id}`, this.form)
+            let { data } = await axios.put(`/api/objectives-wip/${this.objective.id}`, this.form)
+
+            await this.setLesson(data.data.lesson)
 
             this.cancel()
 

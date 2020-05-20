@@ -11,3 +11,9 @@ export const setEdit = async ({ commit }, lesson) => {
 
     return
 }
+
+export const setEditObjective = async ({ commit }, objective) => {
+    await commit('SET_OBJECTIVE', objective)
+
+    return
+}

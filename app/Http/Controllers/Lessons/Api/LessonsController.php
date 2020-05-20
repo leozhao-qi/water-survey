@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Lessons\Api;
 
 use App\Lesson;
+use App\Rules\UniqueLesson;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Lessons\LessonResource;
 
@@ -50,7 +51,10 @@ class LessonsController extends Controller
     {
         request()->validate([
             'level_id' => 'required|integer|min:1|exists:levels,id',
-            'number' => 'required',
+            'number' => [
+                'required',
+                new UniqueLesson($lesson)
+            ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3'
         ]);

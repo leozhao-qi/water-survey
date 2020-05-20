@@ -1,11 +1,24 @@
 <template>
     <div class="w-full">
-        <h1 class="text-3xl font-bold mb-4">
+        <nav 
+            class="flex justify-end w-full items-center"
+        >
+            <a 
+                href=""
+                @click.prevent="cancel"
+                class="btn btn-text"
+            >Back to work in progress</a>
+        </nav>
+
+        <h1 
+            class="text-3xl font-bold mb-4"
+            v-if="!creatingObjective && !updatingObjective"
+        >
             {{ lesson.number }} - {{ lesson.name }}
         </h1>
 
         <div
-            v-if="!editingLesson"
+            v-if="!editingLesson && !creatingObjective && !updatingObjective"
         >
             <p>
                 <strong>Level:</strong> {{ lesson.level.name }}
@@ -17,7 +30,7 @@
             >Edit lesson</button>
         </div>
 
-        <template v-else>
+        <template v-if="editingLesson && !creatingObjective && !updatingObjective">
             <form 
                 @submit.prevent="update"
             >
@@ -149,7 +162,7 @@
 
                     <button 
                         class="btn btn-text text-sm"
-                        @click.prevent="cancel"
+                        @click.prevent="editingLesson = false"
                     >
                         Cancel
                     </button>
@@ -163,11 +176,46 @@
                 @close="cancel"
             /> 
         </template>
+
+        <hr 
+            v-if="!editingLesson && !creatingObjective && !updatingObjective" 
+            class="block w-full border-t border-gray-200 mt-4"
+        >
+
+        <div
+            class="mt-4"
+            v-if="!editingLesson"
+        >
+            <div class="flex flex-col items-center w-full mx-auto">
+                <nav 
+                    class="flex justify-end w-full items-center"
+                    v-if="!creatingObjective && !updatingObjective"
+                >
+                    <a 
+                        href=""
+                        @click.prevent="creatingObjective = true"
+                        class="btn btn-text text-sm"
+                    >Add objective</a>
+                </nav>
+
+                <!-- <objectives-create 
+                    v-if="creatingObjective"
+                /> -->
+
+                <objectives-wip-edit 
+                    v-if="updatingObjective"
+                />
+
+                <objectives-wip-index 
+                    v-if="!creatingObjective && !updatingObjective"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
     data() {
@@ -178,27 +226,39 @@ export default {
                 number: null,
                 level_id: null
             },
-            editingLesson: false
+            editingLesson: false,
+            creatingObjective: false,
+            updatingObjective: false
         }
     },
 
     computed: {
         ...mapGetters({
             lesson: 'lessonsWIP/lesson',
+            lessons: 'lessonsWIP/lessons',
             levels: 'levels/levels'
         })
     },
 
     methods: {
         ...mapActions({
-            fetchLevels: 'levels/fetch'
+            fetchLevels: 'levels/fetch',
+            fetch: 'lessonsWIP/fetch'
+        }),
+
+        ...mapMutations({
+            setLesson: 'lessonsWIP/SET_LESSON'
         }),
 
         cancel () {
             window.events.$emit('lessons-wip:edit-cancel')
 
-            this.editingLesson = true
+            this.editingLesson = false
 
+            this.resetForm()
+        },
+
+        resetForm () {
             this.form.name_en = ''
             this.form.name_fr = ''
             this.form.number = null
@@ -208,7 +268,9 @@ export default {
         async update () {
             let { data } = await axios.put(`/api/lessons-wip/${this.lesson.id}`, this.form)
 
-            this.cancel()
+            await this.setLesson(data.data.lesson)
+
+            this.editingLesson = false
 
             this.$toasted.success(data.data.message)
         },
@@ -221,6 +283,18 @@ export default {
         this.form.name_fr = this.lesson.name_fr
         this.form.number = this.lesson.number
         this.form.level_id = this.lesson.level_id
+
+        window.events.$on('objectives-wip:edit', () => {
+            this.updatingObjective = true
+        })
+
+        window.events.$on('objectives-wip:edit-cancel', () => {
+            this.updatingObjective = false
+        })
+
+        window.events.$on('objectives-wip:create-cancel', () => {
+            this.creatingObjective = false
+        })
     }
 }
 </script>

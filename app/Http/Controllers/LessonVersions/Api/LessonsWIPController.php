@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\LessonVersions\Api;
 
 use App\LessonWIP;
+use App\Rules\UniqueLessonWIP;
 use App\Classes\PackageVersion;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LessonWIP\LessonWIPResource;
@@ -22,7 +23,10 @@ class LessonsWIPController extends Controller
     {
         request()->validate([
             'level_id' => 'required|integer|min:1|exists:levels,id',
-            'number' => 'required',
+            'number' => [
+                'required',
+                new UniqueLessonWIP($lesson)
+            ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3'
         ]);
@@ -39,7 +43,8 @@ class LessonsWIPController extends Controller
         return response()->json([
             'data' => [
                 'type' => 'success',
-                'message' => 'Lesson successfully updated'
+                'message' => 'Lesson successfully updated',
+                'lesson' => new LessonWIPResource($lesson)
             ]
         ], 200);
     }
