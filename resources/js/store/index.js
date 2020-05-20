@@ -11,6 +11,7 @@ import * as getters from './getters'
 import user from './modules/user'
 import levels from './modules/levels'
 import lessons from './modules/lessons'
+import lessonsWIP from './modules/lessons-wip'
 import lessonVersions from './modules/lesson-versions'
 import objectives from './modules/objectives'
 import userpackage from './modules/package'
@@ -26,6 +27,7 @@ export default new Vuex.Store({
 		lessons,
 		objectives,
 		userpackage,
-		lessonVersions
+		lessonVersions,
+		lessonsWIP
 	} 
 })

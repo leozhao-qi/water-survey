@@ -2821,7 +2821,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2831,7 +2857,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      columns: [{
+        field: 'number',
+        title: 'Number',
+        sortable: true
+      }, {
+        field: 'name',
+        title: 'Name',
+        sortable: true
+      }]
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    lessons: 'lessonsWIP/lessons'
+  })),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    fetch: 'lessonsWIP/fetch'
+  })),
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.fetch();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  }
+});
 
 /***/ }),
 
@@ -43307,20 +43372,32 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "w-full py-16" }, [
+  return _c(
+    "div",
+    { staticClass: "w-full py-16" },
+    [
       _c("h1", { staticClass: "text-3xl font-bold mb-4" }, [
         _vm._v("\n        New lesson packages version\n    ")
-      ])
-    ])
-  }
-]
+      ]),
+      _vm._v(" "),
+      _c("datatable", {
+        attrs: {
+          data: _vm.lessons,
+          columns: _vm.columns,
+          "per-page": 10,
+          "order-keys": ["number"],
+          "order-key-directions": ["asc"],
+          "has-text-filter": true,
+          "has-event": true,
+          "event-text": "Edit",
+          event: "lessons-wip-edit:edit"
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -66433,12 +66510,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/user */ "./resources/js/store/modules/user/index.js");
 /* harmony import */ var _modules_levels__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/levels */ "./resources/js/store/modules/levels/index.js");
 /* harmony import */ var _modules_lessons__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/lessons */ "./resources/js/store/modules/lessons/index.js");
-/* harmony import */ var _modules_lesson_versions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/lesson-versions */ "./resources/js/store/modules/lesson-versions/index.js");
-/* harmony import */ var _modules_objectives__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/objectives */ "./resources/js/store/modules/objectives/index.js");
-/* harmony import */ var _modules_package__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/package */ "./resources/js/store/modules/package/index.js");
+/* harmony import */ var _modules_lessons_wip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/lessons-wip */ "./resources/js/store/modules/lessons-wip/index.js");
+/* harmony import */ var _modules_lesson_versions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/lesson-versions */ "./resources/js/store/modules/lesson-versions/index.js");
+/* harmony import */ var _modules_objectives__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/objectives */ "./resources/js/store/modules/objectives/index.js");
+/* harmony import */ var _modules_package__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./modules/package */ "./resources/js/store/modules/package/index.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
 
 
 
@@ -66458,9 +66537,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     user: _modules_user__WEBPACK_IMPORTED_MODULE_6__["default"],
     levels: _modules_levels__WEBPACK_IMPORTED_MODULE_7__["default"],
     lessons: _modules_lessons__WEBPACK_IMPORTED_MODULE_8__["default"],
-    objectives: _modules_objectives__WEBPACK_IMPORTED_MODULE_10__["default"],
-    userpackage: _modules_package__WEBPACK_IMPORTED_MODULE_11__["default"],
-    lessonVersions: _modules_lesson_versions__WEBPACK_IMPORTED_MODULE_9__["default"]
+    objectives: _modules_objectives__WEBPACK_IMPORTED_MODULE_11__["default"],
+    userpackage: _modules_package__WEBPACK_IMPORTED_MODULE_12__["default"],
+    lessonVersions: _modules_lesson_versions__WEBPACK_IMPORTED_MODULE_10__["default"],
+    lessonsWIP: _modules_lessons_wip__WEBPACK_IMPORTED_MODULE_9__["default"]
   }
 }));
 
@@ -66623,6 +66703,167 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   lessonVersions: [],
   lessonVersion: {}
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/lessons-wip/actions.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/store/modules/lessons-wip/actions.js ***!
+  \***********************************************************/
+/*! exports provided: fetch, setEdit */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetch", function() { return fetch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEdit", function() { return setEdit; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var fetch = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref) {
+    var commit, _yield$axios$get, lessons;
+
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            commit = _ref.commit;
+            _context.next = 3;
+            return axios.get("/api/lesson-versions/create-version");
+
+          case 3:
+            _yield$axios$get = _context.sent;
+            lessons = _yield$axios$get.data;
+            commit('SET_LESSONS', lessons.data);
+            return _context.abrupt("return");
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function fetch(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var setEdit = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref3, lesson) {
+    var commit;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            commit = _ref3.commit;
+            _context2.next = 3;
+            return commit('SET_LESSON', lesson);
+
+          case 3:
+            return _context2.abrupt("return");
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function setEdit(_x2, _x3) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/lessons-wip/getters.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/store/modules/lessons-wip/getters.js ***!
+  \***********************************************************/
+/*! exports provided: lessons, lesson */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lessons", function() { return lessons; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lesson", function() { return lesson; });
+var lessons = function lessons(state) {
+  return state.lessons;
+};
+var lesson = function lesson(state) {
+  return state.lesson;
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/lessons-wip/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/store/modules/lessons-wip/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/store/modules/lessons-wip/state.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/modules/lessons-wip/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actions */ "./resources/js/store/modules/lessons-wip/actions.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getters */ "./resources/js/store/modules/lessons-wip/getters.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_1__,
+  actions: _actions__WEBPACK_IMPORTED_MODULE_2__,
+  getters: _getters__WEBPACK_IMPORTED_MODULE_3__
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/lessons-wip/mutations.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/store/modules/lessons-wip/mutations.js ***!
+  \*************************************************************/
+/*! exports provided: SET_LESSONS, SET_LESSON */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_LESSONS", function() { return SET_LESSONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_LESSON", function() { return SET_LESSON; });
+var SET_LESSONS = function SET_LESSONS(state, lessons) {
+  return state.lessons = lessons;
+};
+var SET_LESSON = function SET_LESSON(state, lesson) {
+  return state.lesson = lesson;
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/lessons-wip/state.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/store/modules/lessons-wip/state.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  lessons: [],
+  lesson: {}
 });
 
 /***/ }),

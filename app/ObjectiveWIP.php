@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\LessonWIP;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
@@ -21,6 +22,11 @@ class ObjectiveWIP extends Model
         'name',
         'type'
     ];
+
+    public function lesson()
+    {
+    	return $this->belongsTo(LessonWIP::class, 'lesson_id', 'id');
+    }
 
     public function toArray()
     {

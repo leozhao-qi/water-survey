@@ -33,7 +33,7 @@ class PackageVersion
         $lessons = Lesson::whereLessonVersionId($this->latestVersion->id)->get();
 
         foreach ($lessons as $lesson) {
-            LessonWIP::create([
+            $lessonWIP = LessonWIP::create([
                 'number' => $lesson->number,
                 'level_id' => $lesson->level_id,
                 'name' => [
@@ -42,18 +42,18 @@ class PackageVersion
                 ]
             ]);
 
-            $this->populateObjectives($lesson);
+            $this->populateObjectives($lessonWIP, $lesson);
         }
     }
 
-    protected function populateObjectives(Lesson $lesson)
+    protected function populateObjectives(LessonWIP $lessonWIP, Lesson $lesson)
     {
         $objectives = Objective::whereLessonId($lesson->id)->get();
 
         foreach ($objectives as $objective) {
             ObjectiveWIP::create([
                 'number' => $objective->number,
-                'lesson_id' => $objective->lesson_id,
+                'lesson_id' => $lessonWIP->id,
                 'name' => [
                     'en' => $objective->getTranslation('name', 'en'),
                     'fr' => $objective->getTranslation('name', 'fr')

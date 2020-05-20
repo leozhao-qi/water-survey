@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Objectives;
+namespace App\Http\Resources\ObjectiveWIP;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ObjectiveResource extends JsonResource
+class ObjectiveWIPResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
