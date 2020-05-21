@@ -198,9 +198,9 @@
                     >Add objective</a>
                 </nav>
 
-                <!-- <objectives-create 
+                <objectives-wip-create 
                     v-if="creatingObjective"
-                /> -->
+                />
 
                 <objectives-wip-edit 
                     v-if="updatingObjective"

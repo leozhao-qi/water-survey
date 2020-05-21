@@ -11,9 +11,9 @@
             >Add lesson</a>
         </nav>
 
-        <!-- <lessons-create 
+        <lessons-wip-create 
             v-if="creating"
-        /> -->
+        />
 
         <lessons-wip-edit 
             v-if="updating"

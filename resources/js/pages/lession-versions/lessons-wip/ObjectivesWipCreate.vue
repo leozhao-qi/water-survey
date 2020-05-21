@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h1 class="text-3xl font-bold mb-4">
-            New lesson
+            New objective
         </h1>
 
         <form 
@@ -11,26 +11,26 @@
                 class="w-full mb-4"
             >
                 <label 
-                    for="lesson_version_id"
+                    for="lesson_id"
                     class="block text-gray-700 font-bold mb-2"
                 >
-                    Lesson version
+                    Lesson
                 </label>
 
                 <div class="relative">
                     <select 
-                        id="lesson_version_id"
-                        v-model="form.lesson_version_id"
+                        id="lesson_id"
+                        v-model="form.lesson_id"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500': errors.lesson_version_id }"
+                        :class="{ 'border-red-500': errors.lesson_id }"
                     >
                         <option value=""></option>
 
                         <option
-                            :value="lessonVersion.id"
-                            v-for="lessonVersion in lessonVersions"
-                            :key="lessonVersion.id"
-                            v-text="lessonVersion.version"
+                            :value="lesson.id"
+                            v-for="lesson in orderBy(lessons, ['number'], ['asc'])"
+                            :key="lesson.id"
+                            v-text="`${lesson.number} - ${lesson.name}`"
                         ></option>
                     </select>
 
@@ -40,47 +40,8 @@
                 </div>
 
                 <p
-                    v-if="errors.lesson_version_id"
-                    v-text="errors.lesson_version_id[0]"
-                    class="text-red-500 text-sm"
-                ></p>
-            </div>
-
-            <div
-                class="w-full mb-4"
-            >
-                <label 
-                    for="level_id"
-                    class="block text-gray-700 font-bold mb-2"
-                >
-                    Level
-                </label>
-
-                <div class="relative">
-                    <select 
-                        id="level_id"
-                        v-model="form.level_id"
-                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        :class="{ 'border-red-500': errors.level_id }"
-                    >
-                        <option value=""></option>
-
-                        <option
-                            :value="level.id"
-                            v-for="level in levels"
-                            :key="level.id"
-                            v-text="level.name"
-                        ></option>
-                    </select>
-
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
-                </div>
-
-                <p
-                    v-if="errors.level_id"
-                    v-text="errors.level_id[0]"
+                    v-if="errors.lesson_id"
+                    v-text="errors.lesson_id[0]"
                     class="text-red-500 text-sm"
                 ></p>
             </div>
@@ -119,7 +80,7 @@
                     :class="{ 'text-red-500': errors.name_en }"
                     for="name_en"
                 >
-                    Name (English)
+                    Description (English)
                 </label>
 
                 <input 
@@ -145,7 +106,7 @@
                     :class="{ 'text-red-500': errors.name_fr }"
                     for="name_fr"
                 >
-                    Name (French)
+                    Description (French)
                 </label>
 
                 <input 
@@ -164,12 +125,51 @@
             </div>
 
             <div
+                class="w-full mb-4"
+            >
+                <label 
+                    for="type"
+                    class="block text-gray-700 font-bold mb-2"
+                >
+                    Objective type
+                </label>
+
+                <div class="relative">
+                    <select 
+                        id="type"
+                        v-model="form.type"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500': errors.type }"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="type.value"
+                            v-for="type in typeValues"
+                            :key="type.value"
+                            v-text="type.name"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+
+                <p
+                    v-if="errors.type"
+                    v-text="errors.type[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
                 class="w-full"
             >
                 <button 
                     class="btn btn-blue text-sm"
                 >
-                    Create lesson
+                    Create objective
                 </button>
 
                 <button 
@@ -180,28 +180,12 @@
                 </button>
             </div>
         </form>
-
-        <modal 
-            v-show="modalActive"
-            @close="modalActive = false"
-            @submit="close"
-        >
-            <template slot="header">
-                No version specified
-            </template>
-
-            <template slot="body">
-                <div class="my-4">
-                    No lesson version has been specified. If you do not specify 
-                    a lesson version, this new lesson will be applied to all versions.
-                </div>
-            </template>
-        </modal>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { orderBy } from 'lodash-es'
 
 export default {
     data() {
@@ -210,53 +194,48 @@ export default {
                 name_en: '',
                 name_fr: '',
                 number: null,
-                level_id: null,
-                lesson_version: null
+                lesson_id: null,
+                type: ''
             },
-            modalActive: false,
-            confirmed: false
+            typeValues: [
+                { name: 'Theory', value: 'theory' },
+                { name: 'Practical application', value: 'practical_application' }
+            ]
         }
     },
 
     computed: {
         ...mapGetters({
-            levels: 'levels/levels',
-            lessonVersions: 'lessonVersions/lessonVersions'
+            lessons: 'lessonsWIP/lessons',
+            lesson: 'lessonsWIP/lesson'
         })
     },
 
     methods: {
         ...mapActions({
-            fetchLevels: 'levels/fetch',
-            fetchLessonVersions: 'lessonVersions/fetch'
+            fetchLessons: 'lessonsWIP/fetch'
         }),
 
-        close () {
-            this.modalActive = false
-            this.confirmed = true
-            delete this.form.lesson_version_id
+        ...mapMutations({
+            setLesson: 'lessonsWIP/SET_LESSON'
+        }),
 
-            this.store()
-        },
+        orderBy,
 
         cancel () {
-            window.events.$emit('lessons:create-cancel')
+            window.events.$emit('objectives-wip:create-cancel')
 
             this.form.name_en = ''
             this.form.name_fr = ''
             this.form.number = null
-            this.form.level_id = null
-            this.form.lesson_version = null
+            this.form.lesson_id = null
+            this.form.type = ''
         },
 
         async store () {
-            if (!this.form.lesson_version_id && !this.confirmed) {
-                this.modalActive = true
+            let { data } = await axios.post(`/api/objectives-wip`, this.form)
 
-                return
-            }
-
-            let { data } = await axios.post(`/api/lessons`, this.form)
+            await this.setLesson(data.data.lesson)
 
             this.cancel()
 
@@ -265,9 +244,9 @@ export default {
     },
 
     async mounted () {
-        await this.fetchLevels()
+        await this.fetchLessons()
 
-        await this.fetchLessonVersions()
+        this.form.lesson_id = this.lesson.id
     }
 }
 </script>

@@ -4,17 +4,26 @@
             Lesson objectives
         </h1> 
 
-        <datatable 
-            :data="lesson.objectives"
-            :columns="columns"
-            :per-page="10"
-            :order-keys="['number']"
-            :order-key-directions="['asc']"
-            :has-text-filter="false"
-            :has-event="true"
-            event-text="Edit"
-            event="objectives-wip:edit"
-        />
+        <template v-if="lesson.objectives.length">
+            <datatable 
+                :data="lesson.objectives"
+                :columns="columns"
+                :per-page="10"
+                :order-keys="['number']"
+                :order-key-directions="['asc']"
+                :has-text-filter="false"
+                :has-event="true"
+                event-text="Edit"
+                event="objectives-wip:edit"
+            />
+        </template>
+
+        <div
+            v-else
+            class="alert alert-blue"
+        >
+            There are no objectives for this lesson.
+        </div>
     </div>
 </template>
 

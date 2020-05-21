@@ -19,6 +19,32 @@ class LessonsWIPController extends Controller
         );
     }
 
+    public function store()
+    {
+        request()->validate([
+            'level_id' => 'required|integer|min:1|exists:levels,id',
+            'number' => 'required|min:1|unique:lessons_wip,number',
+            'name_en' => 'required|min:3',
+            'name_fr' => 'required|min:3',
+        ]);
+
+        LessonWIP::create([
+            'level_id' => request('level_id'),
+            'number' => request('number'),
+            'name' => [
+                'en' => request('name_en'),
+                'fr' => request('name_fr')
+            ]
+        ]);
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Lesson successfully created'
+            ]
+        ], 200);
+    }
+
     public function update(LessonWIP $lesson)
     {
         request()->validate([
