@@ -46,4 +46,23 @@ class PackageController extends Controller
             ]
         ], 200);
     }
+
+    public function update(User $user)
+    {
+        request()->validate([
+            'lesson_id' => 'required|exists:lessons,id'
+        ]);
+
+        Package::create([
+            'lesson_id' => request('lesson_id'),
+            'user_id' => $user->id
+        ]);
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Package successfully added.'
+            ]
+        ], 200);
+    }
 }

@@ -102,6 +102,7 @@ export default {
     data() {
         return {
             columns: [
+                { field: 'version', title: 'Version', sortable: true },
                 { field: 'package', title: 'Lesson package', sortable: true }
             ],
             modalActive: false,

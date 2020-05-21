@@ -15,5 +15,7 @@ class LessonObserver
     public function deleted(Lesson $lesson)
     {
         $lesson->objectives->each->delete();
+
+        $lesson->packages->each->delete();
     }
 }

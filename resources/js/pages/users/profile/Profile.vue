@@ -16,6 +16,8 @@
 
         <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
+        <unassigned-user-packages />
+
         <user-packages />
 
         <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
