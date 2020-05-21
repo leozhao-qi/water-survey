@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\LessonVersions\Api;
 
 use App\LessonVersion;
+use App\Classes\PackageVersion;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LessonVersions\LessonVersionResource;
 
@@ -18,6 +20,25 @@ class LessonVersionsController extends Controller
         return LessonVersionResource::collection(
             LessonVersion::all()
         );
+    }
+
+    public function store()
+    {
+        request()->validate([
+            'version' => 'required|integer|unique:lesson_versions,version',
+            'valid_on' => 'required|date'
+        ]);
+
+        $lessonVersion = LessonVersion::create([
+            'version' => request('version'),
+            'valid_on' => request('valid_on')
+        ]);
+
+        (new PackageVersion)->new($lessonVersion);
+
+        DB::table('lessons_wip')->truncate();
+
+        DB::table('objectives_wip')->truncate();
     }
 
     public function update(LessonVersion $lessonVersion)

@@ -21,6 +21,25 @@ class PackageVersion
         $this->hasWIP = LessonWIP::count();
     }
 
+    public function new(LessonVersion $lessonVersion)
+    {
+        $lessons = LessonWIP::all();
+
+        foreach ($lessons as $lesson) {
+            $newLesson = Lesson::create([
+                'number' => $lesson->number,
+                'level_id' => $lesson->level_id,
+                'name' => [
+                    'en' => $lesson->getTranslation('name', 'en'),
+                    'fr' => $lesson->getTranslation('name', 'fr')
+                ],
+                'lesson_version_id' => $lessonVersion->id
+            ]);
+
+            $this->populateObjectives($newLesson);
+        }
+    }
+
     public function populateWIP()
     {
         if ($this->hasWIP === 0) {
@@ -42,11 +61,11 @@ class PackageVersion
                 ]
             ]);
 
-            $this->populateObjectives($lessonWIP, $lesson);
+            $this->populateWIPObjectives($lessonWIP, $lesson);
         }
     }
 
-    protected function populateObjectives(LessonWIP $lessonWIP, Lesson $lesson)
+    protected function populateWIPObjectives(LessonWIP $lessonWIP, Lesson $lesson)
     {
         $objectives = Objective::whereLessonId($lesson->id)->get();
 
@@ -54,6 +73,25 @@ class PackageVersion
             ObjectiveWIP::create([
                 'number' => $objective->number,
                 'lesson_id' => $lessonWIP->id,
+                'name' => [
+                    'en' => $objective->getTranslation('name', 'en'),
+                    'fr' => $objective->getTranslation('name', 'fr')
+                ],
+                'type' => $objective->type
+            ]);
+        }
+    }
+
+    protected function populateObjectives(Lesson $lesson)
+    {
+        $lessonWIP = LessonWIP::whereNumber($lesson->number)->first();
+
+        $objectives = ObjectiveWIP::whereLessonId($lessonWIP->id)->get();
+
+        foreach ($objectives as $objective) {
+            Objective::create([
+                'number' => $objective->number,
+                'lesson_id' => $lesson->id,
                 'name' => [
                     'en' => $objective->getTranslation('name', 'en'),
                     'fr' => $objective->getTranslation('name', 'fr')

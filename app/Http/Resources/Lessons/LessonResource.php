@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Lessons;
 
+use App\LessonVersion;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class LessonResource extends JsonResource
@@ -20,7 +21,7 @@ class LessonResource extends JsonResource
             'name_fr' => $this->getTranslation('name', 'fr'),
             'name' => $this->name,
             'number' => $this->number,
-            'version' => $this->lessonVersion->first()->version,
+            'version' => LessonVersion::find($this->lesson_version_id)->version,
             'level_id' => $this->level_id
         ];
     }

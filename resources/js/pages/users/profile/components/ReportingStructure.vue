@@ -5,12 +5,12 @@
                 Reporting Structure
             </h2>
 
-            <a 
+            <button 
                 href="#"
-                class="text-l ml-2"
+                class="btn btn-text text-blue-500 no-underline"
                 @click.prevent="reportingModal = true"
                 v-if="hasRole(['administrator', 'manager', 'head_of_operations'])"
-            >Edit</a>
+            >Edit</button>
         </div>
 
         <div

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\Package;
 use App\MoodleUser;
 use App\Supervisor;
 use App\Deactivation;
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function moodleuser()
     {
         return $this->hasOne(MoodleUser::class, 'id', 'moodle_id');
+    }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
     }
 
     public function getFirstnameAttribute()

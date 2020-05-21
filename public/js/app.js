@@ -2821,6 +2821,24 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var _helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/toMySQLDateFormat */ "./resources/js/helpers/toMySQLDateFormat.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2848,25 +2866,192 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       creating: false,
-      updating: false
+      updating: false,
+      modalActive: false,
+      form: {
+        version: '',
+        valid_on: ''
+      }
     };
   },
-  mounted: function mounted() {
-    var _this = this;
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    lessonVersions: 'lessonVersions/lessonVersions'
+  })), {}, {
+    latestVersion: function latestVersion() {
+      return Object(lodash_es__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.lessonVersions, ['version'], ['desc'])[0].version;
+    }
+  }),
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    fetchLessonVersions: 'lessonVersions/fetch'
+  })), {}, {
+    orderBy: lodash_es__WEBPACK_IMPORTED_MODULE_2__["orderBy"],
+    close: function close() {
+      this.modalActive = false;
+      this.form.version = '';
+      this.form.valid_on = '';
+    },
+    store: function store() {
+      var _this = this;
 
-    window.events.$on('lessons-wip:edit', function () {
-      _this.updating = true;
-    });
-    window.events.$on('lessons-wip:edit-cancel', function (level) {
-      _this.updating = false;
-    });
-    window.events.$on('lessons-wip:create-cancel', function () {
-      _this.creating = false;
-    });
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!_this.form.version) {
+                  _this.form.version = _this.latestVersion + 1;
+                }
+
+                _this.form.valid_on = Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_4__["default"])(_this.form.valid_on);
+                _context.next = 4;
+                return axios.post("/api/lesson-versions", _this.form);
+
+              case 4:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                _this.close();
+
+                window.location.href = "".concat(urlBase, "/lessons");
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }),
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this2.fetchLessonVersions();
+
+            case 2:
+              window.events.$on('lessons-wip:edit', function () {
+                _this2.updating = true;
+              });
+              window.events.$on('lessons-wip:edit-cancel', function (level) {
+                _this2.updating = false;
+              });
+              window.events.$on('lessons-wip:create-cancel', function () {
+                _this2.creating = false;
+              });
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -9031,13 +9216,95 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9069,12 +9336,76 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         field: 'package',
         title: 'Lesson package',
         sortable: true
-      }]
+      }],
+      modalActive: false,
+      form: {
+        version: null
+      }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    user: 'user/user'
-  }))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    user: 'user/user',
+    lessonVersions: 'lessonVersions/lessonVersions'
+  })),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    fetchLessonVersions: 'lessonVersions/fetch'
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])({
+    updateProfile: 'user/SET_USER'
+  })), {}, {
+    close: function close() {
+      this.modalActive = false;
+    },
+    store: function store() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post("/api/users/".concat(_this.user.id, "/packages"), _this.form);
+
+              case 2:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                _this.updateProfile(data.data.user);
+
+                _this.close();
+
+                _this.$toasted.success(data.data.message);
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }),
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this2.fetchLessonVersions();
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }
 });
 
 /***/ }),
@@ -45093,7 +45424,166 @@ var render = function() {
       _vm._v(" "),
       _vm.updating ? _c("lessons-wip-edit") : _vm._e(),
       _vm._v(" "),
-      !_vm.creating && !_vm.updating ? _c("lessons-wip-index") : _vm._e()
+      !_vm.creating && !_vm.updating ? _c("lessons-wip-index") : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "fixed bottom-0 w-full flex bg-white p-4 shadow-inner" },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-blue ml-auto",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.modalActive = true
+                }
+              }
+            },
+            [_vm._v("\n            Upgrade to new version\n        ")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.modalActive,
+              expression: "modalActive"
+            }
+          ],
+          on: { close: _vm.close, submit: _vm.store }
+        },
+        [
+          _c("template", { slot: "header" }, [
+            _vm._v("\n            Upgrade to new version\n        ")
+          ]),
+          _vm._v(" "),
+          _c("template", { slot: "body" }, [
+            _c("div", { staticClass: "my-4" }, [
+              typeof _vm.lessonVersions !== "undefined" &&
+              _vm.lessonVersions.length
+                ? _c("p", { staticClass: "mb-4" }, [
+                    _vm._v(
+                      '\n                    This will create a new lesson package version. The previous version was \n                    "' +
+                        _vm._s(_vm.latestVersion) +
+                        '". Do you want this new version to be "' +
+                        _vm._s(_vm.latestVersion + 1) +
+                        '"? \n                    If not, please enter a different version below.\n                '
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("form", [
+                _c("div", { staticClass: "w-full mb-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 font-bold mb-2",
+                      class: { "text-red-500": _vm.errors.version },
+                      attrs: { for: "version" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Alternate version number\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.version,
+                        expression: "form.version"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto",
+                    class: { "border-red-500": _vm.errors.version },
+                    attrs: { type: "text", id: "version" },
+                    domProps: { value: _vm.form.version },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "version", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.version
+                    ? _c("p", {
+                        staticClass: "text-red-500 text-sm",
+                        domProps: { textContent: _vm._s(_vm.errors.version[0]) }
+                      })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "my-4" }, [
+                  _vm._v(
+                    "Please select a date that this new package version is valid on:"
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "mb-4" },
+                  [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "block text-gray-700 font-bold",
+                        class: { "text-red-500": _vm.errors.valid_on },
+                        attrs: { for: "valid_on" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            New lesson package valid date\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("datepicker", {
+                      class: { "border-red-500": _vm.errors.valid_on },
+                      attrs: {
+                        "input-class":
+                          "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2",
+                        format: "MM/dd/yyyy"
+                      },
+                      model: {
+                        value: _vm.form.valid_on,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "valid_on", $$v)
+                        },
+                        expression: "form.valid_on"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.valid_on
+                      ? _c("p", {
+                          staticClass: "text-red-500 text-sm mb-2",
+                          domProps: {
+                            textContent: _vm._s(_vm.errors.valid_on[0])
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ],
+        2
+      )
     ],
     1
   )
@@ -47901,8 +48391,8 @@ var render = function() {
           data: _vm.lessons,
           columns: _vm.columns,
           "per-page": 10,
-          "order-keys": ["number"],
-          "order-key-directions": ["asc"],
+          "order-keys": ["number", "version"],
+          "order-key-directions": ["asc", "asc"],
           "has-text-filter": true,
           "has-event": true,
           "event-text": "Edit",
@@ -50654,9 +51144,9 @@ var render = function() {
         _vm._v(" "),
         _vm.hasRole(["administrator", "manager", "head_of_operations"])
           ? _c(
-              "a",
+              "button",
               {
-                staticClass: "text-l ml-2",
+                staticClass: "btn btn-text text-blue-500 no-underline",
                 attrs: { href: "#" },
                 on: {
                   click: function($event) {
@@ -51167,11 +51657,31 @@ var render = function() {
     "div",
     { staticClass: "w-full" },
     [
-      _c("h2", { staticClass: "text-2xl mb-4" }, [
-        _vm._v("\n        Lesson packages\n    ")
+      _c("div", { staticClass: "flex align-center mb-4" }, [
+        _c("h2", { staticClass: "text-2xl" }, [
+          _vm._v("\n            Lesson packages\n        ")
+        ]),
+        _vm._v(" "),
+        typeof _vm.user.packages !== "undefined" &&
+        !_vm.user.packages.length &&
+        _vm.hasRole(["administrator"])
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-text text-blue-500 no-underline",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    _vm.modalActive = true
+                  }
+                }
+              },
+              [_vm._v("\n            Assign\n        ")]
+            )
+          : _vm._e()
       ]),
       _vm._v(" "),
-      typeof _vm.user.packages !== "undefined"
+      typeof _vm.user.packages !== "undefined" && _vm.user.packages.length
         ? [
             _c("datatable", {
               attrs: {
@@ -51188,7 +51698,147 @@ var render = function() {
               }
             })
           ]
-        : _vm._e()
+        : _c("div", { staticClass: "alert alert-blue" }, [
+            _vm._v(
+              "\n        This user does not have any packages assigned.\n    "
+            )
+          ]),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.modalActive,
+              expression: "modalActive"
+            }
+          ],
+          on: { close: _vm.close, submit: _vm.store }
+        },
+        [
+          _c("template", { slot: "header" }, [
+            _vm._v(
+              "\n            Assign lesson packages to " +
+                _vm._s(_vm.user.firstname) +
+                " " +
+                _vm._s(_vm.user.lastname) +
+                "\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("template", { slot: "body" }, [
+            _c("div", { staticClass: "my-4" }, [
+              _c("form", [
+                _c("div", { staticClass: "w-full mb-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700 font-bold mb-2",
+                      attrs: { for: "version" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            Version\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.version,
+                            expression: "form.version"
+                          }
+                        ],
+                        staticClass:
+                          "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                        class: { "border-red-500": _vm.errors.version },
+                        attrs: { id: "version" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.form,
+                              "version",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }),
+                        _vm._v(" "),
+                        _vm._l(_vm.lessonVersions, function(lessonVersion) {
+                          return _c("option", {
+                            key: lessonVersion.id,
+                            domProps: {
+                              value: lessonVersion.id,
+                              textContent: _vm._s(lessonVersion.version)
+                            }
+                          })
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "fill-current h-4 w-4",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 20 20"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.errors.version
+                    ? _c("p", {
+                        staticClass: "text-red-500 text-sm",
+                        domProps: { textContent: _vm._s(_vm.errors.version[0]) }
+                      })
+                    : _vm._e()
+                ])
+              ])
+            ])
+          ])
+        ],
+        2
+      )
     ],
     2
   )

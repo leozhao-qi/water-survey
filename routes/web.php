@@ -19,6 +19,8 @@ Route::prefix('api/users')->group(function () {
 
     Route::post('{user}/role/{role}', 'Supervisors\Api\SupervisorsController@store');
 
+    Route::post('{user}/packages', 'Packages\Api\PackageController@store');
+
     Route::post('moodle', 'MoodleUsers\Api\MoodleUsersController@store');
 
     Route::put('{user}/password', 'Users\Api\PasswordChangeController@update');
@@ -63,6 +65,8 @@ Route::resource('api/lessons', 'Lessons\Api\LessonsController');
 Route::get('/lesson-versions', 'LessonVersions\LessonVersionsController@index');
 
 Route::get('/lesson-versions/create', 'LessonVersions\LessonVersionsController@create');
+
+Route::post('/api/lesson-versions', 'LessonVersions\Api\LessonVersionsController@store');
 
 Route::get('/api/lesson-versions/create-version', 'LessonVersions\Api\LessonsWIPController@index');
 

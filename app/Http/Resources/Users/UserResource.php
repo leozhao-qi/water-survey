@@ -28,7 +28,7 @@ class UserResource extends JsonResource
             'reportingStructure' => $this->reportingStructure(),
             'appointment_date' => $this->appointment_date,
             'packages' => PackageResource::collection(
-                Package::whereUserId($this->id)->get()
+                $this->packages
             )
         ];
     }
