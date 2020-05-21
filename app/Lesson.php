@@ -5,6 +5,7 @@ namespace App;
 use App\Level;
 use App\Package;
 use App\Objective;
+use App\LessonVersion;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
@@ -18,12 +19,7 @@ class Lesson extends Model
         'level_id',
         'number',
         'name',
-        'depricated',
-        'depricated_on'
-    ];
-
-    protected $casts = [
-        'depricated_on' => 'date'
+        'lesson_version_id'
     ];
 
     public function level ()
@@ -39,6 +35,11 @@ class Lesson extends Model
     public function packages()
     {
         return $this->hasMany(Package::class);
+    }
+
+    public function lessonVersion()
+    {
+        return $this->belongsTo(LessonVersion::class);
     }
 
     public function toArray()

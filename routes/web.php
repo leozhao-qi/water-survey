@@ -19,6 +19,8 @@ Route::prefix('api/users')->group(function () {
 
     Route::post('{user}/role/{role}', 'Supervisors\Api\SupervisorsController@store');
 
+    Route::post('{user}/packages', 'Packages\Api\PackageController@store');
+
     Route::post('moodle', 'MoodleUsers\Api\MoodleUsersController@store');
 
     Route::put('{user}/password', 'Users\Api\PasswordChangeController@update');
@@ -60,10 +62,34 @@ Route::get('/lessons', 'Lessons\LessonsController@index');
 
 Route::resource('api/lessons', 'Lessons\Api\LessonsController');
 
+Route::get('/lesson-versions', 'LessonVersions\LessonVersionsController@index');
+
+Route::get('/lesson-versions/create', 'LessonVersions\LessonVersionsController@create');
+
+Route::post('/api/lesson-versions', 'LessonVersions\Api\LessonVersionsController@store');
+
+Route::get('/api/lesson-versions/create-version', 'LessonVersions\Api\LessonsWIPController@index');
+
+Route::put('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController@update');
+
+Route::delete('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController@destroy');
+
+Route::post('/api/lessons-wip', 'LessonVersions\Api\LessonsWIPController@store');
+
+Route::resource('api/lesson-versions', 'LessonVersions\Api\LessonVersionsController');
+
 Route::get('/objectives', 'Objectives\ObjectivesController@index');
 
 Route::resource('api/objectives', 'Objectives\Api\ObjectivesController');
 
+Route::put('/api/objectives-wip/{objective}', 'LessonVersions\Api\ObjectivesWIPController@update');
+
+Route::delete('/api/objectives-wip/{objective}', 'LessonVersions\Api\ObjectivesWIPController@destroy');
+
+Route::post('/api/objectives-wip', 'LessonVersions\Api\ObjectivesWIPController@store');
+
 Route::get('/users/{user}/packages/{package}', 'Packages\PackageController@show');
 
-Route::get('api/users/{user}/packages/{package}', 'Packages\Api\PackageController@show');
+Route::get('/api/users/{user}/packages/{package}', 'Packages\Api\PackageController@show');
+
+Route::put('api/users/{user}/packages', 'Packages\Api\PackageController@update');

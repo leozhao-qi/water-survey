@@ -23,7 +23,7 @@ class ObjectiveResource extends JsonResource
             'type_format' => ucfirst(str_replace('_', ' ', $this->type)),
             'type' => $this->type,
             'name_en' => $this->getTranslation('name', 'en'),
-            'name_fr' => $this->getTranslation('name', 'fr'),
+            'name_fr' => $this->getTranslation('name', 'fr')
         ];
     }
 }

@@ -8,8 +8,8 @@
             :data="lessons"
             :columns="columns"
             :per-page="10"
-            :order-keys="['number']"
-            :order-key-directions="['asc']"
+            :order-keys="['number', 'version']"
+            :order-key-directions="['asc', 'asc']"
             :has-text-filter="true"
             :has-event="true"
             event-text="Edit"
@@ -26,6 +26,7 @@ export default {
         return {
             columns: [
                 { field: 'number', title: 'Number', sortable: true },
+                { field: 'version', title: 'Version', sortable: true },
                 { field: 'name', title: 'Name', sortable: true }
             ]
         }

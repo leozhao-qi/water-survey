@@ -9,6 +9,10 @@
                 <strong>Level: </strong>{{ userPackage.level }}
             </p>
 
+            <p>
+                <strong>Version: </strong>{{ userPackage.version }}
+            </p>
+
             <p v-if="typeof userPackage.user !== 'undefined'">
                 <strong>Apprentice:</strong> 
                 <a :href="`${urlBase}/users/${userPackage.user_id}`">

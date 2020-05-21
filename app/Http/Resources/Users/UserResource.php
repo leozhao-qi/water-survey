@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources\Users;
 
+use App\Lesson;
 use App\Package;
+use App\LessonVersion;
 use App\Http\Resources\Packages\PackageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,6 +18,16 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $lessonVersion = LessonVersion::find(
+            $this->packages->first()->lesson->lesson_version_id
+        );
+        $packageVersion = $lessonVersion->version;
+
+        $assignedLessons = Package::whereUserId($this->id)->get()->pluck('lesson_id')->toArray();
+        $lesonsOfVersion = Lesson::whereLessonVersionId($lessonVersion->id)->get()->pluck('id')->toArray();
+
+        $unassignedLessons = Lesson::whereIn('id', array_diff($lesonsOfVersion, $assignedLessons))->get();
+
         return [
             'id' => $this->id,
             'firstname' => $this->firstname,
@@ -28,8 +40,10 @@ class UserResource extends JsonResource
             'reportingStructure' => $this->reportingStructure(),
             'appointment_date' => $this->appointment_date,
             'packages' => PackageResource::collection(
-                Package::whereUserId($this->id)->get()
-            )
+                $this->packages
+            ),
+            'packageVersion' => $packageVersion,
+            'unassignedLessons' => $unassignedLessons,
         ];
     }
 }

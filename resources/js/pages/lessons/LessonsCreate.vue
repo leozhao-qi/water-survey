@@ -11,11 +11,51 @@
                 class="w-full mb-4"
             >
                 <label 
+                    for="lesson_version_id"
+                    class="block text-gray-700 font-bold mb-2"
+                >
+                    Lesson version
+                </label>
+
+                <div class="relative">
+                    <select 
+                        id="lesson_version_id"
+                        v-model="form.lesson_version_id"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500': errors.lesson_version_id }"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="lessonVersion.id"
+                            v-for="lessonVersion in lessonVersions"
+                            :key="lessonVersion.id"
+                            v-text="lessonVersion.version"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+
+                <p
+                    v-if="errors.lesson_version_id"
+                    v-text="errors.lesson_version_id[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
+                class="w-full mb-4"
+            >
+                <label 
                     for="level_id"
                     class="block text-gray-700 font-bold mb-2"
                 >
                     Level
                 </label>
+
                 <div class="relative">
                     <select 
                         id="level_id"
@@ -140,6 +180,23 @@
                 </button>
             </div>
         </form>
+
+        <modal 
+            v-show="modalActive"
+            @close="modalActive = false"
+            @submit="close"
+        >
+            <template slot="header">
+                No version specified
+            </template>
+
+            <template slot="body">
+                <div class="my-4">
+                    No lesson version has been specified. If you do not specify 
+                    a lesson version, this new lesson will be applied to all versions.
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
@@ -153,21 +210,34 @@ export default {
                 name_en: '',
                 name_fr: '',
                 number: null,
-                level_id: null
-            }
+                level_id: null,
+                lesson_version: null
+            },
+            modalActive: false,
+            confirmed: false
         }
     },
 
     computed: {
         ...mapGetters({
-            levels: 'levels/levels'
+            levels: 'levels/levels',
+            lessonVersions: 'lessonVersions/lessonVersions'
         })
     },
 
     methods: {
         ...mapActions({
-            fetchLevels: 'levels/fetch'
+            fetchLevels: 'levels/fetch',
+            fetchLessonVersions: 'lessonVersions/fetch'
         }),
+
+        close () {
+            this.modalActive = false
+            this.confirmed = true
+            delete this.form.lesson_version_id
+
+            this.store()
+        },
 
         cancel () {
             window.events.$emit('lessons:create-cancel')
@@ -176,9 +246,16 @@ export default {
             this.form.name_fr = ''
             this.form.number = null
             this.form.level_id = null
+            this.form.lesson_version = null
         },
 
         async store () {
+            if (!this.form.lesson_version_id && !this.confirmed) {
+                this.modalActive = true
+
+                return
+            }
+
             let { data } = await axios.post(`/api/lessons`, this.form)
 
             this.cancel()
@@ -189,6 +266,8 @@ export default {
 
     async mounted () {
         await this.fetchLevels()
+
+        await this.fetchLessonVersions()
     }
 }
 </script>

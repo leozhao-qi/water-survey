@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\User;
 use App\Level;
 use App\Lesson;
+use App\LessonWIP;
 use App\Observers\UserObserver;
 use App\Observers\LevelObserver;
 use App\Observers\LessonObserver;
+use App\Observers\LessonWIPObserver;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,5 +37,6 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Level::observe(LevelObserver::class);
         Lesson::observe(LessonObserver::class);
+        LessonWIP::observe(LessonWIPObserver::class);
     }
 }
