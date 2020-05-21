@@ -27,8 +27,8 @@ class ObjectivesWIPController extends Controller
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
             'type' => [
-                'required',
-                Rule::in(['theory', 'practical_application']),
+                'sometimes',
+                Rule::in(['', 'theory', 'practical_application']),
             ]
         ]);
 
@@ -84,6 +84,21 @@ class ObjectivesWIPController extends Controller
             'data' => [
                 'type' => 'success',
                 'message' => 'Objective successfully updated',
+                'lesson' => new LessonWIPResource(
+                    LessonWIP::find($objective->lesson_id)
+                )
+            ]
+        ], 200);
+    }
+
+    public function destroy(ObjectiveWIP $objective)
+    {
+        $objective->delete();
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Objective successfully deleted',
                 'lesson' => new LessonWIPResource(
                     LessonWIP::find($objective->lesson_id)
                 )

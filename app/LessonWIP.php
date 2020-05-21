@@ -29,7 +29,7 @@ class LessonWIP extends Model
 
     public function objectives()
     {
-        return $this->hasMany(ObjectiveWIP::class, 'id', 'lesson_id');
+        return $this->hasMany(ObjectiveWIP::class, 'lesson_id', 'id');
     }
 
     public function toArray()

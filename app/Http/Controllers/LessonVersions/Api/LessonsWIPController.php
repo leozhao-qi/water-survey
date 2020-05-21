@@ -74,4 +74,16 @@ class LessonsWIPController extends Controller
             ]
         ], 200);
     }
+
+    public function destroy(LessonWIP $lesson)
+    {
+        $lesson->delete();
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Lesson successfully deleted'
+            ]
+        ], 200);
+    }
 }

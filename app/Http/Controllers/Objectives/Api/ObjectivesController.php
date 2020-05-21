@@ -38,8 +38,8 @@ class ObjectivesController extends Controller
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
             'type' => [
-                'required',
-                Rule::in(['theory', 'practical_application']),
+                'sometimes',
+                Rule::in(['', 'theory', 'practical_application']),
             ]
         ]);
 

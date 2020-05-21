@@ -171,7 +171,7 @@
 
             <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
-            <destroy-lesson 
+            <destroy-lesson-wip 
                 v-if="hasRole(['administrator'])"
                 @close="cancel"
             /> 

@@ -68,6 +68,8 @@ Route::get('/api/lesson-versions/create-version', 'LessonVersions\Api\LessonsWIP
 
 Route::put('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController@update');
 
+Route::delete('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController@destroy');
+
 Route::post('/api/lessons-wip', 'LessonVersions\Api\LessonsWIPController@store');
 
 Route::resource('api/lesson-versions', 'LessonVersions\Api\LessonVersionsController');
@@ -77,6 +79,8 @@ Route::get('/objectives', 'Objectives\ObjectivesController@index');
 Route::resource('api/objectives', 'Objectives\Api\ObjectivesController');
 
 Route::put('/api/objectives-wip/{objective}', 'LessonVersions\Api\ObjectivesWIPController@update');
+
+Route::delete('/api/objectives-wip/{objective}', 'LessonVersions\Api\ObjectivesWIPController@destroy');
 
 Route::post('/api/objectives-wip', 'LessonVersions\Api\ObjectivesWIPController@store');
 
