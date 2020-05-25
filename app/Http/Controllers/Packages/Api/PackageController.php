@@ -16,8 +16,7 @@ class PackageController extends Controller
     public function __construct()
     {
         $this->middleware(['role:administrator'])->only(['store', 'add']);
-        $this->middleware(['profile'])->only(['show']);
-        $this->middleware(['role:head_of_operations|manager|administrator', 'profile'])->only(['update']);
+        $this->middleware(['profile'])->only(['show', 'update']);
     }
 
     public function show(User $user, Package $package)
@@ -53,6 +52,14 @@ class PackageController extends Controller
 
     public function update(User $user, Package $package)
     {
+        if (!auth()->user()->hasRole(['administrator', 'head_of_operations', 'manager'])) {
+            return response()->json([
+                'data' => [
+                    'message' => 'You are not authorized to do that.'
+                ]
+            ], 403);
+        }
+
         request()->validate([
             'complete' => 'sometimes|boolean',
             'signed_off_by' => [

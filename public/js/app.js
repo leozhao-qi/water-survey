@@ -68884,7 +68884,7 @@ axios__WEBPACK_IMPORTED_MODULE_0___default.a.interceptors.response.use(function 
   }
 
   if (error.response.status === 403) {
-    window.events.$emit('errors-general', error.response.data.message);
+    window.events.$emit('errors-general', error.response.data.data.message);
   }
 
   return Promise.reject(error);
@@ -73130,11 +73130,10 @@ var update = /*#__PURE__*/function () {
               signed_off_at: state.form.complete ? state.form.signed_off_at : null,
               complete: state.form.complete ? 1 : 0
             };
-            console.log(form);
-            _context2.next = 6;
+            _context2.next = 5;
             return axios.put("/api/users/".concat(userId, "/packages/").concat(userpackageId), form);
 
-          case 6:
+          case 5:
             _yield$axios$put = _context2.sent;
             userPackage = _yield$axios$put.data;
             commit('SET_USERPACKAGE', userPackage.data["package"]);
@@ -73144,7 +73143,7 @@ var update = /*#__PURE__*/function () {
             window.events.$emit('userpackage:updated', userPackage.data.message);
             return _context2.abrupt("return");
 
-          case 12:
+          case 11:
           case "end":
             return _context2.stop();
         }

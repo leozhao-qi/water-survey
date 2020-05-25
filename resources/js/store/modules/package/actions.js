@@ -17,8 +17,7 @@ export const update = async ({ commit, state }, { userId, userpackageId }) => {
         complete: state.form.complete ? 1 : 0
     }
 
-    console.log(form)
-    
+   
     let { data: userPackage } = await axios.put(`/api/users/${userId}/packages/${userpackageId}`, form)
 
     commit('SET_USERPACKAGE', userPackage.data.package)
