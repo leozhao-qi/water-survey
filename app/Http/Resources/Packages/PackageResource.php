@@ -24,7 +24,10 @@ class PackageResource extends JsonResource
             'user' => User::find($this->user_id),
             'user_id' => $this->user_id,
             'lesson_id' => $this->lesson_id,
-            'version' => LessonVersion::find($this->lesson->lesson_version_id)->version
+            'version' => LessonVersion::find($this->lesson->lesson_version_id)->version,
+            'signed_off_by' => $this->signed_off_by ? User::find($this->signed_off_by) : null,
+            'signed_off_at' => $this->signed_off_at,
+            'complete' => $this->complete ? true : false
         ];
     }
 }

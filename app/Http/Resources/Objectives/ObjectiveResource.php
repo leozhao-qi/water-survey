@@ -18,6 +18,7 @@ class ObjectiveResource extends JsonResource
             'id' => $this->id,
             'lesson' => $this->lesson->number,
             'lesson_id' => $this->lesson_id,
+            'lesson_version' => $this->lesson->lessonVersion->version,
             'number' => $this->number,
             'name' => $this->name,
             'type_format' => ucfirst(str_replace('_', ' ', $this->type)),

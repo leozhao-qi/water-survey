@@ -1,24 +1,16 @@
 <template>
     <div class="flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto">
-        <div class="w-full">
-            <h1 class="text-3xl font-bold mb-2">
-                {{ userPackage.package }}
-            </h1>
+        <package-info />
 
-            <p>
-                <strong>Level: </strong>{{ userPackage.level }}
-            </p>
+        <statement-of-competency @userpackage:change="updatePackage" />
 
-            <p>
-                <strong>Version: </strong>{{ userPackage.version }}
-            </p>
-
-            <p v-if="typeof userPackage.user !== 'undefined'">
-                <strong>Apprentice:</strong> 
-                <a :href="`${urlBase}/users/${userPackage.user_id}`">
-                    {{ userPackage.user.firstname }} {{ userPackage.user.lastname }}
-                </a>
-            </p>
+        <div class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner">
+            <button 
+                class="btn btn-blue ml-auto"
+                @click.prevent="update({ userId, userpackageId })"
+            >
+                Update lesson package
+            </button>
         </div>
     </div>
 </template>
@@ -38,22 +30,22 @@ export default {
         }
     },
 
-    computed: {
-        ...mapGetters({
-            userPackage: 'userpackage/userPackage'
-        })    
-    },
-
     methods: {
         ...mapActions({
-            fetch: 'userpackage/fetch'
-        })
+            fetch: 'userpackage/fetch',
+            updatePackage: 'userpackage/updatePackageObj',
+            update: 'userpackage/update'
+        }),
     },
 
     async mounted () {
         await this.fetch({
             userId: this.userId,
             userpackageId: this.userpackageId
+        })
+
+        window.events.$on('userpackage:updated', message => {
+            this.$toasted.success(message)
         })
     }
 }

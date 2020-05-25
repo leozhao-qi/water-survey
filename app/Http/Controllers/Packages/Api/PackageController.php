@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Packages\Api;
 use App\User;
 use App\Lesson;
 use App\Package;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
+use App\Rules\IsAuthorizedToSignOff;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Packages\PackageResource;
 
@@ -13,7 +15,9 @@ class PackageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['profile']);
+        $this->middleware(['role:administrator'])->only(['store', 'add']);
+        $this->middleware(['profile'])->only(['show']);
+        $this->middleware(['role:head_of_operations|manager|administrator', 'profile'])->only(['update']);
     }
 
     public function show(User $user, Package $package)
@@ -47,7 +51,28 @@ class PackageController extends Controller
         ], 200);
     }
 
-    public function update(User $user)
+    public function update(User $user, Package $package)
+    {
+        request()->validate([
+            'complete' => 'sometimes|boolean',
+            'signed_off_by' => [
+                'sometimes',
+                new IsAuthorizedToSignOff($user)
+            ],
+        ]);
+
+        $package->update(request()->all());
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Package successfully updated.',
+                'package' => new PackageResource($package)
+            ]
+        ], 200);
+    }
+
+    public function add(User $user)
     {
         request()->validate([
             'lesson_id' => 'required|exists:lessons,id'

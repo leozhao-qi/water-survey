@@ -26,6 +26,7 @@ export default {
         return {
             columns: [
                 { field: 'lesson', title: 'Lesson', sortable: true },
+                { field: 'lesson_version', title: 'Version', sortable: true },
                 { field: 'number', title: 'Objective', sortable: true },
                 { field: 'name', title: 'Description', sortable: true },
                 { field: 'type_format', title: 'Type', sortable: true }

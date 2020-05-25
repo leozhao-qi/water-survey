@@ -10,7 +10,14 @@ class Package extends Model
 {
     protected $fillable = [
         'lesson_id',
-        'user_id'
+        'user_id',
+        'complete',
+        'signed_off_by',
+        'signed_off_at'
+    ];
+
+    protected $casts = [
+        'signed_off_at' => 'date'
     ];
 
     public function user()
