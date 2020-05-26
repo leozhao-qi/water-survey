@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCompleteAndSignedOffByToPackagesTable extends Migration
+class AddStatusColumnsToPackagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,8 @@ class AddCompleteAndSignedOffByToPackagesTable extends Migration
     public function up()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->smallInteger('complete')->unsigned()->default(0);
-            $table->integer('signed_off_by')->unsigned()->nullable();
-            $table->date('signed_off_at')->nullable();
+            $table->string('theory_status')->default('incomplete');
+            $table->string('practical_status')->default('incomplete');
         });
     }
 
@@ -28,9 +27,8 @@ class AddCompleteAndSignedOffByToPackagesTable extends Migration
     public function down()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->dropColumn('complete');
-            $table->dropColumn('signed_off_by');
-            $table->dropColumn('signed_off_at');
+            $table->dropColumn('theory_status');
+            $table->dropColumn('practical_status');
         });
     }
 }

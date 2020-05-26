@@ -9,6 +9,10 @@
                 type="checkbox"
                 id="complete"
                 v-model="complete"
+                :true-value="1"
+                :false-value="0"
+                @change="update"
+                :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
             Statement of competency
         </label> 
@@ -21,6 +25,14 @@
             {{ userPackage.signed_off_by.firstname }} {{ userPackage.signed_off_by.lastname }} 
             ({{ ucfirst(userPackage.signed_off_by.role) }}) on {{ fromMySQLDateFormat(userPackage.signed_off_at) }}
         </p>
+
+        <div 
+            class="alert alert-red mt-4"
+            v-if="errors.complete"
+            v-text="errors.complete[0]"
+        >
+
+        </div>
     </div>
 </template>
 
@@ -39,32 +51,16 @@ export default {
 
     computed: {
         ...mapGetters({
-            form: 'userpackage/form',
             userPackage: 'userpackage/userPackage'
         })
     },
 
     watch: {
-        complete () {
-            this.$emit('userpackage:change', [
-                {
-                    type: 'complete',
-                    value: this.complete
-                },{
-                    type: 'signed_off_by',
-                    value: this.complete === true ? parseInt(this.authUser.id) : null
-                },{
-                    type: 'signed_off_at',
-                    value: this.complete === true ? toMySQLDateFormat(Date.now()) : null
-                }
-            ])
-        },
-
-        form: {
+        userPackage: {
             deep: true,
 
             handler () {
-                this.complete = this.form.complete
+                this.complete = this.userPackage.complete
             }
         }
     },
@@ -72,7 +68,18 @@ export default {
     methods: {
         ucfirst,
 
-        fromMySQLDateFormat
-    },
+        fromMySQLDateFormat,
+
+        update () {
+            window.events.$emit('userpackage:completion')
+            
+            this.$emit('userpackage:change', [
+                {
+                    type: 'complete',
+                    value: this.complete
+                }
+            ])
+        }
+    }
 }
 </script>

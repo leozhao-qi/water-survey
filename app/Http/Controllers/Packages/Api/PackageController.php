@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Packages\Api;
 use App\User;
 use App\Lesson;
 use App\Package;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
+use App\Rules\IsValidCompletion;
 use App\Http\Controllers\Controller;
-use App\Rules\IsAuthorizedToSignOff;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Packages\PackageResource;
 
@@ -52,31 +54,57 @@ class PackageController extends Controller
 
     public function update(User $user, Package $package)
     {
-        if (!auth()->user()->hasRole(['administrator', 'head_of_operations', 'manager'])) {
-            return response()->json([
-                'data' => [
-                    'message' => 'You are not authorized to do that.'
-                ]
-            ], 403);
-        }
-
         request()->validate([
-            'complete' => 'sometimes|boolean',
-            'signed_off_by' => [
+            'complete' => [
                 'sometimes',
-                new IsAuthorizedToSignOff($user)
+                'boolean',
+                new IsValidCompletion($user, $package)
             ],
+            // 'theory_status' => [
+            //     'required',
+            //     Rule::in([
+            //         'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
+            //     ])
+            // ],
+            // 'practical_status' => [
+            //     'required',
+            //     Rule::in([
+            //         'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
+            //     ])
+            // ]
         ]);
 
-        $package->update(request()->all());
+        if (auth()->user()->can('update', $package)) {
+            $data = request()->all();
+
+            if (request()->has('complete') && request('complete') === 1) {
+                $data = array_merge($data, [
+                    'signed_off_by' => auth()->id(),
+                    'signed_off_at' => Carbon::now()
+                ]);
+            } elseif (request()->has('complete') && request('complete') === 0) {
+                $data = array_merge($data, [
+                    'signed_off_by' => null,
+                    'signed_off_at' => null
+                ]);
+            }
+
+            $package->update($data);
+
+            return response()->json([
+                'data' => [
+                    'type' => 'success',
+                    'message' => 'Package successfully updated.',
+                    'package' => new PackageResource($package)
+                ]
+            ], 200);
+        }
 
         return response()->json([
             'data' => [
-                'type' => 'success',
-                'message' => 'Package successfully updated.',
-                'package' => new PackageResource($package)
+                'message' => 'You are not authorized to do that.'
             ]
-        ], 200);
+        ], 403);
     }
 
     public function add(User $user)

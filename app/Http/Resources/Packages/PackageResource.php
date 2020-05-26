@@ -27,7 +27,10 @@ class PackageResource extends JsonResource
             'version' => LessonVersion::find($this->lesson->lesson_version_id)->version,
             'signed_off_by' => $this->signed_off_by ? User::find($this->signed_off_by) : null,
             'signed_off_at' => $this->signed_off_at,
-            'complete' => $this->complete ? true : false
+            'practical_status' => $this->practical_status,
+            'theory_status' => $this->theory_status,
+            'complete' => $this->complete,
+            'objective_types' => $this->lesson->objectives->pluck('type')->filter()->unique()->toArray()
         ];
     }
 }

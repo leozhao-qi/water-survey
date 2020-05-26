@@ -2,6 +2,8 @@
     <div class="flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto">
         <package-info />
 
+        <package-status @userpackage:change="updatePackage" />
+
         <statement-of-competency @userpackage:change="updatePackage" />
 
         <div class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner">

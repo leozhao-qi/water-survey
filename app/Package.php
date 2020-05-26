@@ -13,7 +13,9 @@ class Package extends Model
         'user_id',
         'complete',
         'signed_off_by',
-        'signed_off_at'
+        'signed_off_at',
+        'theory_status',
+        'practical_status'
     ];
 
     protected $casts = [

@@ -95,3 +95,5 @@ Route::get('/api/users/{user}/packages/{package}', 'Packages\Api\PackageControll
 Route::put('api/users/{user}/packages', 'Packages\Api\PackageController@add');
 
 Route::put('api/users/{user}/packages/{package}', 'Packages\Api\PackageController@update');
+
+Route::get('/api/statuses', 'Statuses\Api\StatusController@index');
