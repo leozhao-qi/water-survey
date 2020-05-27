@@ -65,7 +65,8 @@ class IsValidCompletion implements Rule
 
     protected function validations()
     {
-        return $this->correctStatuses();
+        return $this->correctStatuses() && 
+        $this->allObjectivesComplete();
     }
 
     protected function correctStatuses()
@@ -84,6 +85,27 @@ class IsValidCompletion implements Rule
 
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    protected function allObjectivesComplete()
+    {
+        $packageObjectives = $this->package->lesson->objectives->pluck('id')->toArray();
+
+        if (request()->has('objectives')) {
+            $userObjectives = request('objectives');
+        } else {
+            $userObjectives =  $this->user->objectives->whereIn('id', $packageObjectives)->pluck('id')->toArray();
+        }
+
+        $diffArrayCount = count(array_diff($packageObjectives, $userObjectives));
+
+        if ($diffArrayCount !== 0) {
+            $this->errorMessage = 'All of the objectives have not been marked as complete.';
+
+            return false;
         }
 
         return true;

@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import ucfirst from '../../../helpers/ucfirst'
 import toMySQLDateFormat from '../../../helpers/toMySQLDateFormat'
 import fromMySQLDateFormat from '../../../helpers/fromMySQLDateFormat'
@@ -66,12 +66,16 @@ export default {
     },
 
     methods: {
+        ...mapActions({
+            updateCompletion: 'userpackage/updateCompletion'
+        }),
+
         ucfirst,
 
         fromMySQLDateFormat,
 
         update () {
-            window.events.$emit('userpackage:completion')
+            this.updateCompletion()
             
             this.$emit('userpackage:change', [
                 {

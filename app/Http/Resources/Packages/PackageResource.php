@@ -4,6 +4,7 @@ namespace App\Http\Resources\Packages;
 
 use App\User;
 use App\LessonVersion;
+use Illuminate\Support\Arr;
 use App\Http\Resources\Users\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,6 +18,14 @@ class PackageResource extends JsonResource
      */
     public function toArray($request)
     {
+        $objectivesArr = $this->lesson->objectives->map(function ($objective) {
+            if ($objective['type'] === null) {
+                $objective['type'] = 'not_defined';
+            }
+
+            return $objective;
+        })->groupBy('type')->toArray();
+
         return [
             'id' => $this->id,
             'level' => $this->lesson->level->name,
@@ -30,7 +39,9 @@ class PackageResource extends JsonResource
             'practical_status' => $this->practical_status,
             'theory_status' => $this->theory_status,
             'complete' => $this->complete,
-            'objective_types' => $this->lesson->objectives->pluck('type')->filter()->unique()->toArray()
+            'objective_types' => $this->lesson->objectives->pluck('type')->filter()->unique()->toArray(),
+            'objectives' => $objectivesArr,
+            'completedObjectives' => $this->user->objectives !== null ? $this->user->objectives->pluck('id')->toArray() : []
         ];
     }
 }

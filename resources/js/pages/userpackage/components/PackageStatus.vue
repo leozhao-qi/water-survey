@@ -86,16 +86,18 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import isComplete from '../../../mixins/isComplete'
 
 export default {
+    mixins: [ isComplete ],
+    
     data() {
         return {
             theory_status: 'incomplete',
             practical_status: 'incomplete',
             hasTheory: false,
             hasPractical: false,
-            statuses: [],
-            isComplete: false
+            statuses: []
         }
     },
 
@@ -114,7 +116,6 @@ export default {
                 this.practical_status = this.userPackage.practical_status
                 this.hasTheory = this.userPackage.objective_types.indexOf('theory') >= 0
                 this.hasPractical = this.userPackage.objective_types.indexOf('practical_application') >= 0
-                this.isComplete = this.userPackage.complete
             }
         }
     },
@@ -143,10 +144,6 @@ export default {
         let { data: statuses } = await axios.get('/api/statuses')
 
         this.statuses = statuses
-
-        window.events.$on('userpackage:completion', () => {
-            this.isComplete = !this.isComplete
-        })
     }
 }
 </script>

@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Package;
+use App\Objective;
 use App\MoodleUser;
 use App\Supervisor;
 use App\Deactivation;
@@ -71,6 +72,11 @@ class User extends Authenticatable
     public function packages()
     {
         return $this->hasMany(Package::class);
+    }
+
+    public function objectives()
+    {
+        return $this->belongsToMany(Objective::class, 'objective_user');
     }
 
     public function getFirstnameAttribute()

@@ -7,3 +7,5 @@ export const SET_FORM = (state, formData) => state.form = formData
 export const UPDATE_USERPACKAGE = (state, arr) => {
     forEach(arr, item => state.form[item.type] = item.value)
 }
+
+export const SET_COMPLETE = (state, complete) => state.isComplete = complete

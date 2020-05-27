@@ -60,18 +60,18 @@ class PackageController extends Controller
                 'boolean',
                 new IsValidCompletion($user, $package)
             ],
-            // 'theory_status' => [
-            //     'required',
-            //     Rule::in([
-            //         'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
-            //     ])
-            // ],
-            // 'practical_status' => [
-            //     'required',
-            //     Rule::in([
-            //         'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
-            //     ])
-            // ]
+            'theory_status' => [
+                'sometimes',
+                Rule::in([
+                    'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
+                ])
+            ],
+            'practical_status' => [
+                'sometimes',
+                Rule::in([
+                    'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
+                ])
+            ]
         ]);
 
         if (auth()->user()->can('update', $package)) {
@@ -87,6 +87,16 @@ class PackageController extends Controller
                     'signed_off_by' => null,
                     'signed_off_at' => null
                 ]);
+            }
+
+            if (Arr::has($data, 'objectives')) {
+                $allObjectivesForPackage = $package->lesson->objectives->pluck('id');
+        
+                $user->objectives()->detach($allObjectivesForPackage);
+
+                $user->objectives()->attach(request('objectives'));
+
+                Arr::forget($data, 'objectives');
             }
 
             $package->update($data);

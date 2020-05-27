@@ -1,4 +1,5 @@
 export default {
 	userPackage: {},
-	form: {}
+	form: {},
+	isComplete: false
 }
