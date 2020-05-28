@@ -14,12 +14,14 @@
 
         <reporting-structure />
 
-        <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
+        <template v-if="typeof user.packages !== 'undefined' && hasRole(['apprentice'])">
+            <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
-        <unassigned-user-packages />
+            <unassigned-user-packages />
 
-        <user-packages />
-
+            <user-packages />
+        </template>
+        
         <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
         <destroy-user 

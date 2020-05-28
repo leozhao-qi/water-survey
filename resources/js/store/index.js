@@ -15,6 +15,8 @@ import lessonsWIP from './modules/lessons-wip'
 import lessonVersions from './modules/lesson-versions'
 import objectives from './modules/objectives'
 import userpackage from './modules/package'
+import recommendations from './modules/recommendations'
+import statuses from './modules/statuses'
 
 export default new Vuex.Store({
 	state, 
@@ -28,6 +30,8 @@ export default new Vuex.Store({
 		objectives,
 		userpackage,
 		lessonVersions,
-		lessonsWIP
+		lessonsWIP,
+		recommendations,
+		statuses
 	} 
 })

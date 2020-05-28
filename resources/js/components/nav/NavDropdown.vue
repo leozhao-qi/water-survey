@@ -28,7 +28,13 @@
 
                 <a class="text-gray-900 py-2 px-3" href="/lessons">Manage lessons</a>
 
+                <a class="text-gray-900 py-2 px-3" href="/lesson-versions">Manage lesson versions</a>
+
                 <a class="text-gray-900 py-2 px-3" href="/objectives">Manage objectives</a>
+
+                <a class="text-gray-900 py-2 px-3" href="/recommendations">Manage recommendations</a>
+
+                <a class="text-gray-900 py-2 px-3" href="/statuses">Manage statuses</a>
             </template>
 
             <hr class="border-t border-gray-300">

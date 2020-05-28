@@ -10,6 +10,11 @@ use App\Http\Resources\LessonWIP\LessonWIPResource;
 
 class LessonsWIPController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function index()
     {
         (new PackageVersion())->populateWIP();

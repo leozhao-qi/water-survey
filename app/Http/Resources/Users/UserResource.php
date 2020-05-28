@@ -18,15 +18,21 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        $lessonVersion = LessonVersion::find(
-            $this->packages->first()->lesson->lesson_version_id
-        );
-        $packageVersion = $lessonVersion->version;
+        $packageVersion = null;
+        $unassignedLessons = null;
 
-        $assignedLessons = Package::whereUserId($this->id)->get()->pluck('lesson_id')->toArray();
-        $lesonsOfVersion = Lesson::whereLessonVersionId($lessonVersion->id)->get()->pluck('id')->toArray();
+        if ($this->hasRole('apprentice') && $this->packages->count()) {
+            $lessonVersion = LessonVersion::find(
+                $this->packages->first()->lesson->lesson_version_id
+            );
 
-        $unassignedLessons = Lesson::whereIn('id', array_diff($lesonsOfVersion, $assignedLessons))->get();
+            $packageVersion = $lessonVersion->version;
+    
+            $assignedLessons = Package::whereUserId($this->id)->get()->pluck('lesson_id')->toArray();
+            $lesonsOfVersion = Lesson::whereLessonVersionId($lessonVersion->id)->get()->pluck('id')->toArray();
+    
+            $unassignedLessons = Lesson::whereIn('id', array_diff($lesonsOfVersion, $assignedLessons))->get();
+        }
 
         return [
             'id' => $this->id,

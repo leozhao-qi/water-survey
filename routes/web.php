@@ -92,4 +92,14 @@ Route::get('/users/{user}/packages/{package}', 'Packages\PackageController@show'
 
 Route::get('/api/users/{user}/packages/{package}', 'Packages\Api\PackageController@show');
 
-Route::put('api/users/{user}/packages', 'Packages\Api\PackageController@update');
+Route::put('api/users/{user}/packages', 'Packages\Api\PackageController@add');
+
+Route::put('api/users/{user}/packages/{package}', 'Packages\Api\PackageController@update');
+
+Route::get('/statuses', 'Statuses\StatusController@index');
+
+Route::resource('/api/statuses', 'Statuses\Api\StatusController');
+
+Route::get('/recommendations', 'Recommendations\RecommendationController@index');
+
+Route::resource('/api/recommendations', 'Recommendations\Api\RecommendationController');

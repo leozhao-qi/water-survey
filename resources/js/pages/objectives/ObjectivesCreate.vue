@@ -30,7 +30,7 @@
                             :value="lesson.id"
                             v-for="lesson in orderBy(lessons, ['number'], ['asc'])"
                             :key="lesson.id"
-                            v-text="`${lesson.number} - ${lesson.name}`"
+                            v-text="`${lesson.number} v${lesson.version} - ${lesson.name}`"
                         ></option>
                     </select>
 

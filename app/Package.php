@@ -10,7 +10,25 @@ class Package extends Model
 {
     protected $fillable = [
         'lesson_id',
-        'user_id'
+        'user_id',
+        'complete',
+        'signed_off_by',
+        'signed_off_at',
+        'theory_status',
+        'practical_status',
+        'recommendation_id',
+        'comment',
+        'evaluation_details',
+        'commented_by',
+        'commented_at',
+        'evaluated_by',
+        'evaluated_at'
+    ];
+
+    protected $casts = [
+        'signed_off_at' => 'date',
+        'commented_off_at' => 'date',
+        'evaluated_off_at' => 'date'
     ];
 
     public function user()
@@ -21,5 +39,10 @@ class Package extends Model
     public function lesson()
     {
     	return $this->belongsTo(Lesson::class);
+    }
+
+    public function recommendation()
+    {
+    	return $this->belongsTo(Recommendation::class);
     }
 }

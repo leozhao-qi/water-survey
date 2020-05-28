@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class PasswordChangeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['profile']);
+    }
+
     public function update(User $user)
     {
         request()->validate([

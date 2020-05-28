@@ -11,6 +11,11 @@ use App\Http\Resources\LessonWIP\LessonWIPResource;
 
 class ObjectivesWIPController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:administrator']);
+    }
+    
     public function store()
     {
         request()->validate([
