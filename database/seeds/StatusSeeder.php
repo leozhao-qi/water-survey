@@ -20,6 +20,7 @@ class StatusSeeder extends Seeder
                     'fr' => 'f Incomplete'
                 ], 
                 'code' => 'incomplete', 
+                'completion' => 0,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -29,6 +30,7 @@ class StatusSeeder extends Seeder
                     'fr' => 'f Complete EG3'
                 ], 
                 'code' => 'complete_eg3',  
+                'completion' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -38,6 +40,7 @@ class StatusSeeder extends Seeder
                     'fr' => 'f Complete EG4'
                 ], 
                 'code' => 'complete_eg4',  
+                'completion' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -47,6 +50,7 @@ class StatusSeeder extends Seeder
                     'fr' => 'f Deferred'
                 ], 
                 'code' => 'deferred', 
+                'completion' => 0,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ],
@@ -56,6 +60,7 @@ class StatusSeeder extends Seeder
                     'fr' => 'f Exempt'
                 ], 
                 'code' => 'exempt',  
+                'completion' => 1,
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]

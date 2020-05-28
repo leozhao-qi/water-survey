@@ -6,7 +6,14 @@
 
         <package-objectives @userpackage:change="updatePackage" />
 
+        <package-recommendation @userpackage:change="updatePackage" />
+
         <statement-of-competency @userpackage:change="updatePackage" />
+
+        <package-comment 
+            @userpackage:change="updatePackage" 
+            @save="update({ userId, userpackageId })"
+        />
 
         <div class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner">
             <button 

@@ -143,7 +143,7 @@ export default {
     async mounted () {
         let { data: statuses } = await axios.get('/api/statuses')
 
-        this.statuses = statuses
+        this.statuses = statuses.data
     }
 }
 </script>

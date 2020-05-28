@@ -13,7 +13,8 @@ class Status extends Model
 
     protected $fillable = [
         'name', 
-        'code'
+        'code',
+        'completion'
     ];
 
     public function toArray()

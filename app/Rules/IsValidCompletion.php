@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\User;
 use App\Package;
+use App\Recommendation;
 use Illuminate\Contracts\Validation\Rule;
 
 class IsValidCompletion implements Rule
@@ -66,7 +67,8 @@ class IsValidCompletion implements Rule
     protected function validations()
     {
         return $this->correctStatuses() && 
-        $this->allObjectivesComplete();
+        $this->allObjectivesComplete() &&
+        $this->correctRecommendation();
     }
 
     protected function correctStatuses()
@@ -104,6 +106,23 @@ class IsValidCompletion implements Rule
 
         if ($diffArrayCount !== 0) {
             $this->errorMessage = 'All of the objectives have not been marked as complete.';
+
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function correctRecommendation()
+    {
+        if (request()->has('recommendation_id')) {
+            $recommendation = Recommendation::find(request('recommendation_id'));
+        } else {
+            $recommendation =  $this->package->recommendation;
+        }
+
+        if ($recommendation === null || !$recommendation->completion) {
+            $this->errorMessage = 'This is not valid recommendation for lesson package completion.';
 
             return false;
         }

@@ -71,7 +71,12 @@ class PackageController extends Controller
                 Rule::in([
                     'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
                 ])
-            ]
+            ],
+            'objectives.*' => [
+                'sometimes',
+                Rule::in($package->lesson->objectives->pluck('id')->toArray())
+            ],
+            'recommendation_id' => 'sometimes|nullable|exists:recommendations,id'
         ]);
 
         if (auth()->user()->can('update', $package)) {

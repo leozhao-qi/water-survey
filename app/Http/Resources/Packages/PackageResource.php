@@ -7,6 +7,7 @@ use App\LessonVersion;
 use Illuminate\Support\Arr;
 use App\Http\Resources\Users\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Recommendations\RecommendationResource;
 
 class PackageResource extends JsonResource
 {
@@ -26,6 +27,12 @@ class PackageResource extends JsonResource
             return $objective;
         })->groupBy('type')->toArray();
 
+        $completedObjectives = $this->user->objectives->whereIn(
+            'id', $this->lesson->objectives->pluck('id')
+        );
+
+        // dd($completedObjectives);
+
         return [
             'id' => $this->id,
             'level' => $this->lesson->level->name,
@@ -41,7 +48,9 @@ class PackageResource extends JsonResource
             'complete' => $this->complete,
             'objective_types' => $this->lesson->objectives->pluck('type')->filter()->unique()->toArray(),
             'objectives' => $objectivesArr,
-            'completedObjectives' => $this->user->objectives !== null ? $this->user->objectives->pluck('id')->toArray() : []
+            'completedObjectives' => count($completedObjectives) ? $completedObjectives : [],
+            'recommendation' => new RecommendationResource($this->recommendation),
+            'comment' => $this->comment
         ];
     }
 }

@@ -15,7 +15,9 @@ class Package extends Model
         'signed_off_by',
         'signed_off_at',
         'theory_status',
-        'practical_status'
+        'practical_status',
+        'recommendation_id',
+        'comment'
     ];
 
     protected $casts = [
@@ -30,5 +32,10 @@ class Package extends Model
     public function lesson()
     {
     	return $this->belongsTo(Lesson::class);
+    }
+
+    public function recommendation()
+    {
+    	return $this->belongsTo(Recommendation::class);
     }
 }
