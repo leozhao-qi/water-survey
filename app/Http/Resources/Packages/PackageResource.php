@@ -29,9 +29,7 @@ class PackageResource extends JsonResource
 
         $completedObjectives = $this->user->objectives->whereIn(
             'id', $this->lesson->objectives->pluck('id')
-        );
-
-        // dd($completedObjectives);
+        )->pluck('id');
 
         return [
             'id' => $this->id,
@@ -43,6 +41,10 @@ class PackageResource extends JsonResource
             'version' => LessonVersion::find($this->lesson->lesson_version_id)->version,
             'signed_off_by' => $this->signed_off_by ? User::find($this->signed_off_by) : null,
             'signed_off_at' => $this->signed_off_at,
+            'commented_by' => $this->commented_by ? User::find($this->commented_by) : null,
+            'commented_at' => $this->commented_at,
+            'evaluated_by' => $this->evaluated_by ? User::find($this->evaluated_by) : null,
+            'evaluated_at' => $this->evaluated_at,
             'practical_status' => $this->practical_status,
             'theory_status' => $this->theory_status,
             'complete' => $this->complete,
@@ -50,7 +52,8 @@ class PackageResource extends JsonResource
             'objectives' => $objectivesArr,
             'completedObjectives' => count($completedObjectives) ? $completedObjectives : [],
             'recommendation' => new RecommendationResource($this->recommendation),
-            'comment' => $this->comment
+            'comment' => $this->comment,
+            'evaluation_details' => $this->evaluation_details
         ];
     }
 }

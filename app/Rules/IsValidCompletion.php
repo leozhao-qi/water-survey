@@ -68,7 +68,8 @@ class IsValidCompletion implements Rule
     {
         return $this->correctStatuses() && 
         $this->allObjectivesComplete() &&
-        $this->correctRecommendation();
+        $this->correctRecommendation() &&
+        $this->hasEvaluationDetails();
     }
 
     protected function correctStatuses()
@@ -123,6 +124,23 @@ class IsValidCompletion implements Rule
 
         if ($recommendation === null || !$recommendation->completion) {
             $this->errorMessage = 'This is not valid recommendation for lesson package completion.';
+
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function hasEvaluationDetails()
+    {
+        if (request()->has('evaluation_details')) {
+            $evaluationDetails = request('evaluation_details');
+        } else {
+            $evaluationDetails =  $this->package->evaluation_details;
+        }
+
+        if (!$evaluationDetails) {
+            $this->errorMessage = 'Evaluation details have not yet been added.';
 
             return false;
         }

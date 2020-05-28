@@ -6,6 +6,11 @@
 
         <package-objectives @userpackage:change="updatePackage" />
 
+        <package-evaluation-details 
+            @userpackage:change="updatePackage" 
+            @save="update({ userId, userpackageId })"
+        />
+
         <package-recommendation @userpackage:change="updatePackage" />
 
         <statement-of-competency @userpackage:change="updatePackage" />

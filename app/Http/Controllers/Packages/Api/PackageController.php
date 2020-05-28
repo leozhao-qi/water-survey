@@ -76,7 +76,8 @@ class PackageController extends Controller
                 'sometimes',
                 Rule::in($package->lesson->objectives->pluck('id')->toArray())
             ],
-            'recommendation_id' => 'sometimes|nullable|exists:recommendations,id'
+            'recommendation_id' => 'sometimes|nullable|exists:recommendations,id',
+            'evaluation_details' => 'sometimes|min:20'
         ]);
 
         if (auth()->user()->can('update', $package)) {
@@ -102,6 +103,20 @@ class PackageController extends Controller
                 $user->objectives()->attach(request('objectives'));
 
                 Arr::forget($data, 'objectives');
+            }
+
+            if (request()->has('comment')) {
+                $data = array_merge($data, [
+                    'commented_by' => auth()->id(),
+                    'commented_at' => Carbon::now()
+                ]);
+            }
+
+            if (request()->has('evaluation_details')) {
+                $data = array_merge($data, [
+                    'evaluated_by' => auth()->id(),
+                    'evaluated_at' => Carbon::now()
+                ]);
             }
 
             $package->update($data);

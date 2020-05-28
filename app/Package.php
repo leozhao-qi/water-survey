@@ -17,11 +17,18 @@ class Package extends Model
         'theory_status',
         'practical_status',
         'recommendation_id',
-        'comment'
+        'comment',
+        'evaluation_details',
+        'commented_by',
+        'commented_at',
+        'evaluated_by',
+        'evaluated_at'
     ];
 
     protected $casts = [
-        'signed_off_at' => 'date'
+        'signed_off_at' => 'date',
+        'commented_off_at' => 'date',
+        'evaluated_off_at' => 'date'
     ];
 
     public function user()

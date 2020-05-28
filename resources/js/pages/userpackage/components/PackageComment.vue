@@ -1,5 +1,7 @@
 <template>
     <div class="w-full mt-4">
+        <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
+        
         <div class="ml-2">
             <div class="flex items-center">
                 <label 
@@ -11,12 +13,21 @@
 
                 <button 
                     class="btn btn-text text-sm ml-2"
-                    v-if="!editing"
+                    v-if="!editing && !isComplete"
                     @click.prevent="editing = true"
                 >
                     Edit
                 </button>
             </div>
+
+            <p 
+                class="text-sm mb-4"
+                v-if="userPackage.commented_by"
+            >
+                <strong>Commented by:</strong> 
+                {{ userPackage.commented_by.firstname }} {{ userPackage.commented_by.lastname }} 
+                ({{ ucfirst(userPackage.commented_by.role) }}) on {{ fromMySQLDateFormat(userPackage.commented_at) }}
+            </p>
 
             <div class="mt-2" v-if="editing">
                 <vue-editor 
@@ -54,8 +65,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { VueEditor, Quill } from 'vue2-editor'
+import isComplete from '../../../mixins/isComplete'
+import fromMySQLDateFormat from '../../../helpers/fromMySQLDateFormat'
+import ucfirst from '../../../helpers/ucfirst'
 
 export default {
+    mixins: [ isComplete ],
+
     components: {
         VueEditor
     },
@@ -100,6 +116,10 @@ export default {
         ...mapActions({
             fetch: 'userpackage/fetch'
         }),
+
+        fromMySQLDateFormat,
+
+        ucfirst,
 
         cancel () {
             this.editing = false
