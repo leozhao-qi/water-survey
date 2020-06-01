@@ -83,7 +83,7 @@
                                         :value="r.name"
                                         v-for="r in filteredRoles"
                                         :key="r.id"
-                                        v-text="r.name"
+                                        v-text="ucfirst(r.name)"
                                     ></option>
                                 </select>
 

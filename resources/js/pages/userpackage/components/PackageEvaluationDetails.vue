@@ -7,7 +7,7 @@
 
             <button 
                 class="btn btn-text text-sm ml-2"
-                v-if="!editing && !isComplete"
+                v-if="!editing && !isComplete && hasRole(['manager', 'head_of_operations', 'supervisor'])"
                 @click.prevent="editing = true"
             >
                 Edit

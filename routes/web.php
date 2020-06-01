@@ -103,3 +103,7 @@ Route::resource('/api/statuses', 'Statuses\Api\StatusController');
 Route::get('/recommendations', 'Recommendations\RecommendationController@index');
 
 Route::resource('/api/recommendations', 'Recommendations\Api\RecommendationController');
+
+Route::get('/logbook-categories', 'LogbookCategories\LogbookCategoryController@index');
+
+Route::resource('/api/logbook-categories', 'LogbookCategories\Api\LogbookCategoryController');

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\Logbook;
 use App\Package;
 use App\Objective;
 use App\MoodleUser;
@@ -77,6 +78,11 @@ class User extends Authenticatable
     public function objectives()
     {
         return $this->belongsToMany(Objective::class, 'objective_user');
+    }
+
+    public function logbooks()
+    {
+        return $this->hasMany(Logbook::class);
     }
 
     public function getFirstnameAttribute()
