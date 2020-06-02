@@ -2694,6 +2694,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6406,15 +6408,404 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    window.events.$on('recommendations:edit', function () {
+    window.events.$on('logbook-categories:edit', function () {
       _this.updating = true;
     });
-    window.events.$on('recommendations:edit-cancel', function () {
+    window.events.$on('logbook-categories:edit-cancel', function () {
       _this.updating = false;
     });
-    window.events.$on('recommendations:create-cancel', function () {
+    window.events.$on('logbook-categories:create-cancel', function () {
       _this.creating = false;
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        name_en: '',
+        name_fr: '',
+        supervisor_only: false
+      }
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    logbookCategories: 'logbookCategories/logbookCategories'
+  })),
+  methods: {
+    cancel: function cancel() {
+      window.events.$emit('logbook-categories:create-cancel');
+      this.form.name_en = '';
+      this.form.name_fr = '';
+      this.code = '';
+      this.completion = false;
+    },
+    store: function store() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post("/api/logbook-categories", _this.form);
+
+              case 2:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                _this.cancel();
+
+                _this.$toasted.success(data.data.message);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        name_en: '',
+        name_fr: '',
+        supervisor_only: false
+      }
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    logbookCategory: 'logbookCategories/logbookCategory'
+  })),
+  methods: {
+    cancel: function cancel() {
+      window.events.$emit('logbook-categories:edit-cancel');
+      this.form.name_en = '';
+      this.form.name_fr = '';
+      this.supervisor_only = false;
+    },
+    update: function update() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _yield$axios$put, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.put("/api/logbook-categories/".concat(_this.logbookCategory.id), _this.form);
+
+              case 2:
+                _yield$axios$put = _context.sent;
+                data = _yield$axios$put.data;
+
+                _this.cancel();
+
+                _this.$toasted.success(data.data.message);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this2.form.name_en = _this2.logbookCategory.name_en;
+              _this2.form.name_fr = _this2.logbookCategory.name_fr;
+              _this2.form.supervisor_only = _this2.logbookCategory.supervisor_only;
+
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -61312,6 +61703,15 @@ var render = function() {
                       attrs: { href: "/statuses" }
                     },
                     [_vm._v("Manage statuses")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-gray-900 py-2 px-3",
+                      attrs: { href: "/logbook-categories" }
+                    },
+                    [_vm._v("Manage logbook categories")]
                   )
                 ]
               : _vm._e(),
@@ -64979,15 +65379,453 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("Add logbook categories")]
+              [_vm._v("Add logbook category")]
             )
           ])
         : _vm._e(),
+      _vm._v(" "),
+      _vm.creating ? _c("logbook-categories-create") : _vm._e(),
+      _vm._v(" "),
+      _vm.updating ? _c("logbook-categories-edit") : _vm._e(),
       _vm._v(" "),
       !_vm.creating && !_vm.updating ? _c("logbook-categories-index") : _vm._e()
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "w-full" }, [
+    _c("h1", { staticClass: "text-3xl font-bold mb-4" }, [
+      _vm._v("\n        New logbook category\n    ")
+    ]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.store($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700 font-bold mb-2",
+              class: { "text-red-500": _vm.errors.name_en },
+              attrs: { for: "name_en" }
+            },
+            [_vm._v("\n                Name (English)\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_en,
+                expression: "form.name_en"
+              }
+            ],
+            staticClass:
+              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto",
+            class: { "border-red-500": _vm.errors.name_en },
+            attrs: { type: "text", id: "name_en" },
+            domProps: { value: _vm.form.name_en },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_en", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.name_en
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.name_en[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700 font-bold mb-2",
+              class: { "text-red-500": _vm.errors.name_fr },
+              attrs: { for: "name_fr" }
+            },
+            [_vm._v("\n                Name (French)\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_fr,
+                expression: "form.name_fr"
+              }
+            ],
+            staticClass:
+              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto",
+            class: { "border-red-500": _vm.errors.name_fr },
+            attrs: { type: "text", id: "name_fr" },
+            domProps: { value: _vm.form.name_fr },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_fr", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.name_fr
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.name_fr[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700",
+              class: { "text-red-500": _vm.errors.supervisor_only },
+              attrs: { for: "supervisor_only" }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.supervisor_only,
+                    expression: "form.supervisor_only"
+                  }
+                ],
+                class: { "border-red-500": _vm.errors.supervisor_only },
+                attrs: { type: "checkbox", id: "supervisor_only" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.supervisor_only)
+                    ? _vm._i(_vm.form.supervisor_only, null) > -1
+                    : _vm.form.supervisor_only
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.supervisor_only,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form,
+                            "supervisor_only",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form,
+                            "supervisor_only",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form, "supervisor_only", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(
+                "\n                This category should only be seen by supervisors.\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.errors.supervisor_only
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.supervisor_only[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full" }, [
+          _c("button", { staticClass: "btn btn-blue text-sm" }, [
+            _vm._v("\n                Add logbook category\n            ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-text text-sm",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.cancel($event)
+                }
+              }
+            },
+            [_vm._v("\n                Cancel\n            ")]
+          )
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "w-full" }, [
+    _c("h1", { staticClass: "text-3xl font-bold mb-4" }, [
+      _vm._v(
+        "\n        Edit: Logbook category - " +
+          _vm._s(_vm.logbookCategory.code) +
+          "\n    "
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.update($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700 font-bold mb-2",
+              class: { "text-red-500": _vm.errors.name_en },
+              attrs: { for: "name_en" }
+            },
+            [_vm._v("\n                Name (English)\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_en,
+                expression: "form.name_en"
+              }
+            ],
+            staticClass:
+              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto",
+            class: { "border-red-500": _vm.errors.name_en },
+            attrs: { type: "text", id: "name_en" },
+            domProps: { value: _vm.form.name_en },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_en", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.name_en
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.name_en[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700 font-bold mb-2",
+              class: { "text-red-500": _vm.errors.name_fr },
+              attrs: { for: "name_fr" }
+            },
+            [_vm._v("\n                Name (French)\n            ")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_fr,
+                expression: "form.name_fr"
+              }
+            ],
+            staticClass:
+              "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto",
+            class: { "border-red-500": _vm.errors.name_fr },
+            attrs: { type: "text", id: "name_fr" },
+            domProps: { value: _vm.form.name_fr },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_fr", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.name_fr
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.name_fr[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700",
+              class: { "text-red-500": _vm.errors.supervisor_only },
+              attrs: { for: "supervisor_only" }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.supervisor_only,
+                    expression: "form.supervisor_only"
+                  }
+                ],
+                class: { "border-red-500": _vm.errors.supervisor_only },
+                attrs: { type: "checkbox", id: "supervisor_only" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.supervisor_only)
+                    ? _vm._i(_vm.form.supervisor_only, null) > -1
+                    : _vm.form.supervisor_only
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.supervisor_only,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form,
+                            "supervisor_only",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form,
+                            "supervisor_only",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form, "supervisor_only", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(
+                "\n                This category should only be seen by supervisors.\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.errors.supervisor_only
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.supervisor_only[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-full" }, [
+          _c("button", { staticClass: "btn btn-blue text-sm" }, [
+            _vm._v("\n                Update logbook category\n            ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-text text-sm",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.cancel($event)
+                }
+              }
+            },
+            [_vm._v("\n                Cancel\n            ")]
+          )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -87110,6 +87948,8 @@ var map = {
 	"./pages/levels/LevelsIndex.vue": "./resources/js/pages/levels/LevelsIndex.vue",
 	"./pages/levels/components/DestroyLevel.vue": "./resources/js/pages/levels/components/DestroyLevel.vue",
 	"./pages/logbook-categories/LogbookCategories.vue": "./resources/js/pages/logbook-categories/LogbookCategories.vue",
+	"./pages/logbook-categories/LogbookCategoriesCreate.vue": "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue",
+	"./pages/logbook-categories/LogbookCategoriesEdit.vue": "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue",
 	"./pages/logbook-categories/LogbookCategoriesIndex.vue": "./resources/js/pages/logbook-categories/LogbookCategoriesIndex.vue",
 	"./pages/objectives/Objectives.vue": "./resources/js/pages/objectives/Objectives.vue",
 	"./pages/objectives/ObjectivesCreate.vue": "./resources/js/pages/objectives/ObjectivesCreate.vue",
@@ -89486,6 +90326,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategories_vue_vue_type_template_id_96059342___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategories_vue_vue_type_template_id_96059342___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a& */ "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a&");
+/* harmony import */ var _LogbookCategoriesCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogbookCategoriesCreate.vue?vue&type=script&lang=js& */ "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LogbookCategoriesCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LogbookCategoriesCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesCreate.vue?vue&type=template&id=afe4b78a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesCreate_vue_vue_type_template_id_afe4b78a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LogbookCategoriesEdit.vue?vue&type=template&id=7627b809& */ "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809&");
+/* harmony import */ var _LogbookCategoriesEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogbookCategoriesEdit.vue?vue&type=script&lang=js& */ "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LogbookCategoriesEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LogbookCategoriesEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809& ***!
+  \********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LogbookCategoriesEdit.vue?vue&type=template&id=7627b809& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/logbook-categories/LogbookCategoriesEdit.vue?vue&type=template&id=7627b809&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LogbookCategoriesEdit_vue_vue_type_template_id_7627b809___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

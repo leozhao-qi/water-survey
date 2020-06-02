@@ -8,16 +8,16 @@
                 href=""
                 @click.prevent="creating = true"
                 class="btn btn-text"
-            >Add logbook categories</a>
+            >Add logbook category</a>
         </nav>
 
-        <!-- <recommendations-create 
+        <logbook-categories-create 
             v-if="creating"
         />
 
-        <recommendations-edit 
+        <logbook-categories-edit 
             v-if="updating"
-        /> -->
+        />
 
         <logbook-categories-index 
             v-if="!creating && !updating"
@@ -35,15 +35,15 @@ export default {
     },
 
     mounted () {
-        window.events.$on('recommendations:edit', () => {
+        window.events.$on('logbook-categories:edit', () => {
             this.updating = true
         })
 
-        window.events.$on('recommendations:edit-cancel', () => {
+        window.events.$on('logbook-categories:edit-cancel', () => {
             this.updating = false
         })
 
-        window.events.$on('recommendations:create-cancel', () => {
+        window.events.$on('logbook-categories:create-cancel', () => {
             this.creating = false
         })
     }
