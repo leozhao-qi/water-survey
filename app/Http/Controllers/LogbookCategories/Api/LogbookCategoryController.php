@@ -10,13 +10,19 @@ class LogbookCategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:administrator'])->except(['index']);
+        $this->middleware(['role:administrator'])->except(['index', 'all']);
     }
 
     public function index()
     {
         return LogbookCategoryResource::collection(
-            LogbookCategory::all()
+            LogbookCategory::all()->filter(function ($category) {
+                if ($category->supervisor_only && !auth()->user()->hasRole(['administrator', 'supervisor'])) {
+                    return false;
+                }
+
+                return true;
+            })
         );
     }
 

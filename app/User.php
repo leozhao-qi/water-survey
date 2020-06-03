@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'firstname', 'lastname', 'role'
+        'firstname', 'lastname', 'role', 'fullname'
     ];
 
     public function deactivations()
@@ -93,6 +93,11 @@ class User extends Authenticatable
     public function getLastnameAttribute()
     {
         return $this->moodleProfile('lastname');
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->moodleProfile('firstname') . ' ' . $this->moodleProfile('lastname');
     }
 
     public function getRoleAttribute()

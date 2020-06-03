@@ -21,6 +21,8 @@
 
             <hr class="border-t border-gray-300">
 
+            <a class="text-gray-900 py-2 px-3" href="/logbooks">Logbooks</a>
+
             <template v-if="hasRole(['administrator'])">
                 <a class="text-gray-900 py-2 px-3" href="/users">Manage users</a>
 

@@ -107,3 +107,7 @@ Route::resource('/api/recommendations', 'Recommendations\Api\RecommendationContr
 Route::get('/logbook-categories', 'LogbookCategories\LogbookCategoryController@index');
 
 Route::resource('/api/logbook-categories', 'LogbookCategories\Api\LogbookCategoryController');
+
+Route::get('/logbooks', 'Logbooks\LogbookController@index');
+
+Route::resource('/api/logbooks', 'Logbooks\Api\LogbookController');

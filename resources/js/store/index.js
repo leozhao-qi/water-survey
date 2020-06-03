@@ -18,6 +18,7 @@ import userpackage from './modules/package'
 import recommendations from './modules/recommendations'
 import statuses from './modules/statuses'
 import logbookCategories from './modules/logbook-categories'
+import logbooks from './modules/logbooks'
 
 export default new Vuex.Store({
 	state, 
@@ -34,6 +35,7 @@ export default new Vuex.Store({
 		lessonsWIP,
 		recommendations,
 		statuses,
-		logbookCategories
+		logbookCategories,
+		logbooks
 	} 
 })
