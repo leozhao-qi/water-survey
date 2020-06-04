@@ -128,6 +128,30 @@
                 ></p>
             </div>
 
+            <div class="my-4">
+                <template v-if="addFiles">
+                    <file-upload />
+
+                    <button 
+                        class="btn btn-text text-blue-500" 
+                        @click.prevent="addFiles = false"
+                    >
+                        Cancel
+                    </button>
+
+                    <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
+                </template>
+
+                <template v-else>
+                    <button 
+                        class="btn btn-text text-blue-500" 
+                        @click.prevent="addFiles = true"
+                    >
+                        + Add files
+                    </button>
+                </template>
+            </div>
+
             <div
                 class="w-full"
             >
@@ -166,8 +190,10 @@ export default {
                 logbook_category_id: null,
                 created: '',
                 event_description: '',
-                details_of_event: ''
-            }        
+                details_of_event: '',
+                files: []
+            },
+            addFiles: false        
         }
     },
 
@@ -190,6 +216,7 @@ export default {
             this.form.created = ''
             this.form.event_description = ''
             this.form.details_of_event = ''
+            this.form.files = []
         },
 
         async store () {
@@ -205,6 +232,8 @@ export default {
 
     mounted () {
         this.fetchLogbookCategories()
+
+        window.events.$on('upload:finished', fileObject => this.form.files.push(fileObject))
     }
 }
 </script>

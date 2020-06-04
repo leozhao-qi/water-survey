@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\LogbookFile;
 use App\LogbookCategory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,11 @@ class Logbook extends Model
         'details_of_event',
         'event_description'
     ];
+
+    public function logbookFiles()
+    {
+        return $this->hasMany(LogbookFile::class);
+    }
 
     public function logbookCategory()
     {

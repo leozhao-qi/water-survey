@@ -6,6 +6,33 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::put(
+    '/api/files/{file}',
+    'Logbooks\Api\LogbookFilesController@updateFilename'
+);
+
+Route::delete(
+    '/api/files/{file}',
+    'Logbooks\Api\LogbookFilesController@destroy'
+);
+
+Route::middleware(['download'])->group(function () {
+	Route::get(
+		'/storage/entries',
+		'Logbooks\Api\LogbookFilesController@download'
+    );
+
+	// Route::delete(
+	// 	'/storage/entries/{user}/{logbookEntry}/{file}',
+	// 	'\TrainingTracker\Http\LogbookEntries\Controllers\Api\LogbookEntryFilesController@destroy'
+	// );
+
+	// Route::patch(
+	// 	'/storage/entries/{user}/{logbookEntry}/updatefiles',
+	// 	'\TrainingTracker\Http\LogbookEntries\Controllers\Api\LogbookEntryFilesController@update'
+	// );
+});
+
 Route::resource('users', 'Users\UsersController');
 
 Route::prefix('api/users')->group(function () {
@@ -111,3 +138,7 @@ Route::resource('/api/logbook-categories', 'LogbookCategories\Api\LogbookCategor
 Route::get('/logbooks', 'Logbooks\LogbookController@index');
 
 Route::resource('/api/logbooks', 'Logbooks\Api\LogbookController');
+
+Route::post('/api/logbooks/files/upload', 'Logbooks\Api\LogbookFilesController@upload');
+
+Route::post('/api/logbooks/filemeta', 'Logbooks\Api\LogbookFilesController@meta');

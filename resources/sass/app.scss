@@ -25,6 +25,14 @@ a {
     @apply bg-blue-700;
 }
 
+.btn-red {
+  @apply bg-red-500 text-white;
+}
+
+.btn-red:hover {
+  @apply bg-red-700;
+}
+
 .btn-text {
     @apply underline;
 }
@@ -35,6 +43,10 @@ a {
 
 .btn-text:hover {
     @apply bg-gray-200;
+}
+
+.btn-sm {
+    @apply px-2 py-1;
 }
 
 .paginate {
@@ -288,6 +300,111 @@ a {
 
   .content .ql-align-right {
     text-align: right;
+}
+
+// upload file component styling
+$dragndrop-min-height: 200px;
+
+.dragndrop {
+	width: 100%;
+	min-height: $dragndrop-min-height;
+	background-color: #F8F8F8;
+	position: relative;
+	border: 3px dashed rgba(0, 0, 0, .2);
+
+	&--dragged {
+		border-color: #333;
+	}
+}
+
+.dragndrop__input {
+	display: none;
+}
+
+.dragndrop__header {
+	display: block;
+	font-size: 1.1em;
+	color: #555;
+	vertical-align: middle;
+	text-align: center;
+	margin: ($dragndrop-min-height / 2) 20px;
+
+	&--compact {
+		margin: ($dragndrop-min-height / 4) 20px;
+	}
+
+	&:hover {
+		text-decoratiom: underline;
+		cursor: pointer;
+	} 
+}
+
+.dragndrop__file {
+	margin: 20px;
+	margin-top: 0;
+	font-size: .9em;
+	position: relative;
+}
+
+.dragndrop__status {
+	text-align: center;
+	padding: 20px;
+}
+
+.progress {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+	border-radius: 3px;
+	background-color: #F5F5F5;
+	height: 35px;
+}
+
+.progress__label,
+.progress__percentage {
+	position: absolute;
+	color: #333;
+	top: 50%;
+	transform: translate(0, -50%);
+	margin-left: 10px;
+}
+
+.progress__percentage {
+	right: 0;
+	margin-right: 10px;
+}
+
+.progress__fill {
+	box-sizing: border-box;
+	position: 10px;
+	border-radius: 3px;
+	background-color: #209cee;
+	height: 100%;
+	box-shadow: inset 0 -1px rgba(0, 0, 0, .15);
+	transition: width 500ms ease;
+	opacity: .6;
+}
+
+.progress__fill--failed {
+	transition: none;
+	width: 100% !important;
+	background-color: #ff3860;
+}
+
+.progress__fill--finished {
+	opacity: 1;
+}
+
+.progress__cancel,
+.progress__error {
+	position: absolute;
+}
+
+.list-inline__item {
+	display: inline;
+	margin-right: 20px;
+}
+
+.list-inline__item--last {
+	margin-right: 0;
 }
 
 @tailwind utilities;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logbooks\Api;
 
 use App\User;
 use App\Logbook;
+use App\LogbookFile;
 use App\LogbookCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
@@ -72,7 +73,15 @@ class LogbookController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        Logbook::create($data);
+        $logbook = Logbook::create($data);
+
+        foreach (request('files') as $file) {
+            LogbookFile::create([
+                'logbook_id' => $logbook->id,
+                'actual_filename' => $file['actualFilename'],
+                'coded_filename' => $file['codedFilename']
+            ]);
+        }
 
         return response()->json([
             'data' => [

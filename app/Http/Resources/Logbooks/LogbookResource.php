@@ -27,7 +27,8 @@ class LogbookResource extends JsonResource
                 $this->logbookCategory
             ),
             'created' => $this->created,
-            'user' => $this->user
+            'user' => $this->user,
+            'files' => $this->logbookFiles
         ];
     }
 }

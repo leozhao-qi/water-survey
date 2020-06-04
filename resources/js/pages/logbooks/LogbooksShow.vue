@@ -1,7 +1,7 @@
 <template>
     <div class="w-full" v-if="typeof logbook !== 'undefined'">
         <div class="mb-4 flex items-center">
-            <a class="no-underline cursor-pointer">
+            <a class="no-underline cursor-pointer" @click.prevent="back">
                 <span class="text-lg">&larr;</span> Back to logbooks
             </a>
 
@@ -43,8 +43,16 @@
 
             <div 
                 class="content"
-                v-html="logbook.details_of_event.replace(/<p><br><\/p>/g, '')"
+                v-html="formattedEntry"
             ></div>
+
+            <template v-if="logbook.files.length">
+                <h2 class="text-2xl mt-4 mb-2">
+                    Files
+                </h2>
+
+                <logbook-files />
+            </template>
         </template>
 
         <logbooks-edit 
@@ -87,7 +95,15 @@ export default {
     computed: {
         ...mapGetters({
             logbook: 'logbooks/logbook'
-        })   
+        }),
+        
+        formattedEntry () {
+            return this.logbook.details_of_event
+                .replace(/<p><br><\/p>/g, '')
+                .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-right"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-left"><br><\/p>/g, '')
+        }
     },
 
     methods: {

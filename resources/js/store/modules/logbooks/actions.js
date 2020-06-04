@@ -22,6 +22,16 @@ export const destroy = async ({ dispatch, state }) => {
     return data
 }
 
+export const destroyFile = async ({ commit, state }, fileId) => {
+    let { data } = await axios.delete(`/api/files/${fileId}`)
+
+    await commit('SET_LOGBOOK_FILES', fileId)
+
+    window.events.$emit('logbooks:file-delete', data)
+
+    return
+}
+
 export const update = async ({ dispatch, state }, form) => {
     let { data } = await axios.put(`/api/logbooks/${state.logbook.id}`, form)
 
