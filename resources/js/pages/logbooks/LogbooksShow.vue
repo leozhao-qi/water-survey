@@ -5,7 +5,7 @@
                 <span class="text-lg">&larr;</span> Back to logbooks
             </a>
 
-            <template v-if="!updating && !hasRole(['manager', 'head_of_operations'])">
+            <template v-if="!updating && (hasRole(['administrator']) || (logbook.user.id === parseInt(authUser.id)))">
                 <button 
                     class="btn btn-text text-blue-500 ml-auto"
                     @click.prevent="updating = true"

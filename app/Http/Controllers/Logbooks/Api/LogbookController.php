@@ -20,6 +20,22 @@ class LogbookController extends Controller
 
     public function index()
     {
+        if (auth()->user()->hasRole(['administrator'])) {
+            $users = Logbook::all()->pluck('id')->unique()->toArray();
+
+            return LogbookResource::collection(
+                Logbook::all()->sortByDesc('created')
+            )
+                ->additional([
+                    'meta' => [
+                        'logbookCategories' => LogbookCategoryResource::collection(
+                            LogbookCategory::all()
+                        ),
+                        'users' => $users
+                    ]
+                ]);
+        }
+
         // Get the user's logbooks if any
         $logbooks = Logbook::whereUserId(auth()->id())->get();
 
@@ -93,7 +109,7 @@ class LogbookController extends Controller
 
     public function update(Logbook $logbook)
     {
-        if (auth()->user()->hasRole(['administrator', 'supervisor', 'apprentice']) === false) {
+        if (auth()->user()->hasRole(['administrator']) === false && auth()->id() !== $logbook->user_id) {
             return response()->json([
                 'data' => [
                     'message' => 'You are not authorized to do that.'
@@ -114,6 +130,14 @@ class LogbookController extends Controller
 
         $logbook->update($data);
 
+        foreach (request('files') as $file) {
+            LogbookFile::create([
+                'logbook_id' => $logbook->id,
+                'actual_filename' => $file['actualFilename'],
+                'coded_filename' => $file['codedFilename']
+            ]);
+        }
+
         return response()->json([
             'data' => [
                 'type' => 'success',
@@ -124,7 +148,7 @@ class LogbookController extends Controller
 
     public function destroy(Logbook $logbook)
     {
-        if (auth()->user()->hasRole(['administrator', 'supervisor', 'apprentice']) === false) {
+        if (auth()->user()->hasRole(['administrator']) === false && auth()->id() !== $logbook->user_id) {
             return response()->json([
                 'data' => [
                     'message' => 'You are not authorized to do that.'

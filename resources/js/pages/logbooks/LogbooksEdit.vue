@@ -128,6 +128,43 @@
                 ></p>
             </div>
 
+            <div 
+                class="my-4"
+            >
+                <div class="flex items-center mb-2">
+                    <h2 class="text-2xl">
+                        Files
+                    </h2>
+
+                    <button 
+                        class="btn btn-text text-sm text-blue-500"
+                        v-if="!addFiles"
+                        @click.prevent="addFiles = true"
+                    >
+                        Add files
+                    </button>
+                </div>
+
+                <logbook-files 
+                    v-if="logbook.files.length"
+                />
+
+                <hr class="block w-full mt-6 pt-6 border-t border-gray-200" v-if="!addFiles">
+            </div>
+
+            <div class="my-4" v-if="addFiles">
+                <file-upload />
+
+                <button 
+                    class="btn btn-text text-blue-500" 
+                    @click.prevent="addFiles = false"
+                >
+                    Cancel
+                </button>
+
+                <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
+            </div>
+
             <div
                 class="w-full"
             >
@@ -167,8 +204,10 @@ export default {
                 logbook_category_id: null,
                 created: '',
                 event_description: '',
-                details_of_event: ''
-            }        
+                details_of_event: '',
+                files: []
+            },
+            addFiles: false        
         }
     },
 
@@ -212,6 +251,8 @@ export default {
         this.form.created = fromMySQLDateFormat(this.logbook.created)
         this.form.event_description = this.logbook.event_description
         this.form.details_of_event = this.logbook.details_of_event
+
+        window.events.$on('upload:finished', fileObject => this.form.files.push(fileObject))
     }
 }
 </script>

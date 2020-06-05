@@ -135,9 +135,29 @@
                             </a>
 
                             <span class="text-gray-600 inline-flex items-center leading-none text-sm ml-auto">
-                                <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                    <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                                </svg>6
+                                <svg 
+                                    viewBox="0 0 24 24"
+                                    class="w-5 h-5" 
+                                    style="fill: #718096;"
+                                >
+                                    <path d="M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z"/>
+                                    <title>Attachments</title>
+                                </svg>
+
+                                <span class="mr-4">
+                                    {{ logbook.files.length }}
+                                </span>
+
+                                <svg 
+                                    viewBox="0 0 24 24" 
+                                    class="w-5 h-5 mr-1" 
+                                    style="fill: #718096;"
+                                >
+                                    <path d="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"/>
+                                    <title>Comments</title>
+                                </svg>
+
+                                <span>6</span>
                             </span>
                         </div>
                     </div>

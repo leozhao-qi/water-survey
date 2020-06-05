@@ -7835,6 +7835,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -7851,8 +7888,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         logbook_category_id: null,
         created: '',
         event_description: '',
-        details_of_event: ''
-      }
+        details_of_event: '',
+        files: []
+      },
+      addFiles: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
@@ -7900,11 +7939,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
+    var _this2 = this;
+
     this.fetchLogbookCategories();
     this.form.logbook_category_id = this.logbook.logbook_category_id;
     this.form.created = Object(_helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(this.logbook.created);
     this.form.event_description = this.logbook.event_description;
     this.form.details_of_event = this.logbook.details_of_event;
+    window.events.$on('upload:finished', function (fileObject) {
+      return _this2.form.files.push(fileObject);
+    });
   }
 });
 
@@ -7939,6 +7983,26 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68648,6 +68712,76 @@ var render = function() {
           1
         ),
         _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "my-4" },
+          [
+            _c("div", { staticClass: "flex items-center mb-2" }, [
+              _c("h2", { staticClass: "text-2xl" }, [
+                _vm._v("\n                    Files\n                ")
+              ]),
+              _vm._v(" "),
+              !_vm.addFiles
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-text text-sm text-blue-500",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.addFiles = true
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Add files\n                "
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm.logbook.files.length ? _c("logbook-files") : _vm._e(),
+            _vm._v(" "),
+            !_vm.addFiles
+              ? _c("hr", {
+                  staticClass: "block w-full mt-6 pt-6 border-t border-gray-200"
+                })
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm.addFiles
+          ? _c(
+              "div",
+              { staticClass: "my-4" },
+              [
+                _c("file-upload"),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-text text-blue-500",
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.addFiles = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Cancel\n            ")]
+                ),
+                _vm._v(" "),
+                _c("hr", {
+                  staticClass: "block w-full mt-6 pt-6 border-t border-gray-200"
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "w-full" }, [
           _c("button", { staticClass: "btn btn-blue text-sm" }, [
             _vm._v("\n                Edit logbook\n            ")
@@ -69083,26 +69217,50 @@ var render = function() {
                               _c(
                                 "svg",
                                 {
-                                  staticClass: "w-4 h-4 mr-1",
-                                  attrs: {
-                                    stroke: "currentColor",
-                                    "stroke-width": "2",
-                                    fill: "none",
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round",
-                                    viewBox: "0 0 24 24"
-                                  }
+                                  staticClass: "w-5 h-5",
+                                  staticStyle: { fill: "#718096" },
+                                  attrs: { viewBox: "0 0 24 24" }
                                 },
                                 [
                                   _c("path", {
                                     attrs: {
                                       d:
-                                        "M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                                        "M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z"
                                     }
-                                  })
+                                  }),
+                                  _vm._v(" "),
+                                  _c("title", [_vm._v("Attachments")])
                                 ]
                               ),
-                              _vm._v("6\n                        ")
+                              _vm._v(" "),
+                              _c("span", { staticClass: "mr-4" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(logbook.files.length) +
+                                    "\n                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "w-5 h-5 mr-1",
+                                  staticStyle: { fill: "#718096" },
+                                  attrs: { viewBox: "0 0 24 24" }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("title", [_vm._v("Comments")])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("span", [_vm._v("6")])
                             ]
                           )
                         ]
@@ -69177,7 +69335,9 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              !_vm.updating && !_vm.hasRole(["manager", "head_of_operations"])
+              !_vm.updating &&
+              (_vm.hasRole(["administrator"]) ||
+                _vm.logbook.user.id === parseInt(_vm.authUser.id))
                 ? [
                     _c(
                       "button",
