@@ -39,6 +39,11 @@
                     {{ logbook.user.fullname }} ({{ ucfirst(logbook.user.role) }}) 
                     on {{ dayjs(logbook.created).format('MM/DD/YYYY') }}
                 </p>
+
+                <p class="text-gray-500 text-sm" v-if="logbook.updated">
+                    <strong>Updated:</strong> 
+                    at {{ dayjs(logbook.updated).format('MM/DD/YYYY') }}
+                </p>
             </div>
 
             <div 
@@ -47,12 +52,14 @@
             ></div>
 
             <template v-if="logbook.files.length">
-                <h2 class="text-2xl mt-4 mb-2">
+                <h2 class="text-2xl mt-6 mb-2">
                     Files
                 </h2>
 
                 <logbook-files />
             </template>
+
+            <comments />
         </template>
 
         <logbooks-edit 
@@ -88,8 +95,7 @@ export default {
     data() {
         return {
             modalActive: false,
-            updating: false
-        }
+            updating: false        }
     },
 
     computed: {

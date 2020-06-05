@@ -49,6 +49,8 @@
                             class="shadow appearance-none border rounded w-64 py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
                             :id="`actual_filename-${file.actual_filename}`"
                             :class="{ 'border-red-500': errors.actual_filename }"
+                            @keydown.enter="save"
+                            @keydown.esc="cancel"
                         >
 
                         <svg 

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Logbooks;
 
 use App\LogbookCategory;
 use Illuminate\Support\Str;
+use App\Http\Resources\Comments\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\LogbookCategories\LogbookCategoryResource;
 
@@ -28,7 +29,13 @@ class LogbookResource extends JsonResource
             ),
             'created' => $this->created,
             'user' => $this->user,
-            'files' => $this->logbookFiles
+            'files' => $this->logbookFiles,
+            'updated' => !$this->created_at->equalTo($this->updated_at) ? $this->updated_at : null,
+            'comments' => CommentResource::collection(
+                $this->comments()
+                    ->with(['user', 'commentable'])
+                    ->get()
+            )
         ];
     }
 }

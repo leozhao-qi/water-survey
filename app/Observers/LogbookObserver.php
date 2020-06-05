@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Logbook;
+use Illuminate\Support\Facades\Storage;
 
 class LogbookObserver
 {
@@ -22,5 +23,8 @@ class LogbookObserver
 
             $file->delete();
         }
+
+        // Delete comments
+        $logbook->comments->each->delete();
     }
 }

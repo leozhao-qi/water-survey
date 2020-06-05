@@ -3,6 +3,7 @@
 namespace App;
 
 use App\User;
+use App\Comment;
 use App\Logbook;
 use App\Package;
 use App\Objective;
@@ -83,6 +84,11 @@ class User extends Authenticatable
     public function logbooks()
     {
         return $this->hasMany(Logbook::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function getFirstnameAttribute()

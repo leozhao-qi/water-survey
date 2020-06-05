@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Comment;
 use App\LogbookFile;
 use App\LogbookCategory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,11 @@ class Logbook extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable')
+            ->orderBy('created_at', 'desc');
     }
 }

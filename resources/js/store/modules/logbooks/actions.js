@@ -51,3 +51,37 @@ export const fetch = async ({ commit, rootState }) => {
 
     return
 }
+
+export const fetchComments = async ({ commit, state }) => {
+    let { data: comments } = await axios.get(`/api/logbooks/${state.logbook.id}/comments`)
+
+    commit('SET_LOGBOOK_COMMENTS', comments.data)
+
+    return
+}
+
+export const storeComment = async ({ state, dispatch }, form) => {
+    let { data } = await axios.post(`/api/logbooks/${state.logbook.id}/comments`, form)
+
+    await dispatch('fetchComments')
+
+    return data
+}
+
+export const updateComment = async ({ state, commit }, { commentId, form }) => {
+    let { data } = await axios.put(`/api/logbooks/${state.logbook.id}/comments/${commentId}`, form)
+
+    commit('SET_LOGBOOK_COMMENT', data.data.comment)
+
+    return data
+}
+
+export const destroyComment = async ({ state, commit }, commentId) => {
+    let { data } = await axios.delete(`/api/logbooks/${state.logbook.id}/comments/${commentId}`)
+
+    commit('REMOVE_LOGBOOK_COMMENT', data.data.comment)
+
+    window.events.$emit('comments:deleted', data.data.message)
+
+    return
+}

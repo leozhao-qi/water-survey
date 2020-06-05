@@ -21,16 +21,6 @@ Route::middleware(['download'])->group(function () {
 		'/storage/entries',
 		'Logbooks\Api\LogbookFilesController@download'
     );
-
-	// Route::delete(
-	// 	'/storage/entries/{user}/{logbookEntry}/{file}',
-	// 	'\TrainingTracker\Http\LogbookEntries\Controllers\Api\LogbookEntryFilesController@destroy'
-	// );
-
-	// Route::patch(
-	// 	'/storage/entries/{user}/{logbookEntry}/updatefiles',
-	// 	'\TrainingTracker\Http\LogbookEntries\Controllers\Api\LogbookEntryFilesController@update'
-	// );
 });
 
 Route::resource('users', 'Users\UsersController');
@@ -142,3 +132,11 @@ Route::resource('/api/logbooks', 'Logbooks\Api\LogbookController');
 Route::post('/api/logbooks/files/upload', 'Logbooks\Api\LogbookFilesController@upload');
 
 Route::post('/api/logbooks/filemeta', 'Logbooks\Api\LogbookFilesController@meta');
+
+Route::get('/api/logbooks/{logbook}/comments', 'Logbooks\Api\LogbookCommentController@index');
+
+Route::post('/api/logbooks/{logbook}/comments', 'Logbooks\Api\LogbookCommentController@store');
+
+Route::put('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@update');
+
+Route::delete('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@destroy');
