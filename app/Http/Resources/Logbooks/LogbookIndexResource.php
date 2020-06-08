@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Logbooks;
 
+use App\User;
 use App\Package;
 use App\LogbookCategory;
 use Illuminate\Support\Str;
@@ -27,18 +28,18 @@ class LogbookIndexResource extends JsonResource
                 $this->logbookCategory
             ),
             'created' => $this->created,
+            'references' => $this->references ? User::find($this->references) : null,
             'user' => $this->user,
             'files' => $this->logbookFiles->count(),
             'updated' => !$this->created_at->equalTo($this->updated_at) ? $this->updated_at : null,
             'comments' => $this->comments->count(),
-            'packagesArr' => $this->logbookPackages->map(function ($p) {
+            'packages' => implode(', ', $this->logbookPackages->map(function ($p) {
                 $package = Package::find($p['package_id']);
 
                 return [
-                    'id' => $p['package_id'],
                     'number' => $package->lesson->number
                 ];
-            })->sortBy('lesson')->toArray()
+            })->sortBy('number')->pluck('number')->toArray())
         ];
     }
 }

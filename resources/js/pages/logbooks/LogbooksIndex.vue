@@ -93,9 +93,39 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="mb-2 w-full lg:w-1/2 p-2">
+                    <label 
+                        for="package_filter"
+                        class="block text-gray-700 font-bold mb-2"
+                    >
+                        Lesson packages
+                    </label>
+
+                    <div class="relative">
+                        <select 
+                            id="package_filter"
+                            v-model="filter.package"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >
+                            <option value=""></option>
+
+                            <option
+                                :value="p.package"
+                                v-for="p in packagesIndex"
+                                :key="p.id"
+                                v-text="p.package"
+                            ></option>
+                        </select>
+
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <ul>
+            <ul v-if="filteredLogbooks.length">
                 <li
                     v-for="logbook in filteredLogbooks"
                     :key="logbook.id"
@@ -112,6 +142,11 @@
 
                         <p class="text-sm text-gray-500 mb-3">
                             {{ logbook.user.firstname }} {{ logbook.user.lastname }} | 
+
+                            <span v-if="logbook.references">
+                                <strong>Apprentice: </strong> 
+                                {{ logbook.references.fullname }} | 
+                            </span>
 
                             <span>
                                 <strong>Created:</strong> {{ dayjs(logbook.created).format('MM/DD/YYYY') }}
@@ -139,6 +174,19 @@
                             </a>
 
                             <span class="text-gray-600 inline-flex items-center leading-none text-sm ml-auto">
+                                <svg 
+                                    viewBox="0 0 24 24"
+                                    class="w-5 h-5" 
+                                    style="fill: #718096;"
+                                >
+                                    <path d="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z"/>
+                                    <title>Lesson packages covered</title>
+                                </svg>
+
+                                <span class="mr-4 ml-1">
+                                    {{ logbook.packages }}
+                                </span>
+
                                 <template v-if="logbook.files > 0">
                                     <svg 
                                         viewBox="0 0 24 24"
@@ -171,6 +219,10 @@
                     </div>
                 </li>
             </ul>
+
+            <div class="alert alert-blue" v-else>
+                There are no logbooks that match your search criteria
+            </div>
 
             <paginate
                 :page-count="pages"
@@ -206,7 +258,8 @@ export default {
             filter: {
                 event_description: '',
                 category: '',
-                author: ''
+                author: '',
+                package: ''
             }
         }
     },
@@ -228,6 +281,7 @@ export default {
             this.filter.event_description = ''
             this.filter.category = ''
             this.filter.author = ''
+            this.filter.package = ''
         },
 
         show (logbookId) {
@@ -239,7 +293,8 @@ export default {
         ...mapGetters({
             logbooks: 'logbooks/logbooks',
             logbookCategories: 'logbookCategories/logbookCategories',
-            users: 'logbooks/users'
+            users: 'logbooks/users',
+            packagesIndex: 'logbooks/packagesIndex'
         }),
 
         filteredLogbooks () {  
@@ -260,6 +315,14 @@ export default {
             if (this.filter.author) {
                 filtered = filter(filtered, item => {
                     return item.user.fullname.toLowerCase().indexOf(this.filter.author.toLowerCase()) >= 0
+                })
+            }
+
+            if (this.filter.package) {
+                let number = this.filter.package.split('-')[0].trim()
+
+                filtered = filter(filtered, item => {
+                    return item.packages.indexOf(number) >= 0
                 })
             }
 

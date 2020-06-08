@@ -47,6 +47,14 @@
                     on {{ dayjs(logbook.created).format('MM/DD/YYYY') }}
                 </p>
 
+                <p 
+                    class="text-gray-500 text-sm"
+                    v-if="logbook.references"
+                >
+                    <strong>Apprentice:</strong> 
+                    {{ logbook.references.fullname }}
+                </p>
+
                 <p class="text-gray-500 text-sm" v-if="logbook.updated">
                     <strong>Updated:</strong> 
                     at {{ dayjs(logbook.updated).format('MM/DD/YYYY') }}

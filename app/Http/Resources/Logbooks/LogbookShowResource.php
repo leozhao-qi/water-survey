@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Logbooks;
 
+use App\User;
 use App\Package;
 use App\Http\Resources\Comments\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -42,7 +43,8 @@ class LogbookShowResource extends JsonResource
                     'id' => $p['package_id'],
                     'lesson' => $package->lesson->number . ' - ' . $package->lesson->name
                 ];
-            })->sortBy('lesson')->toArray()
+            })->sortBy('lesson')->toArray(),
+            'references' => $this->references ? User::find($this->references) : null,
         ];
     }
 }

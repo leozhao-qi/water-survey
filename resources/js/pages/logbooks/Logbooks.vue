@@ -2,7 +2,7 @@
     <div class="flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto">
         <nav 
             class="flex justify-end w-full items-center"
-            v-if="hasRole(['apprentice', 'supervisor']) && !creating && !showing"
+            v-if="hasRole(['apprentice', 'supervisor']) && authUser.role !== 'administrator' && !creating && !showing"
             @click.prevent="creating = true"
         >
             <a 

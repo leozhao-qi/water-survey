@@ -19,3 +19,7 @@ export const REMOVE_LOGBOOK_COMMENT = (state, comment) => state.logbook.comments
 export const SET_USERS = (state, users) => state.users = users
 
 export const SET_LOGBOOK_PACKAGES = (state, packages) => state.packages = packages
+
+export const SET_APPRENTICES = (state, apprentices) => state.apprentices = apprentices
+
+export const SET_PACKAGES_INDEX = (state, packages) => state.packagesIndex = packages

@@ -8081,6 +8081,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8099,7 +8136,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         event_description: '',
         details_of_event: '',
         files: [],
-        packages: []
+        packages: [],
+        references: null
       },
       addFiles: false,
       selectedPackage: null
@@ -8107,7 +8145,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     logbookCategories: 'logbookCategories/logbookCategories',
-    packages: 'logbooks/packages'
+    packages: 'logbooks/packages',
+    apprentices: 'logbooks/apprentices'
   })), {}, {
     availablePackages: function availablePackages() {
       var _this = this;
@@ -8129,6 +8168,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.selectedPackage) {
         this.form.packages.push(this.selectedPackage);
       }
+    },
+    'form.references': function formReferences() {
+      this.fetchLessonPackages(this.form.references);
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
@@ -8136,6 +8178,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fetchLessonPackages: 'logbooks/fetchLessonPackages',
     storeEntry: 'logbooks/store'
   })), {}, {
+    filter: lodash_es__WEBPACK_IMPORTED_MODULE_5__["filter"],
     cancel: function cancel() {
       window.events.$emit('logbooks:create-cancel');
       this.form.logbook_category_id = null;
@@ -8144,6 +8187,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.details_of_event = '';
       this.form.files = [];
       this.form.packages = [];
+      this.form.references = null;
     },
     store: function store() {
       var _this3 = this;
@@ -8186,10 +8230,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _this4.fetchLogbookCategories();
 
             case 2:
-              _context2.next = 4;
-              return _this4.fetchLessonPackages(parseInt(_this4.authUser.id));
+              if (!(_this4.authUser.role === 'apprentice')) {
+                _context2.next = 5;
+                break;
+              }
 
-            case 4:
+              _context2.next = 5;
+              return _this4.fetchLessonPackages(_this4.authUser.id);
+
+            case 5:
               window.events.$on('upload:finished', function (fileObject) {
                 return _this4.form.files.push(fileObject);
               });
@@ -8199,7 +8248,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
               });
 
-            case 6:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -8475,6 +8524,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8494,7 +8578,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         event_description: '',
         details_of_event: '',
         files: [],
-        packages: []
+        packages: [],
+        references: null
       },
       addFiles: false,
       selectedPackage: null
@@ -8503,7 +8588,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     logbook: 'logbooks/logbook',
     logbookCategories: 'logbookCategories/logbookCategories',
-    packages: 'logbooks/packages'
+    packages: 'logbooks/packages',
+    apprentices: 'logbooks/apprentices'
   })), {}, {
     availablePackages: function availablePackages() {
       var _this = this;
@@ -8525,6 +8611,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.selectedPackage) {
         this.form.packages.push(this.selectedPackage);
       }
+    },
+    'form.references': function formReferences() {
+      this.fetchLessonPackages(this.form.references);
     }
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
@@ -8582,15 +8671,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _this4.fetchLogbookCategories();
 
             case 2:
-              _context2.next = 4;
-              return _this4.fetchLessonPackages(parseInt(_this4.authUser.id));
+              if (!(_this4.authUser.role === 'apprentice')) {
+                _context2.next = 5;
+                break;
+              }
 
-            case 4:
+              _context2.next = 5;
+              return _this4.fetchLessonPackages(_this4.authUser.id);
+
+            case 5:
               _this4.form.logbook_category_id = _this4.logbook.logbook_category_id;
               _this4.form.created = Object(_helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(_this4.logbook.created);
               _this4.form.event_description = _this4.logbook.event_description;
               _this4.form.details_of_event = _this4.logbook.details_of_event;
               _this4.form.packages = _this4.logbook.packages;
+              _this4.form.references = _this4.logbook.references ? _this4.logbook.references.id : null;
               window.events.$on('upload:finished', function (fileObject) {
                 return _this4.form.files.push(fileObject);
               });
@@ -8600,7 +8695,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
               });
 
-            case 11:
+            case 13:
             case "end":
               return _context2.stop();
           }
@@ -8828,6 +8923,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8846,7 +8993,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       filter: {
         event_description: '',
         category: '',
-        author: ''
+        author: '',
+        "package": ''
       }
     };
   },
@@ -8862,6 +9010,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filter.event_description = '';
       this.filter.category = '';
       this.filter.author = '';
+      this.filter["package"] = '';
     },
     show: function show(logbookId) {
       window.events.$emit('logbooks:show', logbookId);
@@ -8870,7 +9019,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     logbooks: 'logbooks/logbooks',
     logbookCategories: 'logbookCategories/logbookCategories',
-    users: 'logbooks/users'
+    users: 'logbooks/users',
+    packagesIndex: 'logbooks/packagesIndex'
   })), {}, {
     filteredLogbooks: function filteredLogbooks() {
       var _this = this;
@@ -8892,6 +9042,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.filter.author) {
         filtered = Object(lodash_es__WEBPACK_IMPORTED_MODULE_3__["filter"])(filtered, function (item) {
           return item.user.fullname.toLowerCase().indexOf(_this.filter.author.toLowerCase()) >= 0;
+        });
+      }
+
+      if (this.filter["package"]) {
+        var number = this.filter["package"].split('-')[0].trim();
+        filtered = Object(lodash_es__WEBPACK_IMPORTED_MODULE_3__["filter"])(filtered, function (item) {
+          return item.packages.indexOf(number) >= 0;
         });
       }
 
@@ -8960,6 +9117,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -69294,7 +69459,10 @@ var render = function() {
       staticClass: "flex flex-col items-center w-full lg:w-9/12 py-16 mx-auto"
     },
     [
-      _vm.hasRole(["apprentice", "supervisor"]) && !_vm.creating && !_vm.showing
+      _vm.hasRole(["apprentice", "supervisor"]) &&
+      _vm.authUser.role !== "administrator" &&
+      !_vm.creating &&
+      !_vm.showing
         ? _c(
             "nav",
             {
@@ -69427,15 +69595,22 @@ var render = function() {
               [
                 _c("option", { attrs: { value: "" } }),
                 _vm._v(" "),
-                _vm._l(_vm.logbookCategories, function(logbookCategory) {
-                  return _c("option", {
-                    key: logbookCategory.id,
-                    domProps: {
-                      value: logbookCategory.id,
-                      textContent: _vm._s(logbookCategory.name)
-                    }
-                  })
-                })
+                _vm._l(
+                  _vm.filter(_vm.logbookCategories, function(category) {
+                    return _vm.hasRole(["supervisor"]) && category.id !== 4
+                      ? false
+                      : true
+                  }),
+                  function(logbookCategory) {
+                    return _c("option", {
+                      key: logbookCategory.id,
+                      domProps: {
+                        value: logbookCategory.id,
+                        textContent: _vm._s(logbookCategory.name)
+                      }
+                    })
+                  }
+                )
               ],
               2
             ),
@@ -69563,6 +69738,101 @@ var render = function() {
               })
             : _vm._e()
         ]),
+        _vm._v(" "),
+        _vm.apprentices.length
+          ? _c("div", { staticClass: "w-full mb-4" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "block text-gray-700 font-bold mb-2",
+                  class: { "text-red-500": _vm.errors.references },
+                  attrs: { for: "references" }
+                },
+                [_vm._v("\n                Apprentice\n            ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative w-full lg:w-1/2" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.references,
+                        expression: "form.references"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                    class: { "border-red-500": _vm.errors.references },
+                    attrs: { id: "references" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "references",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }),
+                    _vm._v(" "),
+                    _vm._l(_vm.apprentices, function(apprentice) {
+                      return _c("option", {
+                        key: apprentice.id,
+                        domProps: {
+                          value: apprentice.id,
+                          textContent: _vm._s("" + apprentice.fullname)
+                        }
+                      })
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "w-full mb-4" }, [
           _c(
@@ -70032,6 +70302,101 @@ var render = function() {
               })
             : _vm._e()
         ]),
+        _vm._v(" "),
+        _vm.apprentices.length
+          ? _c("div", { staticClass: "w-full mb-4" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "block text-gray-700 font-bold mb-2",
+                  class: { "text-red-500": _vm.errors.references },
+                  attrs: { for: "references" }
+                },
+                [_vm._v("\n                Apprentice\n            ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "relative w-full lg:w-1/2" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.references,
+                        expression: "form.references"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                    class: { "border-red-500": _vm.errors.references },
+                    attrs: { id: "references" },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "references",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "" } }),
+                    _vm._v(" "),
+                    _vm._l(_vm.apprentices, function(apprentice) {
+                      return _c("option", {
+                        key: apprentice.id,
+                        domProps: {
+                          value: apprentice.id,
+                          textContent: _vm._s("" + apprentice.fullname)
+                        }
+                      })
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current h-4 w-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "w-full mb-4" }, [
           _c(
@@ -70571,209 +70936,360 @@ var render = function() {
                         ]
                       )
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "mb-2 w-full lg:w-1/2 p-2" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "block text-gray-700 font-bold mb-2",
+                        attrs: { for: "package_filter" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    Lesson packages\n                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "relative" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.filter.package,
+                              expression: "filter.package"
+                            }
+                          ],
+                          staticClass:
+                            "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                          attrs: { id: "package_filter" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.filter,
+                                "package",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }),
+                          _vm._v(" "),
+                          _vm._l(_vm.packagesIndex, function(p) {
+                            return _c("option", {
+                              key: p.id,
+                              domProps: {
+                                value: p.package,
+                                textContent: _vm._s(p.package)
+                              }
+                            })
+                          })
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass: "fill-current h-4 w-4",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 20 20"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
                   ])
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _c(
-              "ul",
-              _vm._l(_vm.filteredLogbooks, function(logbook) {
-                return _c("li", { key: logbook.id, staticClass: "mb-6" }, [
-                  _c(
-                    "div",
-                    { staticClass: "border-2 border-gray-200 rounded-lg p-6" },
-                    [
-                      _c(
-                        "h2",
-                        {
-                          staticClass:
-                            "tracking-widest text-xs title-font font-medium uppercase text-gray-500 mb-1"
-                        },
-                        [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(logbook.category.name) +
-                              "\n                    "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "h1",
-                        {
-                          staticClass:
-                            "title-font text-lg font-medium text-gray-900 mb-1"
-                        },
-                        [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(logbook.event_description) +
-                              "\n                    "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-sm text-gray-500 mb-3" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(logbook.user.firstname) +
-                            " " +
-                            _vm._s(logbook.user.lastname) +
-                            " | \n\n                        "
-                        ),
-                        _c("span", [
-                          _c("strong", [_vm._v("Created:")]),
-                          _vm._v(
-                            " " +
-                              _vm._s(
-                                _vm.dayjs(logbook.created).format("MM/DD/YYYY")
-                              ) +
-                              "\n                        "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        logbook.updated
-                          ? _c("span", [
-                              _vm._v("\n                            | "),
-                              _c("strong", [_vm._v("Updated:")]),
-                              _vm._v(
-                                " " +
-                                  _vm._s(
-                                    _vm
-                                      .dayjs(logbook.updated)
-                                      .format("MM/DD/YYYY")
-                                  ) +
-                                  "\n                        "
-                              )
-                            ])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "leading-relaxed my-3" }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(logbook.details_of_event_truncated) +
-                            "\n                    "
-                        )
-                      ]),
-                      _vm._v(" "),
+            _vm.filteredLogbooks.length
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.filteredLogbooks, function(logbook) {
+                    return _c("li", { key: logbook.id, staticClass: "mb-6" }, [
                       _c(
                         "div",
-                        { staticClass: "flex items-center flex-wrap " },
+                        {
+                          staticClass: "border-2 border-gray-200 rounded-lg p-6"
+                        },
                         [
                           _c(
-                            "a",
+                            "h2",
                             {
                               staticClass:
-                                "text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 cursor-pointer",
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.show(logbook.id)
-                                }
-                              }
+                                "tracking-widest text-xs title-font font-medium uppercase text-gray-500 mb-1"
                             },
                             [
                               _vm._v(
-                                "\n                            Read more\n                            "
-                              ),
-                              _c(
-                                "svg",
-                                {
-                                  staticClass: "w-4 h-4 ml-2",
-                                  attrs: {
-                                    viewBox: "0 0 24 24",
-                                    stroke: "currentColor",
-                                    "stroke-width": "2",
-                                    fill: "none",
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round"
-                                  }
-                                },
-                                [
-                                  _c("path", { attrs: { d: "M5 12h14" } }),
-                                  _vm._v(" "),
-                                  _c("path", { attrs: { d: "M12 5l7 7-7 7" } })
-                                ]
+                                "\n                        " +
+                                  _vm._s(logbook.category.name) +
+                                  "\n                    "
                               )
                             ]
                           ),
                           _vm._v(" "),
                           _c(
-                            "span",
+                            "h1",
                             {
                               staticClass:
-                                "text-gray-600 inline-flex items-center leading-none text-sm ml-auto"
+                                "title-font text-lg font-medium text-gray-900 mb-1"
                             },
                             [
-                              logbook.files > 0
-                                ? [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "w-5 h-5",
-                                        staticStyle: { fill: "#718096" },
-                                        attrs: { viewBox: "0 0 24 24" }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("title", [_vm._v("Attachments")])
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "mr-4" }, [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(logbook.files) +
-                                          "\n                                "
-                                      )
-                                    ])
-                                  ]
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(logbook.event_description) +
+                                  "\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "text-sm text-gray-500 mb-3" },
+                            [
+                              _vm._v(
+                                "\n                        " +
+                                  _vm._s(logbook.user.firstname) +
+                                  " " +
+                                  _vm._s(logbook.user.lastname) +
+                                  " | \n\n                        "
+                              ),
+                              logbook.references
+                                ? _c("span", [
+                                    _c("strong", [_vm._v("Apprentice: ")]),
+                                    _vm._v(
+                                      " \n                            " +
+                                        _vm._s(logbook.references.fullname) +
+                                        " | \n                        "
+                                    )
+                                  ])
                                 : _vm._e(),
                               _vm._v(" "),
-                              logbook.comments > 0
-                                ? [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass: "w-5 h-5 mr-1",
-                                        staticStyle: { fill: "#718096" },
-                                        attrs: { viewBox: "0 0 24 24" }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("title", [_vm._v("Comments")])
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _vm._v(_vm._s(logbook.comments))
-                                    ])
-                                  ]
+                              _c("span", [
+                                _c("strong", [_vm._v("Created:")]),
+                                _vm._v(
+                                  " " +
+                                    _vm._s(
+                                      _vm
+                                        .dayjs(logbook.created)
+                                        .format("MM/DD/YYYY")
+                                    ) +
+                                    "\n                        "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              logbook.updated
+                                ? _c("span", [
+                                    _vm._v("\n                            | "),
+                                    _c("strong", [_vm._v("Updated:")]),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(
+                                          _vm
+                                            .dayjs(logbook.updated)
+                                            .format("MM/DD/YYYY")
+                                        ) +
+                                        "\n                        "
+                                    )
+                                  ])
                                 : _vm._e()
-                            ],
-                            2
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "leading-relaxed my-3" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(logbook.details_of_event_truncated) +
+                                "\n                    "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "flex items-center flex-wrap " },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "text-blue-500 inline-flex items-center md:mb-2 lg:mb-0 cursor-pointer",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.show(logbook.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Read more\n                            "
+                                  ),
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-4 h-4 ml-2",
+                                      attrs: {
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor",
+                                        "stroke-width": "2",
+                                        fill: "none",
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round"
+                                      }
+                                    },
+                                    [
+                                      _c("path", { attrs: { d: "M5 12h14" } }),
+                                      _vm._v(" "),
+                                      _c("path", {
+                                        attrs: { d: "M12 5l7 7-7 7" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "text-gray-600 inline-flex items-center leading-none text-sm ml-auto"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-5 h-5",
+                                      staticStyle: { fill: "#718096" },
+                                      attrs: { viewBox: "0 0 24 24" }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("title", [
+                                        _vm._v("Lesson packages covered")
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("span", { staticClass: "mr-4 ml-1" }, [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(logbook.packages) +
+                                        "\n                            "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  logbook.files > 0
+                                    ? [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "w-5 h-5",
+                                            staticStyle: { fill: "#718096" },
+                                            attrs: { viewBox: "0 0 24 24" }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("title", [_vm._v("Attachments")])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", { staticClass: "mr-4" }, [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(logbook.files) +
+                                              "\n                                "
+                                          )
+                                        ])
+                                      ]
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  logbook.comments > 0
+                                    ? [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "w-5 h-5 mr-1",
+                                            staticStyle: { fill: "#718096" },
+                                            attrs: { viewBox: "0 0 24 24" }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H6L4,18V4H20"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("title", [_vm._v("Comments")])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("span", [
+                                          _vm._v(_vm._s(logbook.comments))
+                                        ])
+                                      ]
+                                    : _vm._e()
+                                ],
+                                2
+                              )
+                            ]
                           )
                         ]
                       )
-                    ]
+                    ])
+                  }),
+                  0
+                )
+              : _c("div", { staticClass: "alert alert-blue" }, [
+                  _vm._v(
+                    "\n            There are no logbooks that match your search criteria\n        "
                   )
-                ])
-              }),
-              0
-            ),
+                ]),
             _vm._v(" "),
             _c("paginate", {
               attrs: {
@@ -70932,6 +71448,17 @@ var render = function() {
                         "\n            "
                     )
                   ]),
+                  _vm._v(" "),
+                  _vm.logbook.references
+                    ? _c("p", { staticClass: "text-gray-500 text-sm" }, [
+                        _c("strong", [_vm._v("Apprentice:")]),
+                        _vm._v(
+                          " \n                " +
+                            _vm._s(_vm.logbook.references.fullname) +
+                            "\n            "
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.logbook.updated
                     ? _c("p", { staticClass: "text-gray-500 text-sm" }, [
@@ -101053,9 +101580,11 @@ var fetch = /*#__PURE__*/function () {
               root: true
             });
             commit('SET_USERS', logbooks.meta.users);
+            commit('SET_APPRENTICES', logbooks.meta.apprentices);
+            commit('SET_PACKAGES_INDEX', logbooks.meta.packages);
             return _context6.abrupt("return");
 
-          case 9:
+          case 11:
           case "end":
             return _context6.stop();
         }
@@ -101229,7 +101758,7 @@ var fetchLessonPackages = /*#__PURE__*/function () {
 /*!********************************************************!*\
   !*** ./resources/js/store/modules/logbooks/getters.js ***!
   \********************************************************/
-/*! exports provided: logbooks, logbook, users, packages */
+/*! exports provided: logbooks, logbook, users, packages, packagesIndex, apprentices */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -101238,6 +101767,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logbook", function() { return logbook; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "users", function() { return users; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "packages", function() { return packages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "packagesIndex", function() { return packagesIndex; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apprentices", function() { return apprentices; });
 var logbooks = function logbooks(state) {
   return state.logbooks;
 };
@@ -101249,6 +101780,12 @@ var users = function users(state) {
 };
 var packages = function packages(state) {
   return state.packages;
+};
+var packagesIndex = function packagesIndex(state) {
+  return state.packagesIndex;
+};
+var apprentices = function apprentices(state) {
+  return state.apprentices;
 };
 
 /***/ }),
@@ -101284,7 +101821,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************************!*\
   !*** ./resources/js/store/modules/logbooks/mutations.js ***!
   \**********************************************************/
-/*! exports provided: SET_LOGBOOKS, SET_LOGBOOK, SET_LOGBOOK_FILES, SET_LOGBOOK_COMMENTS, SET_LOGBOOK_COMMENT, REMOVE_LOGBOOK_COMMENT, SET_USERS, SET_LOGBOOK_PACKAGES */
+/*! exports provided: SET_LOGBOOKS, SET_LOGBOOK, SET_LOGBOOK_FILES, SET_LOGBOOK_COMMENTS, SET_LOGBOOK_COMMENT, REMOVE_LOGBOOK_COMMENT, SET_USERS, SET_LOGBOOK_PACKAGES, SET_APPRENTICES, SET_PACKAGES_INDEX */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -101297,6 +101834,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_LOGBOOK_COMMENT", function() { return REMOVE_LOGBOOK_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_USERS", function() { return SET_USERS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_LOGBOOK_PACKAGES", function() { return SET_LOGBOOK_PACKAGES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_APPRENTICES", function() { return SET_APPRENTICES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PACKAGES_INDEX", function() { return SET_PACKAGES_INDEX; });
 /* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
 
 var SET_LOGBOOKS = function SET_LOGBOOKS(state, logbooks) {
@@ -101329,6 +101868,12 @@ var SET_USERS = function SET_USERS(state, users) {
 var SET_LOGBOOK_PACKAGES = function SET_LOGBOOK_PACKAGES(state, packages) {
   return state.packages = packages;
 };
+var SET_APPRENTICES = function SET_APPRENTICES(state, apprentices) {
+  return state.apprentices = apprentices;
+};
+var SET_PACKAGES_INDEX = function SET_PACKAGES_INDEX(state, packages) {
+  return state.packagesIndex = packages;
+};
 
 /***/ }),
 
@@ -101345,7 +101890,9 @@ __webpack_require__.r(__webpack_exports__);
   logbooks: [],
   users: [],
   logbook: {},
-  packages: []
+  packages: [],
+  packagesIndex: [],
+  apprentices: []
 });
 
 /***/ }),

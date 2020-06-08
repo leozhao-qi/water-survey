@@ -106,6 +106,41 @@
                 ></p>
             </div>
 
+            <div
+                v-if="apprentices.length"
+                class="w-full mb-4"
+            >
+                <label 
+                    for="references"
+                    class="block text-gray-700 font-bold mb-2" 
+                    :class="{ 'text-red-500': errors.references }"
+                >
+                    Apprentice
+                </label>
+
+                <div class="relative w-full lg:w-1/2">
+                    <select 
+                        id="references"
+                        v-model="form.references"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500': errors.references }"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="apprentice.id"
+                            v-for="apprentice in apprentices"
+                            :key="apprentice.id"
+                            v-text="`${apprentice.fullname}`"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+
             <div class="w-full mb-4">
                 <label 
                     for="packages"
@@ -255,7 +290,8 @@ export default {
                 event_description: '',
                 details_of_event: '',
                 files: [],
-                packages: []
+                packages: [],
+                references: null
             },
             addFiles: false,
             selectedPackage: null        
@@ -266,7 +302,8 @@ export default {
         ...mapGetters({
             logbook: 'logbooks/logbook',
             logbookCategories: 'logbookCategories/logbookCategories',
-            packages: 'logbooks/packages'
+            packages: 'logbooks/packages',
+            apprentices: 'logbooks/apprentices'
         }),
 
         availablePackages () {
@@ -287,6 +324,10 @@ export default {
             if (this.selectedPackage) {
                 this.form.packages.push(this.selectedPackage)
             }
+        },
+
+        'form.references' () {
+            this.fetchLessonPackages(this.form.references)
         }
     },
 
@@ -322,13 +363,16 @@ export default {
     async mounted () {
         await this.fetchLogbookCategories()
 
-        await this.fetchLessonPackages(parseInt(this.authUser.id))
+        if (this.authUser.role === 'apprentice') {
+            await this.fetchLessonPackages(this.authUser.id)
+        }
 
         this.form.logbook_category_id = this.logbook.logbook_category_id
         this.form.created = fromMySQLDateFormat(this.logbook.created)
         this.form.event_description = this.logbook.event_description
         this.form.details_of_event = this.logbook.details_of_event
         this.form.packages = this.logbook.packages
+        this.form.references = this.logbook.references ? this.logbook.references.id : null
 
         window.events.$on('upload:finished', fileObject => this.form.files.push(fileObject))
 

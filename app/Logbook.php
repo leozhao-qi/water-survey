@@ -15,7 +15,8 @@ class Logbook extends Model
         'logbook_category_id',
         'created',
         'details_of_event',
-        'event_description'
+        'event_description',
+        'references'
     ];
 
     public function logbookFiles()

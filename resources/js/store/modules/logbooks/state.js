@@ -2,5 +2,7 @@ export default {
 	logbooks: [],
 	users: [],
 	logbook: {},
-	packages: []
+	packages: [],
+	packagesIndex: [],
+	apprentices: []
 }

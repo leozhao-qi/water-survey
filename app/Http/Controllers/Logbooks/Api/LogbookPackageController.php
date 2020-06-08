@@ -14,7 +14,7 @@ class LogbookPackageController extends Controller
     public function index(User $user)
     {
         return LogbookPackageResource::collection(
-            auth()->user()->packages
+            $user->packages
         );
     }
 

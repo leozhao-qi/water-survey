@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Logbooks\Api;
 
 use App\User;
 use App\Logbook;
+use App\Package;
+use Carbon\Carbon;
 use App\LogbookFile;
 use App\LogbookPackage;
 use App\LogbookCategory;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
+use App\Http\Resources\Packages\PackageResource;
 use App\Http\Resources\Logbooks\LogbookShowResource;
 use App\Http\Resources\Logbooks\LogbookIndexResource;
 use App\Http\Resources\LogbookCategories\LogbookCategoryResource;
@@ -51,18 +54,48 @@ class LogbookController extends Controller
 
         $users = User::whereIn('id', $usersIds)->get();
 
+        // If you are a supervisor, get your apprentice user id's so that they can
+        // be used to populate the 'Apprentices' select menu when you are creating 
+        // 'Supervisor comment' logbook entries.
+        $apprenticeIds = [];
+
+        if (auth()->user()->hasRole(['supervisor'])) {
+            $apprenticeIds = auth()->user()->reportingStructure()->flatten(1)->map(function ($user) {
+                if ($user['role'] === 'apprentice') {
+                    return $user['id'];
+                }
+            })->filter()->toArray();
+        }
+
         // Get all logbooks of users who work under you
         $usersLogbooks = Logbook::whereIn('user_id', $usersIds)->get();
 
+        // If you are an apprentice, get any logbooks which reference your name
+        $referencedLogbooks = Logbook::whereReferences(auth()->id())->get();
+
+        // Get the names of supervisors who reference you in their logbook entries 
+        // so that you can filter by their names on the logbook index page.
+        $referencedLogbookUserIds = array_unique($referencedLogbooks->pluck('user_id')->toArray());
+
+        if (count($referencedLogbookUserIds)) {
+            $users = $users->merge(User::find($referencedLogbookUserIds));
+        }
+
+        $logbooks = $logbooks->merge($usersLogbooks)->merge($referencedLogbooks);
+        $logbookPackages = LogbookPackage::whereIn('logbook_id', $logbooks->pluck('id')->toArray())->get();
+        $packages = Package::whereIn('id', $logbookPackages->pluck('package_id')->toArray())->get();
+
         return LogbookIndexResource::collection(
-            $logbooks->merge($usersLogbooks)->sortByDesc('created')
+            $logbooks->sortByDesc('created')
         )
             ->additional([
                 'meta' => [
                     'logbookCategories' => LogbookCategoryResource::collection(
                         LogbookCategory::all()
                     ),
-                    'users' => $users->push(auth()->user())
+                    'users' => $users->push(auth()->user()),
+                    'apprentices' => count($apprenticeIds) ? User::find($apprenticeIds) : [],
+                    'packages' => PackageResource::collection($packages)
                 ]
             ]);
     }
@@ -73,7 +106,7 @@ class LogbookController extends Controller
 
     public function store()
     {
-        if (auth()->user()->hasRole(['administrator', 'supervisor', 'apprentice']) === false) {
+        if (auth()->user()->hasRole(['supervisor', 'apprentice']) === false) {
             return response()->json([
                 'data' => [
                     'message' => 'You are not authorized to do that.'
@@ -88,7 +121,16 @@ class LogbookController extends Controller
             'details_of_event' => 'required|min:20',
             'files' => 'sometimes|array',
             'packages' => 'required|array',
-            'packages.*' => 'exists:packages,id'
+            'packages.*' => 'exists:packages,id',
+            'references' => [
+                'nullable',
+                function ($attribute, $value, $fail) {
+                    if ((int) request('logbook_category_id') === 4 && !$value) {
+                        $fail('If this is a supervisor comment, you must reference an apprentice.');
+                    }
+                },
+                'exists:users,id'
+            ]
         ]);
 
         $data = array_merge(request()->all(), [
@@ -162,6 +204,10 @@ class LogbookController extends Controller
                 'coded_filename' => $file['codedFilename']
             ]);
         }
+
+        $logbook->update([
+            'updated_at' => Carbon::now()
+        ]);
 
         return response()->json([
             'data' => [

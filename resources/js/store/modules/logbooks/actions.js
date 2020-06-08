@@ -50,6 +50,10 @@ export const fetch = async ({ commit, rootState }) => {
 
     commit('SET_USERS', logbooks.meta.users)
 
+    commit('SET_APPRENTICES', logbooks.meta.apprentices)
+
+    commit('SET_PACKAGES_INDEX', logbooks.meta.packages)
+
     return
 }
 
