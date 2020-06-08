@@ -4,6 +4,7 @@ namespace App;
 
 use App\Comment;
 use App\LogbookFile;
+use App\LogbookPackage;
 use App\LogbookCategory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,11 @@ class Logbook extends Model
     public function logbookFiles()
     {
         return $this->hasMany(LogbookFile::class);
+    }
+
+    public function logbookPackages()
+    {
+        return $this->hasMany(LogbookPackage::class);
     }
 
     public function logbookCategory()

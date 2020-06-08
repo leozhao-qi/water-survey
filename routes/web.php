@@ -140,3 +140,7 @@ Route::post('/api/logbooks/{logbook}/comments', 'Logbooks\Api\LogbookCommentCont
 Route::put('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@update');
 
 Route::delete('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@destroy');
+
+Route::get('/api/users/{user}/packages', 'Logbooks\Api\LogbookPackageController@index');
+
+Route::get('/api/packages/{package}/objectives', 'Logbooks\Api\LogbookPackageController@objectives');

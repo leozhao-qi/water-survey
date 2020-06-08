@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Logbooks\Api;
 use App\User;
 use App\Logbook;
 use App\LogbookFile;
+use App\LogbookPackage;
 use App\LogbookCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
@@ -135,6 +136,13 @@ class LogbookController extends Controller
                 'logbook_id' => $logbook->id,
                 'actual_filename' => $file['actualFilename'],
                 'coded_filename' => $file['codedFilename']
+            ]);
+        }
+
+        foreach (request('packages') as $packageId) {
+            LogbookPackage::create([
+                'logbook_id' => $logboook->id,
+                'package_id' => $packageId
             ]);
         }
 

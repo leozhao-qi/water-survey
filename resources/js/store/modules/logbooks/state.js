@@ -1,5 +1,6 @@
 export default {
 	logbooks: [],
 	users: [],
-	logbook: {}
+	logbook: {},
+	packages: []
 }

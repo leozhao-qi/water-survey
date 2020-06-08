@@ -85,3 +85,11 @@ export const destroyComment = async ({ state, commit }, commentId) => {
 
     return
 }
+
+export const fetchLessonPackages = async ({ state, commit }, userId) => {
+    let { data: packages } = await axios.get(`/api/users/${userId}/packages`)
+
+    commit('SET_LOGBOOK_PACKAGES', packages.data)
+
+    return
+}

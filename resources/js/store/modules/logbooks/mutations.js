@@ -17,3 +17,5 @@ export const SET_LOGBOOK_COMMENT = (state, comment) => assign(find(state.logbook
 export const REMOVE_LOGBOOK_COMMENT = (state, comment) => state.logbook.comments = filter(state.logbook.comments, c => c.id !== comment.id)
 
 export const SET_USERS = (state, users) => state.users = users
+
+export const SET_LOGBOOK_PACKAGES = (state, packages) => state.packages = packages
