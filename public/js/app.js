@@ -8143,6 +8143,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.event_description = '';
       this.form.details_of_event = '';
       this.form.files = [];
+      this.form.packages = [];
     },
     store: function store() {
       var _this3 = this;
@@ -8226,6 +8227,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../helpers/toMySQLDateFormat */ "./resources/js/helpers/toMySQLDateFormat.js");
 /* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
+/* harmony import */ var lodash_es__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash-es */ "./node_modules/lodash-es/lodash.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -8425,6 +8427,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -8442,17 +8493,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         created: '',
         event_description: '',
         details_of_event: '',
-        files: []
+        files: [],
+        packages: []
       },
-      addFiles: false
+      addFiles: false,
+      selectedPackage: null
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
     logbook: 'logbooks/logbook',
-    logbookCategories: 'logbookCategories/logbookCategories'
-  })),
+    logbookCategories: 'logbookCategories/logbookCategories',
+    packages: 'logbooks/packages'
+  })), {}, {
+    availablePackages: function availablePackages() {
+      var _this = this;
+
+      return Object(lodash_es__WEBPACK_IMPORTED_MODULE_6__["filter"])(this.packages, function (p) {
+        return !Object(lodash_es__WEBPACK_IMPORTED_MODULE_6__["includes"])(_this.form.packages, p.id);
+      });
+    },
+    selectedPackages: function selectedPackages() {
+      var _this2 = this;
+
+      return Object(lodash_es__WEBPACK_IMPORTED_MODULE_6__["filter"])(this.packages, function (p) {
+        return Object(lodash_es__WEBPACK_IMPORTED_MODULE_6__["includes"])(_this2.form.packages, p.id);
+      });
+    }
+  }),
+  watch: {
+    selectedPackage: function selectedPackage() {
+      if (this.selectedPackage) {
+        this.form.packages.push(this.selectedPackage);
+      }
+    }
+  },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
     fetchLogbookCategories: 'logbookCategories/fetch',
+    fetchLessonPackages: 'logbooks/fetchLessonPackages',
     editEntry: 'logbooks/update'
   })), {}, {
     cancel: function cancel() {
@@ -8461,9 +8538,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.created = '';
       this.form.event_description = '';
       this.form.details_of_event = '';
+      this.form.files = [];
+      this.form.packages = [];
     },
     update: function update() {
-      var _this = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var response;
@@ -8471,16 +8550,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.form.created = Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_3__["default"])(_this.form.created);
+                _this3.form.created = Object(_helpers_toMySQLDateFormat__WEBPACK_IMPORTED_MODULE_3__["default"])(_this3.form.created);
                 _context.next = 3;
-                return _this.editEntry(_this.form);
+                return _this3.editEntry(_this3.form);
 
               case 3:
                 response = _context.sent;
 
-                _this.cancel();
+                _this3.cancel();
 
-                _this.$toasted.success(response.data.message);
+                _this3.$toasted.success(response.data.message);
 
               case 6:
               case "end":
@@ -8492,16 +8571,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
-    this.fetchLogbookCategories();
-    this.form.logbook_category_id = this.logbook.logbook_category_id;
-    this.form.created = Object(_helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(this.logbook.created);
-    this.form.event_description = this.logbook.event_description;
-    this.form.details_of_event = this.logbook.details_of_event;
-    window.events.$on('upload:finished', function (fileObject) {
-      return _this2.form.files.push(fileObject);
-    });
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _this4.fetchLogbookCategories();
+
+            case 2:
+              _context2.next = 4;
+              return _this4.fetchLessonPackages(parseInt(_this4.authUser.id));
+
+            case 4:
+              _this4.form.logbook_category_id = _this4.logbook.logbook_category_id;
+              _this4.form.created = Object(_helpers_fromMySQLDateFormat__WEBPACK_IMPORTED_MODULE_2__["default"])(_this4.logbook.created);
+              _this4.form.event_description = _this4.logbook.event_description;
+              _this4.form.details_of_event = _this4.logbook.details_of_event;
+              _this4.form.packages = _this4.logbook.packages;
+              window.events.$on('upload:finished', function (fileObject) {
+                return _this4.form.files.push(fileObject);
+              });
+              window.events.$on('logbook:remove-package', function (packageId) {
+                _this4.form.packages = Object(lodash_es__WEBPACK_IMPORTED_MODULE_6__["filter"])(_this4.form.packages, function (p) {
+                  return p !== packageId;
+                });
+              });
+
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
   }
 });
 
@@ -8855,6 +8960,28 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9460,12 +9587,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pckg: {
       type: Object,
       required: true
+    },
+    canDelete: {
+      type: Boolean,
+      required: false,
+      "default": true
     }
   },
   data: function data() {
@@ -9529,11 +9662,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     packages: {
       type: Array,
       required: true
+    },
+    canDelete: {
+      type: Boolean,
+      required: false,
+      "default": true
     }
   }
 });
@@ -69894,6 +70033,114 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700 font-bold mb-2",
+              class: { "text-red-500": _vm.errors.packages },
+              attrs: { for: "packages" }
+            },
+            [_vm._v("\n                Lesson packages covered\n            ")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "relative w-full lg:w-1/2" }, [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedPackage,
+                    expression: "selectedPackage"
+                  }
+                ],
+                staticClass:
+                  "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                class: { "border-red-500": _vm.errors.packages },
+                attrs: { id: "logbook_category_id" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.selectedPackage = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }),
+                _vm._v(" "),
+                _vm._l(_vm.availablePackages, function(p) {
+                  return _c("option", {
+                    key: p.id,
+                    domProps: { value: p.id, textContent: _vm._s(p.lesson) }
+                  })
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "fill-current h-4 w-4",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 20 20"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                      }
+                    })
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.errors.packages
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: { textContent: _vm._s(_vm.errors.packages[0]) }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm.selectedPackages.length
+          ? _c(
+              "div",
+              { staticClass: "w-full mb-4" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("selected-package-items", {
+                  attrs: { packages: _vm.selectedPackages }
+                })
+              ],
+              1
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "div",
           { staticClass: "w-full mb-4" },
@@ -70023,7 +70270,18 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mb-2" }, [
+      _c("strong", { staticClass: "text-gray-700" }, [
+        _vm._v("Selected packages")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -70448,7 +70706,7 @@ var render = function() {
                                 "text-gray-600 inline-flex items-center leading-none text-sm ml-auto"
                             },
                             [
-                              logbook.files.length
+                              logbook.files > 0
                                 ? [
                                     _c(
                                       "svg",
@@ -70472,14 +70730,14 @@ var render = function() {
                                     _c("span", { staticClass: "mr-4" }, [
                                       _vm._v(
                                         "\n                                    " +
-                                          _vm._s(logbook.files.length) +
+                                          _vm._s(logbook.files) +
                                           "\n                                "
                                       )
                                     ])
                                   ]
                                 : _vm._e(),
                               _vm._v(" "),
-                              logbook.comments.length
+                              logbook.comments > 0
                                 ? [
                                     _c(
                                       "svg",
@@ -70501,13 +70759,7 @@ var render = function() {
                                     ),
                                     _vm._v(" "),
                                     _c("span", [
-                                      _vm._v(
-                                        _vm._s(
-                                          logbook.comments.length
-                                            ? logbook.comments.length
-                                            : 0
-                                        )
-                                      )
+                                      _vm._v(_vm._s(logbook.comments))
                                     ])
                                   ]
                                 : _vm._e()
@@ -70572,7 +70824,7 @@ var render = function() {
               _c(
                 "a",
                 {
-                  staticClass: "no-underline cursor-pointer",
+                  staticClass: "no-underline cursor-pointer flex items-center",
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -70581,8 +70833,23 @@ var render = function() {
                   }
                 },
                 [
-                  _c("span", { staticClass: "text-lg" }, [_vm._v("←")]),
-                  _vm._v(" Back to logbooks\n        ")
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "w-4 h-4 mr-2",
+                      staticStyle: { fill: "#4299E1" },
+                      attrs: { viewBox: "0 0 24 24" }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" \n            Back to logbooks\n        ")
                 ]
               ),
               _vm._v(" "),
@@ -70680,6 +70947,27 @@ var render = function() {
                         )
                       ])
                     : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm.logbook.packagesArr.length
+                  ? [
+                      _c("h2", { staticClass: "text-2xl mt-6 mb-2" }, [
+                        _vm._v(
+                          "\n                Lesson packages covered\n            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("selected-package-items", {
+                        attrs: {
+                          packages: _vm.logbook.packagesArr,
+                          "can-delete": false
+                        }
+                      })
+                    ]
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("h2", { staticClass: "text-2xl mt-6 mb-2" }, [
+                  _vm._v("\n            Details of event\n        ")
                 ]),
                 _vm._v(" "),
                 _c("div", {
@@ -71106,19 +71394,22 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-text btn-sm no-underline text-red-500 text-xs",
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.remove($event)
-            }
-          }
-        },
-        [_vm._v("\n            [Remove]\n        ")]
-      )
+      _vm.canDelete
+        ? _c(
+            "button",
+            {
+              staticClass:
+                "btn btn-text btn-sm no-underline text-red-500 text-xs",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.remove($event)
+                }
+              }
+            },
+            [_vm._v("\n            [Remove]\n        ")]
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _vm.showObjectives
@@ -71184,7 +71475,10 @@ var render = function() {
   return _c(
     "ul",
     _vm._l(_vm.packages, function(p) {
-      return _c("selected-package-item", { key: p.id, attrs: { pckg: p } })
+      return _c("selected-package-item", {
+        key: p.id,
+        attrs: { pckg: p, "can-delete": _vm.canDelete }
+      })
     }),
     1
   )
@@ -100584,19 +100878,20 @@ var store = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             commit = _ref.commit, dispatch = _ref.dispatch;
-            _context.next = 3;
+            console.log(form);
+            _context.next = 4;
             return axios.post("/api/logbooks", form);
 
-          case 3:
+          case 4:
             _yield$axios$post = _context.sent;
             data = _yield$axios$post.data;
-            _context.next = 7;
+            _context.next = 8;
             return dispatch('fetch');
 
-          case 7:
+          case 8:
             return _context.abrupt("return", data);
 
-          case 8:
+          case 9:
           case "end":
             return _context.stop();
         }

@@ -1,8 +1,15 @@
 <template>
     <div class="w-full" v-if="typeof logbook !== 'undefined'">
         <div class="mb-4 flex items-center">
-            <a class="no-underline cursor-pointer" @click.prevent="back">
-                <span class="text-lg">&larr;</span> Back to logbooks
+            <a class="no-underline cursor-pointer flex items-center" @click.prevent="back">
+                <svg 
+                    viewBox="0 0 24 24" 
+                    class="w-4 h-4 mr-2" 
+                    style="fill: #4299E1;"
+                >
+                    <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
+                </svg> 
+                Back to logbooks
             </a>
 
             <template v-if="!updating && (hasRole(['administrator']) || (logbook.user.id === parseInt(authUser.id)))">
@@ -45,6 +52,21 @@
                     at {{ dayjs(logbook.updated).format('MM/DD/YYYY') }}
                 </p>
             </div>
+
+            <template v-if="logbook.packagesArr.length">
+                <h2 class="text-2xl mt-6 mb-2">
+                    Lesson packages covered
+                </h2>
+
+                <selected-package-items 
+                    :packages="logbook.packagesArr"
+                    :can-delete="false"
+                />
+            </template>
+
+            <h2 class="text-2xl mt-6 mb-2">
+                Details of event
+            </h2>
 
             <div 
                 class="content"

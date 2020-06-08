@@ -14,6 +14,7 @@
             <button 
                 class="btn btn-text btn-sm no-underline text-red-500 text-xs"
                 @click.prevent="remove"
+                v-if="canDelete"
             >
                 [Remove]
             </button>
@@ -53,6 +54,11 @@ export default {
         pckg: {
             type: Object,
             required: true
+        },
+        canDelete: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
 

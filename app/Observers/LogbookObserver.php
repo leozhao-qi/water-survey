@@ -24,6 +24,9 @@ class LogbookObserver
             $file->delete();
         }
 
+        // Delete packages associated with this logbook
+        $logbook->logbookPackages->each->delete();
+
         // Delete comments
         $logbook->comments->each->delete();
     }

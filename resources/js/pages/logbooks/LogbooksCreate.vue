@@ -290,6 +290,7 @@ export default {
             this.form.event_description = ''
             this.form.details_of_event = ''
             this.form.files = []
+            this.form.packages = []
         },
 
         async store () {

@@ -4,6 +4,7 @@
             v-for="p in packages"
             :key="p.id"
             :pckg="p"
+            :can-delete="canDelete"
         />
     </ul>
 </template>
@@ -14,6 +15,11 @@ export default {
         packages: {
             type: Array,
             required: true
+        },
+        canDelete: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     }
 }

@@ -106,6 +106,54 @@
                 ></p>
             </div>
 
+            <div class="w-full mb-4">
+                <label 
+                    for="packages"
+                    class="block text-gray-700 font-bold mb-2" 
+                    :class="{ 'text-red-500': errors.packages }"
+                >
+                    Lesson packages covered
+                </label>
+
+                <div class="relative w-full lg:w-1/2">
+                    <select 
+                        id="logbook_category_id"
+                        v-model="selectedPackage"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500': errors.packages }"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="p.id"
+                            v-for="p in availablePackages"
+                            :key="p.id"
+                            v-text="p.lesson"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+
+                <p
+                    v-if="errors.packages"
+                    v-text="errors.packages[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div class="w-full mb-4" v-if="selectedPackages.length">
+                <p class="mb-2">
+                    <strong class="text-gray-700">Selected packages</strong>
+                </p>
+
+                <selected-package-items 
+                    :packages="selectedPackages"
+                />
+            </div>
+
             <div
                 class="w-full mb-4"
             >
@@ -191,6 +239,7 @@ import fromMySQLDateFormat from '../../helpers/fromMySQLDateFormat'
 import toMySQLDateFormat from '../../helpers/toMySQLDateFormat'
 import Datepicker from 'vuejs-datepicker'
 import { VueEditor, Quill } from 'vue2-editor'
+import { filter, includes } from 'lodash-es'
 
 export default {
     components: {
@@ -205,22 +254,46 @@ export default {
                 created: '',
                 event_description: '',
                 details_of_event: '',
-                files: []
+                files: [],
+                packages: []
             },
-            addFiles: false        
+            addFiles: false,
+            selectedPackage: null        
         }
     },
 
     computed: {
         ...mapGetters({
             logbook: 'logbooks/logbook',
-            logbookCategories: 'logbookCategories/logbookCategories'
-        })
+            logbookCategories: 'logbookCategories/logbookCategories',
+            packages: 'logbooks/packages'
+        }),
+
+        availablePackages () {
+            return filter(this.packages, p => {
+                return !includes(this.form.packages, p.id)
+            })
+        },
+
+        selectedPackages () {
+            return filter(this.packages, p => {
+                return includes(this.form.packages, p.id)
+            })
+        }
+    },
+
+    watch: {
+        selectedPackage () {
+            if (this.selectedPackage) {
+                this.form.packages.push(this.selectedPackage)
+            }
+        }
     },
 
     methods: {
         ...mapActions({
             fetchLogbookCategories: 'logbookCategories/fetch',
+            fetchLessonPackages: 'logbooks/fetchLessonPackages',
             editEntry: 'logbooks/update'
         }),
 
@@ -231,6 +304,8 @@ export default {
             this.form.created = ''
             this.form.event_description = ''
             this.form.details_of_event = ''
+            this.form.files = []
+            this.form.packages = []
         },
 
         async update () {
@@ -244,15 +319,24 @@ export default {
         }
     },
 
-    mounted () {
-        this.fetchLogbookCategories()
+    async mounted () {
+        await this.fetchLogbookCategories()
+
+        await this.fetchLessonPackages(parseInt(this.authUser.id))
 
         this.form.logbook_category_id = this.logbook.logbook_category_id
         this.form.created = fromMySQLDateFormat(this.logbook.created)
         this.form.event_description = this.logbook.event_description
         this.form.details_of_event = this.logbook.details_of_event
+        this.form.packages = this.logbook.packages
 
         window.events.$on('upload:finished', fileObject => this.form.files.push(fileObject))
+
+        window.events.$on('logbook:remove-package', packageId => {
+            this.form.packages = filter(this.form.packages, p => {
+                return p !== packageId
+            })
+        })
     }
 }
 </script>

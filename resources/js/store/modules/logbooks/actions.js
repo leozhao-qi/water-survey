@@ -1,4 +1,5 @@
 export const store = async ({ commit, dispatch }, form) => {
+    console.log(form)
     let { data } = await axios.post(`/api/logbooks`, form)
 
     await dispatch('fetch')
