@@ -1,7 +1,7 @@
 <template>
     <div
         class="w-full"
-        v-if="typeof user.unassignedLessons !== 'undefined' && user.unassignedLessons.length"
+        v-if="typeof user.unassignedLessons !== 'undefined' && user.unassignedLessons !== null && user.unassignedLessons.length"
     >
         <h2 class="text-2xl mb-4">
             Unassigned lesson packages

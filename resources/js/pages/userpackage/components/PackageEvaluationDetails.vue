@@ -7,7 +7,7 @@
 
             <button 
                 class="btn btn-text text-sm ml-2"
-                v-if="!editing && !isComplete"
+                v-if="!editing && !isComplete && hasRole(['manager', 'head_of_operations', 'supervisor'])"
                 @click.prevent="editing = true"
             >
                 Edit
@@ -87,7 +87,11 @@ export default {
         }),
 
         formattedEvaluationDetails () {
-            return this.evaluation_details.replace(/<p><br><\/p>/g, '')
+            return this.evaluation_details
+                .replace(/<p><br><\/p>/g, '')
+                .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-right"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-left"><br><\/p>/g, '')
         }
     },
 

@@ -3,6 +3,8 @@
 namespace App;
 
 use App\User;
+use App\Comment;
+use App\Logbook;
 use App\Package;
 use App\Objective;
 use App\MoodleUser;
@@ -50,7 +52,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'firstname', 'lastname', 'role'
+        'firstname', 'lastname', 'role', 'fullname'
     ];
 
     public function deactivations()
@@ -79,6 +81,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Objective::class, 'objective_user');
     }
 
+    public function logbooks()
+    {
+        return $this->hasMany(Logbook::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getFirstnameAttribute()
     {
         return $this->moodleProfile('firstname');
@@ -87,6 +99,11 @@ class User extends Authenticatable
     public function getLastnameAttribute()
     {
         return $this->moodleProfile('lastname');
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->moodleProfile('firstname') . ' ' . $this->moodleProfile('lastname');
     }
 
     public function getRoleAttribute()

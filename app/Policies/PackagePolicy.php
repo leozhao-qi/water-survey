@@ -19,7 +19,8 @@ class PackagePolicy
         'objectives' => [ 'administrator', 'manager', 'head_of_operations', 'supervisor' ],
         'recommendation_id' => [ 'administrator', 'manager', 'head_of_operations', 'supervisor' ],
         'comment' => [ 'administrator', 'manager', 'head_of_operations' ],
-        'evaluation_details' => [ 'administrator', 'manager', 'head_of_operations', 'supervisor' ]
+        'evaluation_details' => [ 'administrator', 'manager', 'head_of_operations', 'supervisor' ],
+        'recommendation_comment' => [ 'administrator', 'manager', 'head_of_operations', 'supervisor' ]
     ];
 
     public function __construct()

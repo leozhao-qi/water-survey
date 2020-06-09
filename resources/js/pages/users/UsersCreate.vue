@@ -24,7 +24,7 @@
                             :value="r.name"
                             v-for="r in roles"
                             :key="r.id"
-                            v-text="r.name"
+                            v-text="ucfirst(r.name)"
                         ></option>
                     </select>
 
@@ -59,6 +59,7 @@
 
 <script>
 import { map, forEach, reject, isEmpty } from 'lodash-es'
+import ucfirst from '../../helpers/ucfirst'
 
 export default {
     data() {
@@ -76,6 +77,8 @@ export default {
     },
 
     methods: {
+        ucfirst, 
+        
         async store () {
             let { data } = await axios.post('/api/users/moodle', {
                 role: this.role,

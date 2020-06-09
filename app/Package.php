@@ -17,6 +17,9 @@ class Package extends Model
         'theory_status',
         'practical_status',
         'recommendation_id',
+        'recommendation_comment',
+        'recommendation_comment_by',
+        'recommendation_comment_at',
         'comment',
         'evaluation_details',
         'commented_by',
@@ -28,7 +31,8 @@ class Package extends Model
     protected $casts = [
         'signed_off_at' => 'date',
         'commented_off_at' => 'date',
-        'evaluated_off_at' => 'date'
+        'evaluated_off_at' => 'date',
+        'recommendation_comment_at' => 'date'
     ];
 
     public function user()

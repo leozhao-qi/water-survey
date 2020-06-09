@@ -6,6 +6,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::put(
+    '/api/files/{file}',
+    'Logbooks\Api\LogbookFilesController@updateFilename'
+);
+
+Route::delete(
+    '/api/files/{file}',
+    'Logbooks\Api\LogbookFilesController@destroy'
+);
+
+Route::middleware(['download'])->group(function () {
+	Route::get(
+		'/storage/entries',
+		'Logbooks\Api\LogbookFilesController@download'
+    );
+});
+
 Route::resource('users', 'Users\UsersController');
 
 Route::prefix('api/users')->group(function () {
@@ -103,3 +120,27 @@ Route::resource('/api/statuses', 'Statuses\Api\StatusController');
 Route::get('/recommendations', 'Recommendations\RecommendationController@index');
 
 Route::resource('/api/recommendations', 'Recommendations\Api\RecommendationController');
+
+Route::get('/logbook-categories', 'LogbookCategories\LogbookCategoryController@index');
+
+Route::resource('/api/logbook-categories', 'LogbookCategories\Api\LogbookCategoryController');
+
+Route::get('/logbooks', 'Logbooks\LogbookController@index');
+
+Route::resource('/api/logbooks', 'Logbooks\Api\LogbookController');
+
+Route::post('/api/logbooks/files/upload', 'Logbooks\Api\LogbookFilesController@upload');
+
+Route::post('/api/logbooks/filemeta', 'Logbooks\Api\LogbookFilesController@meta');
+
+Route::get('/api/logbooks/{logbook}/comments', 'Logbooks\Api\LogbookCommentController@index');
+
+Route::post('/api/logbooks/{logbook}/comments', 'Logbooks\Api\LogbookCommentController@store');
+
+Route::put('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@update');
+
+Route::delete('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\LogbookCommentController@destroy');
+
+Route::get('/api/users/{user}/packages', 'Logbooks\Api\LogbookPackageController@index');
+
+Route::get('/api/packages/{package}/objectives', 'Logbooks\Api\LogbookPackageController@objectives');

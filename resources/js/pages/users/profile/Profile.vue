@@ -14,10 +14,10 @@
 
         <reporting-structure />
 
-        <template v-if="typeof user.packages !== 'undefined' && hasRole(['apprentice'])">
+        <template v-if="typeof user.packages !== 'undefined'">
             <hr class="block w-full mt-6 pt-6 border-t border-gray-200">
 
-            <unassigned-user-packages />
+            <unassigned-user-packages v-if="hasRole(['administrator'])" />
 
             <user-packages />
         </template>

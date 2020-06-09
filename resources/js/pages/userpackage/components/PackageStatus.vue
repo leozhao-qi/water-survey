@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full mt-8">
+    <div class="w-full mt-8" v-if="hasTheory || hasPractical">
         <h2 class="text-2xl mb-2">
             Status
         </h2>

@@ -29,6 +29,9 @@ class UserObserver
 		}
 
 		// Delete the users role associatons.
-		$user->roles()->detach();        
+        $user->roles()->detach();   
+        
+        // Delete all packages
+        $user->packages->each->delete();
     }
 }
