@@ -9,10 +9,10 @@
                 >
                     <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/>
                 </svg> 
-                Back to logbooks
+                Back to logbook entries
             </a>
 
-            <template v-if="!updating && (hasRole(['administrator']) || (logbook.user.id === parseInt(authUser.id)))">
+            <template v-if="!updating && (hasRole(['administrator']) || (logbook.user.id === parseInt(authUser.id))) && !somePackagesCompleted">
                 <button 
                     class="btn btn-text text-blue-500 ml-auto"
                     @click.prevent="updating = true"
@@ -104,12 +104,12 @@
             cancel-button-text="No"
         >
             <template slot="header">
-                Delete logbook
+                Delete logbook entry
             </template>
 
             <template slot="body">
                 <div class="my-4">
-                    Are you sure you want to delete this logbook?
+                    Are you sure you want to delete this logbook entry?
                 </div>
             </template>
         </modal>
@@ -120,6 +120,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import ucfirst from '../../helpers/ucfirst'
 import dayjs from 'dayjs'
+import { some } from 'lodash-es'
 
 export default {
     data() {
@@ -139,6 +140,14 @@ export default {
                 .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-right"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-left"><br><\/p>/g, '')
+        },
+
+        somePackagesCompleted () {
+            return some(this.logbook.packagesArr, { 'complete': 1 })
+        },
+
+        everyPackageCompleted () {
+            return every(this.logbook.packagesArr, { 'complete': 1 })
         }
     },
 

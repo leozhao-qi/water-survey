@@ -10,7 +10,7 @@
                 class="btn btn-blue btn-sm text-sm"
                 @click.prevent="update"
             >
-                Edit comment
+                Save changes
             </button>
 
             <button 

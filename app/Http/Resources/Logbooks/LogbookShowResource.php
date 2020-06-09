@@ -41,7 +41,8 @@ class LogbookShowResource extends JsonResource
 
                 return [
                     'id' => $p['package_id'],
-                    'lesson' => $package->lesson->number . ' - ' . $package->lesson->name
+                    'lesson' => $package->lesson->number . ' - ' . $package->lesson->name,
+                    'complete' => $package->complete
                 ];
             })->sortBy('lesson')->toArray(),
             'references' => $this->references ? User::find($this->references) : null,

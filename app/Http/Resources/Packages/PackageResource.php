@@ -52,6 +52,9 @@ class PackageResource extends JsonResource
             'objectives' => $objectivesArr,
             'completedObjectives' => count($completedObjectives) ? $completedObjectives : [],
             'recommendation' => new RecommendationResource($this->recommendation),
+            'recommendation_comment' => $this->recommendation_comment,
+            'recommendation_comment_by' => $this->recommendation_comment_by ? User::find($this->recommendation_comment_by) : null,
+            'recommendation_comment_at' => $this->recommendation_comment_at,
             'comment' => $this->comment,
             'evaluation_details' => $this->evaluation_details
         ];

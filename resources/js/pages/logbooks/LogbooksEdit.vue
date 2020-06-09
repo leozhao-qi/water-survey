@@ -11,7 +11,7 @@
         </nav>
 
         <h1 class="text-3xl font-bold mb-4">
-            Edit logbook
+            Edit logbook entry
         </h1> 
 
         <form @submit.prevent="update">
@@ -254,7 +254,7 @@
                 <button 
                     class="btn btn-blue text-sm"
                 >
-                    Edit logbook
+                    Save changes
                 </button>
 
                 <button 

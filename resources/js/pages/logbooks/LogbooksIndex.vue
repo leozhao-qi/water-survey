@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <h1 class="text-3xl font-bold mb-4">
-            Logbooks
+            Logbook entries
         </h1> 
 
         <template v-if="typeof logbooks !== 'undefined' && logbooks.length">
@@ -242,7 +242,6 @@ import { mapGetters, mapActions } from 'vuex'
 import Paginate from 'vuejs-paginate'
 import { filter } from 'lodash-es'
 import dayjs from 'dayjs'
-// import { orderBy, filter, forEach, find, map } from 'lodash-es'
 
 export default {
     components: {
@@ -259,7 +258,8 @@ export default {
                 event_description: '',
                 category: '',
                 author: '',
-                package: ''
+                package: '',
+                references: ''
             }
         }
     },
@@ -278,10 +278,13 @@ export default {
         toggleFilters () {
             this.filterActive = !this.filterActive
 
-            this.filter.event_description = ''
-            this.filter.category = ''
-            this.filter.author = ''
-            this.filter.package = ''
+            if (!this.filterActive) {
+                this.filter.event_description = ''
+                this.filter.category = ''
+                this.filter.author = ''
+                this.filter.package = ''
+                this.filter.references = ''
+            }
         },
 
         show (logbookId) {
@@ -314,6 +317,10 @@ export default {
 
             if (this.filter.author) {
                 filtered = filter(filtered, item => {
+                    if (item.references && item.references.fullname.indexOf(this.filter.author) >= 0) {
+                        return true
+                    }
+
                     return item.user.fullname.toLowerCase().indexOf(this.filter.author.toLowerCase()) >= 0
                 })
             }
@@ -348,6 +355,17 @@ export default {
 
     async mounted () {
         await this.fetch()
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.get('package') !== '') {
+            this.filter.package = urlParams.get('package')
+        }
+
+        if (urlParams.get('user') !== '') {
+            this.filter.author = urlParams.get('user')
+            this.filter.references = urlParams.get('user')
+        }
     }
 }
 </script>

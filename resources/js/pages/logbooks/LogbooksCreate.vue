@@ -11,7 +11,7 @@
         </nav>
 
         <h1 class="text-3xl font-bold mb-4">
-            New logbook
+            New logbook entry
         </h1> 
 
         <form @submit.prevent="store">
@@ -37,9 +37,7 @@
 
                         <option
                             :value="logbookCategory.id"
-                            v-for="logbookCategory in filter(logbookCategories, category => {
-                                return hasRole(['supervisor']) && category.id !== 4 ?  false : true
-                            })"
+                            v-for="logbookCategory in logbookCategories"
                             :key="logbookCategory.id"
                             v-text="logbookCategory.name"
                         ></option>
@@ -243,7 +241,7 @@
                 <button 
                     class="btn btn-blue text-sm"
                 >
-                    Create logbook
+                    Create entry
                 </button>
 
                 <button 

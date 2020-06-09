@@ -157,19 +157,34 @@ class LogbookController extends Controller
         return response()->json([
             'data' => [
                 'type' => 'success',
-                'message' => 'Logbook successfully created'
+                'message' => 'Logbook entry successfully created'
             ]
         ], 200);
     }
 
     public function update(Logbook $logbook)
     {
+        //  Check if you have the right permissions.
         if (auth()->user()->hasRole(['administrator']) === false && auth()->id() !== $logbook->user_id) {
             return response()->json([
                 'data' => [
                     'message' => 'You are not authorized to do that.'
                 ]
             ], 403);
+        }
+
+        // Check if any lesson packages have been marked as complete for
+        // this logbook. If so, disallow updating.
+        $packages = Package::whereIn('id', $logbook->logbookPackages->pluck('package_id')->toArray())->get();
+
+        foreach ($packages as $package) {
+            if ($package->complete) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'You are not authorized to do that.'
+                    ]
+                ], 403);
+            }
         }
 
         request()->validate([
@@ -181,11 +196,15 @@ class LogbookController extends Controller
             'packages' => 'required|array',
             'packages.*' => 'exists:packages,id'
         ]);
-
+        
+        // Set a $data variable so that we can persist other stuff, besides
+        // the request data, to the database
         $data = array_merge(request()->all(), [
             'user_id' => auth()->id()
         ]);
 
+        // Needs to be fixed. Delete all logbook packages and then 
+        // add them back, via what is in the request.
         $logbook->logbookPackages->each->delete();
 
         foreach (request('packages') as $packageId) {
@@ -197,6 +216,7 @@ class LogbookController extends Controller
 
         $logbook->update($data);
 
+        // Any files in the request? Persist those to logbook_files table
         foreach (request('files') as $file) {
             LogbookFile::create([
                 'logbook_id' => $logbook->id,
@@ -205,6 +225,9 @@ class LogbookController extends Controller
             ]);
         }
 
+        // Nothing on the logbooks table may have been updated, but the
+        // pivot tables may have. So, just to make sure, we explicity 
+        // change the updated_at column.
         $logbook->update([
             'updated_at' => Carbon::now()
         ]);
@@ -212,7 +235,7 @@ class LogbookController extends Controller
         return response()->json([
             'data' => [
                 'type' => 'success',
-                'message' => 'Logbook successfully updated'
+                'message' => 'Logbook entry successfully updated'
             ]
         ], 200);
     }
@@ -227,12 +250,26 @@ class LogbookController extends Controller
             ], 403);
         }
 
+        // Check if any lesson packages have been marked as complete for
+        // this logbook. If so, disallow updating.
+        $packages = Package::whereIn('id', $logbook->logbookPackages->pluck('package_id')->toArray())->get();
+
+        foreach ($packages as $package) {
+            if ($package->complete) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'You are not authorized to do that.'
+                    ]
+                ], 403);
+            }
+        }
+
         $logbook->delete();
 
         return response()->json([
             'data' => [
                 'type' => 'success',
-                'message' => 'Logbook successfully deleted'
+                'message' => 'Logbook entry successfully deleted'
             ]
         ], 200);
     }

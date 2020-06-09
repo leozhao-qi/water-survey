@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logbooks\Api;
 
 use App\Comment;
 use App\Logbook;
+use App\Package;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Comments\CommentResource;
 
@@ -33,6 +34,20 @@ class LogbookCommentController extends Controller
             ], 403);
         }
 
+        // Check if any lesson packages have been marked as complete for
+        // this logbook. If so, disallow updating.
+        $packages = Package::whereIn('id', $logbook->logbookPackages->pluck('package_id')->toArray())->get();
+
+        foreach ($packages as $package) {
+            if ($package->complete) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'You are not authorized to do that.'
+                    ]
+                ], 403);
+            }
+        }
+
         request()->validate([
             'body' => 'required|max:5000'
         ]);
@@ -60,6 +75,20 @@ class LogbookCommentController extends Controller
             ], 403);
         }
 
+        // Check if any lesson packages have been marked as complete for
+        // this logbook. If so, disallow updating.
+        $packages = Package::whereIn('id', $logbook->logbookPackages->pluck('package_id')->toArray())->get();
+
+        foreach ($packages as $package) {
+            if ($package->complete) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'You are not authorized to do that.'
+                    ]
+                ], 403);
+            }
+        }
+
         request()->validate([
             'body' => 'required|max:5000'
         ]);
@@ -84,6 +113,20 @@ class LogbookCommentController extends Controller
                     'message' => 'You are not authorized to do that.'
                 ]
             ], 403);
+        }
+
+        // Check if any lesson packages have been marked as complete for
+        // this logbook. If so, disallow updating.
+        $packages = Package::whereIn('id', $logbook->logbookPackages->pluck('package_id')->toArray())->get();
+
+        foreach ($packages as $package) {
+            if ($package->complete) {
+                return response()->json([
+                    'data' => [
+                        'message' => 'You are not authorized to do that.'
+                    ]
+                ], 403);
+            }
         }
 
         $comment->delete();

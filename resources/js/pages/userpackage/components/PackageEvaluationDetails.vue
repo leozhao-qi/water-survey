@@ -87,7 +87,11 @@ export default {
         }),
 
         formattedEvaluationDetails () {
-            return this.evaluation_details.replace(/<p><br><\/p>/g, '')
+            return this.evaluation_details
+                .replace(/<p><br><\/p>/g, '')
+                .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-right"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-left"><br><\/p>/g, '')
         }
     },
 

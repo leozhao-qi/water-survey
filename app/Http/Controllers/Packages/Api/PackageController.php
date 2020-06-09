@@ -112,6 +112,13 @@ class PackageController extends Controller
                 ]);
             }
 
+            if (request()->has('recommendation_comment')) {
+                $data = array_merge($data, [
+                    'recommendation_comment_by' => auth()->id(),
+                    'recommendation_comment_at' => Carbon::now()
+                ]);
+            }
+
             if (request()->has('evaluation_details')) {
                 $data = array_merge($data, [
                     'evaluated_by' => auth()->id(),

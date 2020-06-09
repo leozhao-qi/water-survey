@@ -7,7 +7,7 @@
 
             <button 
                 class="btn btn-text text-sm text-blue-500"
-                v-if="!adding"
+                v-if="!adding && !everyPackageCompleted"
                 @click.prevent="adding = true"
             >
                 Add comment
@@ -29,6 +29,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { every } from 'lodash-es'
 
 export default {
     data() {
@@ -40,7 +41,11 @@ export default {
     computed: {
         ...mapGetters({
             logbook: 'logbooks/logbook'
-        })
+        }),
+
+        everyPackageCompleted () {
+            return every(this.logbook.packagesArr, { 'complete': 1 })
+        }
     },
 
     mounted () {

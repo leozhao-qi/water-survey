@@ -17,7 +17,7 @@
             style="top: 50px;"
             v-if="isOpen"
         >
-            <span class="pb-2 px-3">Logged in as: <strong>{{ authUser.name }}</strong></span>  
+            <span class="pb-2 px-3">Logged in as: <a :href="`/users/${authUser.id}`"><strong>{{ authUser.name }}</strong></a></span>  
 
             <hr class="border-t border-gray-300">
 

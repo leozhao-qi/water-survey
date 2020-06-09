@@ -26,7 +26,7 @@
 
             <div
                 class="mt-1 flex items-center"
-                v-if="!showConfirm && !editing && (hasRole(['administrator']) || (comment.user.id === parseInt(authUser.id)))"
+                v-if="!showConfirm && !editing && (hasRole(['administrator']) || (comment.user.id === parseInt(authUser.id))) && !everyPackageCompleted"
             >
                 <button 
                     class="btn btn-text btn-sm text-sm text-blue-500"
@@ -71,7 +71,8 @@
 
 <script>
 import ucfirst from '../../helpers/ucfirst'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import { every } from 'lodash-es'
 
 export default {
     props: {
@@ -89,12 +90,20 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            logbook: 'logbooks/logbook'
+        }),
+
         formattedEntry () {
             return this.comment.body
                 .replace(/<p><br><\/p>/g, '')
                 .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-right"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-left"><br><\/p>/g, '')
+        },
+
+        everyPackageCompleted () {
+            return every(this.logbook.packagesArr, { 'complete': 1 })
         }
     },
 
