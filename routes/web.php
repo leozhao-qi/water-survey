@@ -144,3 +144,7 @@ Route::delete('/api/logbooks/{logbook}/comments/{comment}', 'Logbooks\Api\Logboo
 Route::get('/api/users/{user}/packages', 'Logbooks\Api\LogbookPackageController@index');
 
 Route::get('/api/packages/{package}/objectives', 'Logbooks\Api\LogbookPackageController@objectives');
+
+Route::get('/reports', 'Reports\ReportController@index');
+
+Route::get('/reports/users/download', 'Reports\UsersReportController@download');

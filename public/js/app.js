@@ -3167,6 +3167,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -65232,6 +65234,15 @@ var render = function() {
                       attrs: { href: "/logbook-categories" }
                     },
                     [_vm._v("Manage logbook categories")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "text-gray-900 py-2 px-3",
+                      attrs: { href: "/reports" }
+                    },
+                    [_vm._v("Reports")]
                   )
                 ]
               : _vm._e(),
