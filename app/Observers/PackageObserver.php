@@ -15,6 +15,8 @@ class PackageObserver
     public function deleted(Package $package)
     {
         // Delete all logbooks
-        $package->logbooks->each->delete();
+        if ($package->logbooks !== null) {
+            $package->logbooks->each->delete();
+        }
     }
 }

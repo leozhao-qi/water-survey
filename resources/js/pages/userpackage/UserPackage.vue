@@ -25,7 +25,10 @@
             @save="update({ userId, userpackageId })"
         />
 
-        <div class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner">
+        <div 
+            class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner"
+            v-if="hasRole(['manager', 'head_of_operations', 'supervisor'])"
+        >
             <button 
                 class="btn btn-blue ml-auto"
                 @click.prevent="update({ userId, userpackageId })"

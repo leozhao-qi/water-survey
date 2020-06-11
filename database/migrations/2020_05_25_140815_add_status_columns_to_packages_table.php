@@ -14,8 +14,8 @@ class AddStatusColumnsToPackagesTable extends Migration
     public function up()
     {
         Schema::table('packages', function (Blueprint $table) {
-            $table->string('theory_status')->default('incomplete');
-            $table->string('practical_status')->default('incomplete');
+            $table->string('theory_status')->nullable();
+            $table->string('practical_status')->nullable();
         });
     }
 

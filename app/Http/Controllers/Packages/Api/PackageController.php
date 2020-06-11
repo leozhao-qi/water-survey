@@ -37,7 +37,9 @@ class PackageController extends Controller
         foreach ($lessons as $lesson) {
             Package::create([
                 'user_id' => $user->id,
-                'lesson_id' => $lesson->id
+                'lesson_id' => $lesson->id,
+                'theory_status' => $lesson->objectives->where('type', 'theory')->count() ? 'incomplete' : null,
+                'practical_status' => $lesson->objectives->where('type', 'practical_application')->count() ? 'incomplete' : null
             ]);
         }
 

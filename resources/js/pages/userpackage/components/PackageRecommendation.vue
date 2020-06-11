@@ -28,15 +28,6 @@
             </div>
         </div>
 
-        <p 
-            class="mt-2 text-sm"
-            v-if="userPackage.recommendation_comment_by"
-        >
-            <strong>Recommendation comment by:</strong> 
-            {{ userPackage.recommendation_comment_by.firstname }} {{ userPackage.recommendation_comment_by.lastname }} 
-            ({{ ucfirst(userPackage.recommendation_comment_by.role) }}) on {{ fromMySQLDateFormat(userPackage.recommendation_comment_at) }}
-        </p>
-
         <div 
             class="mt-4" 
             v-if="showComment && !isComplete && hasRole(['administrator', 'manager', 'head_of_operations', 'supervisor'])"
@@ -64,19 +55,33 @@
             </div>
         </div>
 
+        <div class="flex items-center mt-4">
+            <strong class="mr-2">Comments</strong>
+            
+            <button 
+                class="btn btn-text btn-sm text-sm"
+                @click.prevent="showComment = true" 
+                v-if="!showComment && !isComplete && hasRole(['administrator', 'manager', 'head_of_operations', 'supervisor'])"
+            >
+                {{ recommendation_comment ? 'Edit' : 'Add' }}
+            </button>
+        </div>
+
+        <p 
+            class="mt-2 text-sm"
+            v-if="userPackage.recommendation_comment_by"
+        >
+            <strong>Recommendation comment by:</strong> 
+            {{ userPackage.recommendation_comment_by.firstname }} {{ userPackage.recommendation_comment_by.lastname }} 
+            ({{ ucfirst(userPackage.recommendation_comment_by.role) }}) on {{ fromMySQLDateFormat(userPackage.recommendation_comment_at) }}
+        </p>
+
         <article 
             v-if="!showComment"
             v-html="formattedRecommendationComment"
             class="content mt-2"
         ></article>
-
-        <button 
-            class="btn btn-text btn-sm text-sm mt-4"
-            @click.prevent="showComment = true" 
-            v-if="!showComment && !isComplete && hasRole(['administrator', 'manager', 'head_of_operations', 'supervisor'])"
-        >
-            {{ recommendation_comment ? 'Edit' : 'Add' }} recommendation comment
-        </button>
+        
     </div>
 </template>
 

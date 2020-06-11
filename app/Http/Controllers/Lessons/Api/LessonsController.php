@@ -34,7 +34,8 @@ class LessonsController extends Controller
             ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
-            'lesson_version_id' => 'sometimes|exists:lesson_versions,id'
+            'lesson_version_id' => 'sometimes|exists:lesson_versions,id',
+            'completed_in_both' => 'required|boolean'
         ]);
 
         if (request('lesson_version_id')) {
@@ -64,7 +65,8 @@ class LessonsController extends Controller
                 new UniqueLesson($lesson)
             ],
             'name_en' => 'required|min:3',
-            'name_fr' => 'required|min:3'
+            'name_fr' => 'required|min:3',
+            'completed_in_both' => 'required|boolean'
         ]);
 
         $lesson->update([
@@ -73,7 +75,8 @@ class LessonsController extends Controller
             'name' => [
                 'en' => request('name_en'),
                 'fr' => request('name_fr')
-            ]
+            ],
+            'completed_in_both' => request('completed_in_both')
         ]);
 
         return response()->json([
@@ -105,7 +108,8 @@ class LessonsController extends Controller
                 'en' => request('name_en'),
                 'fr' => request('name_fr')
             ],
-            'lesson_version_id' => $versionId
+            'lesson_version_id' => $versionId,
+            'completed_in_both' => request('completed_in_both')
         ]);
 
     }

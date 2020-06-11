@@ -19,7 +19,8 @@ class Lesson extends Model
         'level_id',
         'number',
         'name',
-        'lesson_version_id'
+        'lesson_version_id',
+        'completed_in_both'
     ];
 
     public function level ()

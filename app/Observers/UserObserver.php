@@ -16,15 +16,15 @@ class UserObserver
     {
         $user->deactivations->each->delete();
         
-        if (!$user->hasRole('apprentice')) {
-            $user->supervisor->users()->detach();
+        if (!$user->hasRole('apprentice') && $user->supervisor !== null) {
+            optional($user->supervisor)->users()->detach();
         }
         
         // If the user is supervised, detach all associations to them.
         $user->supervisors()->detach();
 
 		// Delete the user from the supervisors table.
-		if (!$user->hasRole('apprentice')) {
+		if (!$user->hasRole('apprentice') && $user->supervisor !== null) {
 			$user->supervisor->delete();
 		}
 

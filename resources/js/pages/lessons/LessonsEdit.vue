@@ -128,6 +128,30 @@
             </div>
 
             <div
+                class="w-full mb-4"
+            >
+                <label 
+                    class="block text-gray-700" 
+                    :class="{ 'text-red-500': errors.completed_in_both }"
+                    for="completed_in_both"
+                >
+                    <input 
+                        type="checkbox" 
+                        v-model="form.completed_in_both"
+                        id="completed_in_both"
+                        :class="{ 'border-red-500': errors.completed_in_both }"
+                    >
+                    This lesson can be intiated either at the EG-03 or EG-04 Level.
+                </label>
+
+                <p
+                    v-if="errors.completed_in_both"
+                    v-text="errors.completed_in_both[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
                 class="w-full"
             >
                 <button 
@@ -164,7 +188,8 @@ export default {
                 name_en: '',
                 name_fr: '',
                 number: null,
-                level_id: null
+                level_id: null,
+                completed_in_both: null
             }
         }
     },
@@ -188,6 +213,7 @@ export default {
             this.form.name_fr = ''
             this.form.number = null
             this.form.level_id = null
+            this.form.completed_in_both = null
         },
 
         async update () {
@@ -206,6 +232,7 @@ export default {
         this.form.name_fr = this.lesson.name_fr
         this.form.number = this.lesson.number
         this.form.level_id = this.lesson.level_id
+        this.form.completed_in_both = this.lesson.completed_in_both
     }
 }
 </script>

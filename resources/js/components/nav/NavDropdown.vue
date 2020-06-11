@@ -39,6 +39,8 @@
                 <a class="text-gray-900 py-2 px-3" href="/statuses">Manage statuses</a>
 
                 <a class="text-gray-900 py-2 px-3" href="/logbook-categories">Manage logbook categories</a>
+
+                <a class="text-gray-900 py-2 px-3" href="/reports">Reports</a>
             </template>
 
             <hr class="border-t border-gray-300">
