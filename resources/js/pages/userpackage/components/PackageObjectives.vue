@@ -10,7 +10,6 @@
                 :key="type"
             >
                 <h3 
-                    v-if="type !== 'not_defined'"
                     class="font-bold mt-2"
                 >
                     {{ ucfirst(type) }}

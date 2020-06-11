@@ -20,10 +20,6 @@ class PackageResource extends JsonResource
     public function toArray($request)
     {
         $objectivesArr = $this->lesson->objectives->map(function ($objective) {
-            if ($objective['type'] === null) {
-                $objective['type'] = 'not_defined';
-            }
-
             return $objective;
         })->groupBy('type')->toArray();
 

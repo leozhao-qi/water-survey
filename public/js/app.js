@@ -12642,7 +12642,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -75333,15 +75332,13 @@ var render = function() {
       typeof _vm.userPackage.objectives !== "undefined"
         ? _vm._l(Object.keys(_vm.userPackage.objectives), function(type) {
             return _c("div", { key: type }, [
-              type !== "not_defined"
-                ? _c("h3", { staticClass: "font-bold mt-2" }, [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.ucfirst(type)) +
-                        "\n            "
-                    )
-                  ])
-                : _vm._e(),
+              _c("h3", { staticClass: "font-bold mt-2" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.ucfirst(type)) +
+                    "\n            "
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "ul",
