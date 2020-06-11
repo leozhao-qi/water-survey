@@ -13,6 +13,12 @@
                     User report
                 </a>
             </li>
+
+            <li>
+                <a href="reports/test/download">
+                    test report
+                </a>
+            </li>
         </ul>
     </div>
 

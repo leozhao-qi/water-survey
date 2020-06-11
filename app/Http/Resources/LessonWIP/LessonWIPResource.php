@@ -26,7 +26,8 @@ class LessonWIPResource extends JsonResource
             'level' => $this->level,
             'objectives' => ObjectiveWIPResource::collection(
                 ObjectiveWIP::whereLessonId($this->id)->get()
-            )
+            ),
+            'completed_in_both' => $this->completed_in_both ? true : false
         ];
     }
 }

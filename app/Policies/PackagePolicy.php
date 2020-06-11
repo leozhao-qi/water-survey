@@ -32,6 +32,10 @@ class PackagePolicy
 
     public function update(User $authUser, Package $package)
     {
+        if (auth()->user()->hasRole(['apprentice'])) {
+            return false;
+        }
+        
         return $this->validations();
     }
 

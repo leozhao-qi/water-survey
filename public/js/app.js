@@ -4573,6 +4573,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4581,7 +4605,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_en: '',
         name_fr: '',
         number: null,
-        level_id: null
+        level_id: null,
+        completed_in_both: null
       }
     };
   },
@@ -4597,6 +4622,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.name_fr = '';
       this.form.number = null;
       this.form.level_id = null;
+      this.form.completed_in_both = null;
     },
     store: function store() {
       var _this = this;
@@ -4891,6 +4917,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4899,7 +4949,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_en: '',
         name_fr: '',
         number: null,
-        level_id: null
+        level_id: null,
+        completed_in_both: null
       },
       editingLesson: false,
       creatingObjective: false,
@@ -4927,6 +4978,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.name_fr = '';
       this.form.number = null;
       this.form.level_id = null;
+      this.form.completed_in_both = null;
     },
     update: function update() {
       var _this = this;
@@ -4977,6 +5029,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this2.form.name_fr = _this2.lesson.name_fr;
               _this2.form.number = _this2.lesson.number;
               _this2.form.level_id = _this2.lesson.level_id;
+              _this2.form.completed_in_both = _this2.lesson.completed_in_both;
               window.events.$on('objectives-wip:edit', function () {
                 _this2.updatingObjective = true;
               });
@@ -4987,7 +5040,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this2.creatingObjective = false;
               });
 
-            case 9:
+            case 10:
             case "end":
               return _context2.stop();
           }
@@ -6110,6 +6163,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6119,7 +6196,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_fr: '',
         number: null,
         level_id: null,
-        lesson_version: null
+        lesson_version: null,
+        completed_in_both: null
       },
       modalActive: false,
       confirmed: false
@@ -6146,6 +6224,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.number = null;
       this.form.level_id = null;
       this.form.lesson_version = null;
+      this.form.completed_in_both = null;
     },
     store: function store() {
       var _this = this;
@@ -6393,6 +6472,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -6401,7 +6504,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name_en: '',
         name_fr: '',
         number: null,
-        level_id: null
+        level_id: null,
+        completed_in_both: null
       }
     };
   },
@@ -6418,6 +6522,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.form.name_fr = '';
       this.form.number = null;
       this.form.level_id = null;
+      this.form.completed_in_both = null;
     },
     update: function update() {
       var _this = this;
@@ -6465,8 +6570,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this2.form.name_fr = _this2.lesson.name_fr;
               _this2.form.number = _this2.lesson.number;
               _this2.form.level_id = _this2.lesson.level_id;
+              _this2.form.completed_in_both = _this2.lesson.completed_in_both;
 
-            case 6:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -12043,6 +12149,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -12596,6 +12705,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -66413,6 +66527,76 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
+        _c("div", { staticClass: "w-full mb-4" }, [
+          _c(
+            "label",
+            {
+              staticClass: "block text-gray-700",
+              class: { "text-red-500": _vm.errors.completed_in_both },
+              attrs: { for: "completed_in_both" }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.completed_in_both,
+                    expression: "form.completed_in_both"
+                  }
+                ],
+                class: { "border-red-500": _vm.errors.completed_in_both },
+                attrs: { type: "checkbox", id: "completed_in_both" },
+                domProps: {
+                  checked: Array.isArray(_vm.form.completed_in_both)
+                    ? _vm._i(_vm.form.completed_in_both, null) > -1
+                    : _vm.form.completed_in_both
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.form.completed_in_both,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.form,
+                            "completed_in_both",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.form,
+                            "completed_in_both",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.form, "completed_in_both", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v(
+                "\n                This lesson can be intiated either at the EG-03 or EG-04 Level.\n            "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.errors.completed_in_both
+            ? _c("p", {
+                staticClass: "text-red-500 text-sm",
+                domProps: {
+                  textContent: _vm._s(_vm.errors.completed_in_both[0])
+                }
+              })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "w-full" }, [
           _c("button", { staticClass: "btn btn-blue text-sm" }, [
             _vm._v("\n                Create lesson\n            ")
@@ -66761,6 +66945,78 @@ var render = function() {
                     ? _c("p", {
                         staticClass: "text-red-500 text-sm",
                         domProps: { textContent: _vm._s(_vm.errors.name_fr[0]) }
+                      })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "w-full mb-4" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "block text-gray-700",
+                      class: { "text-red-500": _vm.errors.completed_in_both },
+                      attrs: { for: "completed_in_both" }
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.completed_in_both,
+                            expression: "form.completed_in_both"
+                          }
+                        ],
+                        class: {
+                          "border-red-500": _vm.errors.completed_in_both
+                        },
+                        attrs: { type: "checkbox", id: "completed_in_both" },
+                        domProps: {
+                          checked: Array.isArray(_vm.form.completed_in_both)
+                            ? _vm._i(_vm.form.completed_in_both, null) > -1
+                            : _vm.form.completed_in_both
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.completed_in_both,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "completed_in_both",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "completed_in_both",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "completed_in_both", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(
+                        "\n                    This lesson can be intiated either at the EG-03 or EG-04 Level.\n                "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.errors.completed_in_both
+                    ? _c("p", {
+                        staticClass: "text-red-500 text-sm",
+                        domProps: {
+                          textContent: _vm._s(_vm.errors.completed_in_both[0])
+                        }
                       })
                     : _vm._e()
                 ]),
@@ -68178,6 +68434,76 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
+          _c("div", { staticClass: "w-full mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-700",
+                class: { "text-red-500": _vm.errors.completed_in_both },
+                attrs: { for: "completed_in_both" }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.completed_in_both,
+                      expression: "form.completed_in_both"
+                    }
+                  ],
+                  class: { "border-red-500": _vm.errors.completed_in_both },
+                  attrs: { type: "checkbox", id: "completed_in_both" },
+                  domProps: {
+                    checked: Array.isArray(_vm.form.completed_in_both)
+                      ? _vm._i(_vm.form.completed_in_both, null) > -1
+                      : _vm.form.completed_in_both
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.form.completed_in_both,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.form,
+                              "completed_in_both",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.form,
+                              "completed_in_both",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.form, "completed_in_both", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(
+                  "\n                This lesson can be intiated either at the EG-03 or EG-04 Level.\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.errors.completed_in_both
+              ? _c("p", {
+                  staticClass: "text-red-500 text-sm",
+                  domProps: {
+                    textContent: _vm._s(_vm.errors.completed_in_both[0])
+                  }
+                })
+              : _vm._e()
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "w-full" }, [
             _c("button", { staticClass: "btn btn-blue text-sm" }, [
               _vm._v("\n                Create lesson\n            ")
@@ -68513,6 +68839,76 @@ var render = function() {
               ? _c("p", {
                   staticClass: "text-red-500 text-sm",
                   domProps: { textContent: _vm._s(_vm.errors.name_fr[0]) }
+                })
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "w-full mb-4" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-700",
+                class: { "text-red-500": _vm.errors.completed_in_both },
+                attrs: { for: "completed_in_both" }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.completed_in_both,
+                      expression: "form.completed_in_both"
+                    }
+                  ],
+                  class: { "border-red-500": _vm.errors.completed_in_both },
+                  attrs: { type: "checkbox", id: "completed_in_both" },
+                  domProps: {
+                    checked: Array.isArray(_vm.form.completed_in_both)
+                      ? _vm._i(_vm.form.completed_in_both, null) > -1
+                      : _vm.form.completed_in_both
+                  },
+                  on: {
+                    change: function($event) {
+                      var $$a = _vm.form.completed_in_both,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = null,
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(
+                              _vm.form,
+                              "completed_in_both",
+                              $$a.concat([$$v])
+                            )
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.form,
+                              "completed_in_both",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.form, "completed_in_both", $$c)
+                      }
+                    }
+                  }
+                }),
+                _vm._v(
+                  "\n                This lesson can be intiated either at the EG-03 or EG-04 Level.\n            "
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.errors.completed_in_both
+              ? _c("p", {
+                  staticClass: "text-red-500 text-sm",
+                  domProps: {
+                    textContent: _vm._s(_vm.errors.completed_in_both[0])
+                  }
                 })
               : _vm._e()
           ]),
@@ -74503,28 +74899,33 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "fixed bottom-0 w-full flex bg-white p-4 shadow-inner" },
-        [
-          _c(
-            "button",
+      _vm.hasRole(["manager", "head_of_operations", "supervisor"])
+        ? _c(
+            "div",
             {
-              staticClass: "btn btn-blue ml-auto",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.update({
-                    userId: _vm.userId,
-                    userpackageId: _vm.userpackageId
-                  })
-                }
-              }
+              staticClass:
+                "fixed bottom-0 w-full flex bg-white p-4 shadow-inner"
             },
-            [_vm._v("\n            Update lesson package\n        ")]
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-blue ml-auto",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.update({
+                        userId: _vm.userId,
+                        userpackageId: _vm.userpackageId
+                      })
+                    }
+                  }
+                },
+                [_vm._v("\n            Update lesson package\n        ")]
+              )
+            ]
           )
-        ]
-      )
+        : _vm._e()
     ],
     1
   )
@@ -74576,7 +74977,13 @@ var render = function() {
                   }
                 }
               },
-              [_vm._v("\n                    Edit\n                ")]
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.comment !== "" ? "Edit" : "Add") +
+                    "\n                "
+                )
+              ]
             )
           : _vm._e()
       ]),
@@ -75139,29 +75546,6 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm.userPackage.recommendation_comment_by
-      ? _c("p", { staticClass: "mt-2 text-sm" }, [
-          _c("strong", [_vm._v("Recommendation comment by:")]),
-          _vm._v(
-            " \n        " +
-              _vm._s(_vm.userPackage.recommendation_comment_by.firstname) +
-              " " +
-              _vm._s(_vm.userPackage.recommendation_comment_by.lastname) +
-              " \n        (" +
-              _vm._s(
-                _vm.ucfirst(_vm.userPackage.recommendation_comment_by.role)
-              ) +
-              ") on " +
-              _vm._s(
-                _vm.fromMySQLDateFormat(
-                  _vm.userPackage.recommendation_comment_at
-                )
-              ) +
-              "\n    "
-          )
-        ])
-      : _vm._e(),
-    _vm._v(" "),
     _vm.showComment &&
     !_vm.isComplete &&
     _vm.hasRole([
@@ -75218,40 +75602,67 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
+    _c("div", { staticClass: "flex items-center mt-4" }, [
+      _c("strong", { staticClass: "mr-2" }, [_vm._v("Comments")]),
+      _vm._v(" "),
+      !_vm.showComment &&
+      !_vm.isComplete &&
+      _vm.hasRole([
+        "administrator",
+        "manager",
+        "head_of_operations",
+        "supervisor"
+      ])
+        ? _c(
+            "button",
+            {
+              staticClass: "btn btn-text btn-sm text-sm",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  _vm.showComment = true
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.recommendation_comment ? "Edit" : "Add") +
+                  "\n        "
+              )
+            ]
+          )
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _vm.userPackage.recommendation_comment_by
+      ? _c("p", { staticClass: "mt-2 text-sm" }, [
+          _c("strong", [_vm._v("Recommendation comment by:")]),
+          _vm._v(
+            " \n        " +
+              _vm._s(_vm.userPackage.recommendation_comment_by.firstname) +
+              " " +
+              _vm._s(_vm.userPackage.recommendation_comment_by.lastname) +
+              " \n        (" +
+              _vm._s(
+                _vm.ucfirst(_vm.userPackage.recommendation_comment_by.role)
+              ) +
+              ") on " +
+              _vm._s(
+                _vm.fromMySQLDateFormat(
+                  _vm.userPackage.recommendation_comment_at
+                )
+              ) +
+              "\n    "
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     !_vm.showComment
       ? _c("article", {
           staticClass: "content mt-2",
           domProps: { innerHTML: _vm._s(_vm.formattedRecommendationComment) }
         })
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.showComment &&
-    !_vm.isComplete &&
-    _vm.hasRole([
-      "administrator",
-      "manager",
-      "head_of_operations",
-      "supervisor"
-    ])
-      ? _c(
-          "button",
-          {
-            staticClass: "btn btn-text btn-sm text-sm mt-4",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                _vm.showComment = true
-              }
-            }
-          },
-          [
-            _vm._v(
-              "\n        " +
-                _vm._s(_vm.recommendation_comment ? "Edit" : "Add") +
-                " recommendation comment\n    "
-            )
-          ]
-        )
       : _vm._e()
   ])
 }

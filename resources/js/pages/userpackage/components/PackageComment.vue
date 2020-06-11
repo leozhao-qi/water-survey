@@ -16,7 +16,7 @@
                     v-if="!editing && !isComplete && hasRole(['manager', 'head_of_operations'])"
                     @click.prevent="editing = true"
                 >
-                    Edit
+                    {{ comment !== '' ? 'Edit' : 'Add' }}
                 </button>
             </div>
 

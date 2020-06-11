@@ -19,7 +19,8 @@ class LessonWIP extends Model
     protected $fillable = [
         'level_id',
         'number',
-        'name'
+        'name',
+        'completed_in_both'
     ];
 
     public function level ()
