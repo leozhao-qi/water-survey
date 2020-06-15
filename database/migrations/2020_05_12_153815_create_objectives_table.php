@@ -21,10 +21,10 @@ class CreateObjectivesTable extends Migration
             $table->timestamps();
             $table->string('type')->nullable();
 
-            $table->foreign('lesson_id')
-                ->references('id')
-                ->on('lessons')
-                ->onDelete('cascade');
+            // $table->foreign('lesson_id')
+            //     ->references('id')
+            //     ->on('lessons')
+            //     ->onDelete('cascade');
         });
     }
 

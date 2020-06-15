@@ -22,15 +22,15 @@ class CreateLogbooksTable extends Migration
             $table->string('event_description');
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('cascade');
 
-            $table->foreign('logbook_category_id')
-                ->references('id')
-                ->on('logbook_categies')
-                ->onDelete('cascade');
+            // $table->foreign('logbook_category_id')
+            //     ->references('id')
+            //     ->on('logbook_categies')
+            //     ->onDelete('cascade');
         });
     }
 

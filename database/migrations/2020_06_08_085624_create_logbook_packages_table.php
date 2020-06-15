@@ -19,15 +19,15 @@ class CreateLogbookPackagesTable extends Migration
             $table->integer('package_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('logbook_id')
-                ->references('id')
-                ->on('logbooks')
-                ->onDelete('cascade');
+            // $table->foreign('logbook_id')
+            //     ->references('id')
+            //     ->on('logbooks')
+            //     ->onDelete('cascade');
 
-            $table->foreign('package_id')
-                ->references('id')
-                ->on('packages')
-                ->onDelete('cascade');
+            // $table->foreign('package_id')
+            //     ->references('id')
+            //     ->on('packages')
+            //     ->onDelete('cascade');
         });
     }
 
