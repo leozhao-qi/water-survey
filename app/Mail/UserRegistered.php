@@ -32,6 +32,7 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.users.registered');
+        return $this->subject('You have been registered on the Water Survey HT - APTP application')
+            ->view('emails.users.registered');
     }
 }

@@ -1,5 +1,8 @@
 require('./bootstrap');
 
+import 'core-js/es/object/assign'
+import 'core-js/es/symbol/iterator'
+
 import './helpers/interceptors'
 
 window.Vue = require('vue')
