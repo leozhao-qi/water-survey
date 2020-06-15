@@ -13,7 +13,7 @@
             :has-text-filter="true"
             :has-action="true"
             action-text="Profile"
-            action-link="/users"
+            :action-link="`${urlBase}/users`"
             action-id="id"
         />
     </div>

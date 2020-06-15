@@ -1,7 +1,9 @@
-<h1 
-    style="font-family: Arial;"
->{{ $user->firstname }} {{ $user->lastname }}</h1>
+@extends('layouts.app')
 
-<p>{{ $password }}</p>
+@section('content')
+    <h1 class="text-sm">{{ $user->firstname }} {{ $user->lastname }}</h1>
 
-<p>{{ env('APP_URL') }}
+    <p>{{ $password }}</p>
+
+    <p>{{ env('APP_URL') }}
+@endsection

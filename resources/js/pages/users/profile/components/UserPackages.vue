@@ -26,7 +26,7 @@
                 :has-text-filter="true"
                 :has-action="true"
                 action-text="View"
-                :action-link="`/users/${user.id}/packages`"
+                :action-link="`${urlBase}/users/${user.id}/packages`"
                 action-id="id"
             />
         </template>
