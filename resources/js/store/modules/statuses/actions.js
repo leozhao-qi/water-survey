@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }) => {
-    let { data: statuses } = await axios.get(`api/statuses`)
+    let { data: statuses } = await axios.get(`${this.urlBase}/api/statuses`)
 
     commit('SET_STATUSES', statuses.data)
 

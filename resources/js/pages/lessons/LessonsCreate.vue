@@ -282,7 +282,7 @@ export default {
                 return
             }
 
-            let { data } = await axios.post(`api/lessons`, this.form)
+            let { data } = await axios.post(`${this.urlBase}/api/lessons`, this.form)
 
             this.cancel()
 

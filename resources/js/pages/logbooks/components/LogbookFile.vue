@@ -206,7 +206,7 @@ export default {
 
             this.form.actual_filename = `${this.form.actual_filename}.${extension}`
 
-            let { data } = await axios.put(`api/files/${this.file.id}`, this.form)
+            let { data } = await axios.put(`${this.urlBase}/api/files/${this.file.id}`, this.form)
 
             this.file = data.data.file
 

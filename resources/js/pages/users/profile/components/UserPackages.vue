@@ -133,7 +133,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`api/users/${this.user.id}/packages`, this.form)
+            let { data } = await axios.post(`${this.urlBase}/api/users/${this.user.id}/packages`, this.form)
 
             this.updateProfile(data.data.user)
 

@@ -78,7 +78,7 @@ export default {
     },
 
     async mounted () {
-        let { data: objectives } = await axios.get(`api/packages/${this.pckg.id}/objectives`)
+        let { data: objectives } = await axios.get(`${this.urlBase}/api/packages/${this.pckg.id}/objectives`)
 
         this.objectives = objectives
     }

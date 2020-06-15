@@ -292,7 +292,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`api/lessons-wip/${this.lesson.id}`, this.form)
+            let { data } = await axios.put(`${this.urlBase}/api/lessons-wip/${this.lesson.id}`, this.form)
 
             await this.setLesson(data.data.lesson)
 

@@ -228,7 +228,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`api/objectives`, this.form)
+            let { data } = await axios.post(`${this.urlBase}/api/objectives`, this.form)
 
             this.cancel()
 

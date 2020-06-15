@@ -161,7 +161,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`api/recommendations`, this.form)
+            let { data } = await axios.post(`${this.urlBase}/api/recommendations`, this.form)
 
             this.cancel()
 

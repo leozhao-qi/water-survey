@@ -121,7 +121,7 @@ export default {
                 deactivation_rationale: this.form.deactivation_rationale
             }
 
-            let { data } = await axios.post(`api/deactivations/${this.user.id}`, submitData)
+            let { data } = await axios.post(`${this.urlBase}/api/deactivations/${this.user.id}`, submitData)
 
             this.$toasted.success(data.data.message)
 

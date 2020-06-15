@@ -93,7 +93,7 @@ export default {
         async update () {
             let reactivated_at = toMySQLDateFormat(this.form.date)
             
-            let { data } = await axios.put(`api/deactivations/${this.user.id}/activate`, { reactivated_at })
+            let { data } = await axios.put(`${this.urlBase}/api/deactivations/${this.user.id}/activate`, { reactivated_at })
 
             if (isEmpty(this.errors)) {
                 this.modalActive = false
@@ -108,7 +108,7 @@ export default {
     },
 
     async mounted () {
-        let { data: users } = await axios.get('api/users/deactivations')
+        let { data: users } = await axios.get(`${this.urlBase}/api/users/deactivations`)
 
         this.users = users
 

@@ -117,7 +117,7 @@ export default {
         fromMySQLDateFormat: fromMySQLDateFormat,
 
         async update () {
-            let { data } = await axios.put(`api/users/${this.user.id}/appointment`, {
+            let { data } = await axios.put(`${this.urlBase}/api/users/${this.user.id}/appointment`, {
                 appointment_date: this.appointment_date ? toMySQLDateFormat(this.appointment_date) : null
             })
 

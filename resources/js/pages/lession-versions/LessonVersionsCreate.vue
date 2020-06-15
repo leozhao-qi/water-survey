@@ -166,11 +166,11 @@ export default {
 
             this.form.valid_on = toMySQLDateFormat(this.form.valid_on)
 
-            let { data } = await axios.post(`api/lesson-versions`, this.form)
+            let { data } = await axios.post(`${this.urlBase}/api/lesson-versions`, this.form)
 
             this.close()
 
-            window.location.href = `${urlBase}/lessons`
+            window.location.href = `${this.urlBase}/lessons`
         }
     },
 

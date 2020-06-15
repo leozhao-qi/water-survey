@@ -205,7 +205,7 @@ export default {
         async destroy () {
             this.confirm = false
 
-            let { data } = await axios.delete(`api/deactivations/${this.deactivation.id}`)
+            let { data } = await axios.delete(`${this.urlBase}/api/deactivations/${this.deactivation.id}`)
 
             window.events.$emit('deactivations:deleted')
 

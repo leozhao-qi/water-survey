@@ -161,7 +161,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`api/recommendations/${this.recommendation.id}`, this.form)
+            let { data } = await axios.put(`${this.urlBase}/api/recommendations/${this.recommendation.id}`, this.form)
 
             this.cancel()
 

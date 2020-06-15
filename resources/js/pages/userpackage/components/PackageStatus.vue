@@ -141,7 +141,7 @@ export default {
     },
 
     async mounted () {
-        let { data: statuses } = await axios.get('api/statuses')
+        let { data: statuses } = await axios.get(`${this.urlBase}/api/statuses`)
 
         this.statuses = statuses.data
     }

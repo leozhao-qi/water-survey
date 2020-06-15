@@ -25,7 +25,7 @@ export default {
 
     methods: {
         open () {
-            window.open(`${urlBase}/logbooks?package=${this.userPackage.package}&user=${this.userPackage.user.fullname}`, "Logbook entries")
+            window.open(`${this.urlBase}/logbooks?package=${this.userPackage.package}&user=${this.userPackage.user.fullname}`, "Logbook entries")
         }
     }
 }

@@ -54,7 +54,7 @@ export default {
         },
 
         async destroy () {
-            let { data } = await axios.delete(`api/objectives-wip/${this.objective.id}`)
+            let { data } = await axios.delete(`${this.urlBase}/api/objectives-wip/${this.objective.id}`)
 
             await this.setLesson(data.data.lesson)
 

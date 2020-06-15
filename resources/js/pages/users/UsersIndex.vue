@@ -34,7 +34,7 @@ export default {
     },
 
     async mounted () {
-        let { data: users } = await axios.get('api/users')
+        let { data: users } = await axios.get(`${this.urlBase}/api/users`)
 
         this.users = users
     }

@@ -50,7 +50,7 @@ export default {
         },
 
         async destroy () {
-            let { data } = await axios.delete(`api/users/${this.user.id}`)
+            let { data } = await axios.delete(`${this.urlBase}/api/users/${this.user.id}`)
 
             this.close()
 

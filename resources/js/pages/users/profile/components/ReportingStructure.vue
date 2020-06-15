@@ -200,14 +200,14 @@ export default {
                 return
             }
 
-            let { data: users } = await axios.get(`api/supervisors/${this.role}`)
+            let { data: users } = await axios.get(`${this.urlBase}/api/supervisors/${this.role}`)
 
             this.users = users
         }
     },
     
     async mounted () {
-        let { data: roles } = await axios.get(`/api/roles`)
+        let { data: roles } = await axios.get(`${this.urlBase}/api/roles`)
 
         this.roles = roles
 

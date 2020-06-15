@@ -113,7 +113,7 @@ export default {
         async update () {
             this.form.valid_on = toMySQLDateFormat(this.form.valid_on)
 
-            let { data } = await axios.put(`api/lesson-versions/${this.lessonVersion.id}`, this.form)
+            let { data } = await axios.put(`${this.urlBase}/api/lesson-versions/${this.lessonVersion.id}`, this.form)
 
             this.cancel()
 

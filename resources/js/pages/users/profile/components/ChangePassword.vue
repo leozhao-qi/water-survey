@@ -104,7 +104,7 @@ export default {
         }),
 
         async update () {
-            let { data } = await axios.put(`api/users/${this.user.id}/password`, this.form)
+            let { data } = await axios.put(`${this.urlBase}/api/users/${this.user.id}/password`, this.form)
 
             await this.fetch(this.user.id)
 

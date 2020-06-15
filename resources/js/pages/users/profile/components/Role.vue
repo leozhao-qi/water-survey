@@ -110,7 +110,7 @@ export default {
         ucfirst,
 
         async update () {
-            let { data } = await axios.put(`api/users/${this.user.id}/role`, {
+            let { data } = await axios.put(`${this.urlBase}/api/users/${this.user.id}/role`, {
                 role: this.role
             })
 
@@ -129,7 +129,7 @@ export default {
     },
 
     async mounted () {
-        let { data: roles } = await axios.get('api/roles')
+        let { data: roles } = await axios.get(`${this.urlBase}/api/roles`)
 
         this.roles = roles
     },
