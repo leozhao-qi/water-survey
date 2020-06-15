@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }) => {
-    let { data: recommendations } = await axios.get(`${this.urlBase}/api/recommendations`)
+    let { data: recommendations } = await axios.get(`${urlBase}/api/recommendations`)
 
     commit('SET_RECOMMENDATIONS', recommendations.data)
 

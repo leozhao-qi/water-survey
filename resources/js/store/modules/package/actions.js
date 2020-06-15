@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }, { userId, userpackageId }) => {
-    let { data: userPackage } = await axios.get(`${this.urlBase}/api/users/${userId}/packages/${userpackageId}`)
+    let { data: userPackage } = await axios.get(`${urlBase}/api/users/${userId}/packages/${userpackageId}`)
 
     commit('SET_USERPACKAGE', userPackage.data)
 
@@ -10,7 +10,7 @@ export const fetch = async ({ commit }, { userId, userpackageId }) => {
 
 export const update = async ({ commit, state }, { userId, userpackageId }) => {
     let { data: userPackage } = await axios.put(
-        `${this.urlBase}/api/users/${userId}/packages/${userpackageId}`, state.form
+        `${urlBase}/api/users/${userId}/packages/${userpackageId}`, state.form
     )
 
     commit('SET_USERPACKAGE', userPackage.data.package)

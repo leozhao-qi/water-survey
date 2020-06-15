@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }) => {
-    let { data: logbookCategories } = await axios.get(`${this.urlBase}/api/logbook-categories`)
+    let { data: logbookCategories } = await axios.get(`${urlBase}/api/logbook-categories`)
 
     commit('SET_LOGBOOK_CATEGORIES', logbookCategories.data)
 

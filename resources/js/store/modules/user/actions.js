@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }, userId) => {
-    let { data: user } = await axios.get(`${this.urlBase}/api/users/${userId}`)
+    let { data: user } = await axios.get(`${urlBase}/api/users/${userId}`)
 
     commit('SET_USER', user.data)
 
@@ -7,7 +7,7 @@ export const fetch = async ({ commit }, userId) => {
 }
 
 export const updateDeactivations = async ({ commit }, deactiavtion) => {
-    let { data: user } = await axios.get(`${this.urlBase}/api/users/${userId}`)
+    let { data: user } = await axios.get(`${urlBase}/api/users/${userId}`)
 
     await commit('SET_USER', user.data)
 

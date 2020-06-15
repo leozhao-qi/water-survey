@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }) => {
-    let { data: levels } = await axios.get(`${this.urlBase}/api/levels`)
+    let { data: levels } = await axios.get(`${urlBase}/api/levels`)
 
     commit('SET_LEVELS', levels)
 
