@@ -3,6 +3,8 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    RewriteBase /water-survey/
+
     RewriteEngine On
 
     # Handle Authorization Header

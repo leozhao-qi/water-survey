@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['api/*', 'api/users/*'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', '*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost:8000', 'http://msc-educ-smc.cmc.ec.gc.ca'],
 
     'allowed_origins_patterns' => [],
 
