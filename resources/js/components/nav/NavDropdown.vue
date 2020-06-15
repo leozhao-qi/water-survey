@@ -64,7 +64,7 @@ export default {
 
     methods: {
         async logout () {
-            await axios.post('/logout')
+            await axios.post(`${this.baseUrl}/logout`)
 
             window.location.href = this.urlBase
         }
