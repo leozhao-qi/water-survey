@@ -17,15 +17,15 @@ class CreateSupervisorsUsersTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('supervisor_id')->unsigned();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            // $table->foreign('user_id')
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('cascade');
 
-            $table->foreign('supervisor_id')
-                ->references('id')
-                ->on('supervisors')
-                ->onDelete('cascade');
+            // $table->foreign('supervisor_id')
+            //     ->references('id')
+            //     ->on('supervisors')
+            //     ->onDelete('cascade');
 
             $table->primary(['user_id', 'supervisor_id']);
         });

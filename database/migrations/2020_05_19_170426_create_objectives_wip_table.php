@@ -21,10 +21,10 @@ class CreateObjectivesWipTable extends Migration
             $table->string('type')->nullable();
             $table->timestamps();
 
-            $table->foreign('lesson_id')
-                ->references('id')
-                ->on('lessons')
-                ->onDelete('cascade');
+            // $table->foreign('lesson_id')
+            //     ->references('id')
+            //     ->on('lessons')
+            //     ->onDelete('cascade');
         });
     }
 

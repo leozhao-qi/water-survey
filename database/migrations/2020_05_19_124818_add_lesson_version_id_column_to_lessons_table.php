@@ -16,10 +16,10 @@ class AddLessonVersionIdColumnToLessonsTable extends Migration
         Schema::table('lessons', function (Blueprint $table) {
             $table->integer('lesson_version_id')->unsigned()->nullable();
 
-            $table->foreign('lesson_version_id')
-                ->references('id')
-                ->on('lesson_versions')
-                ->onDelete('cascade');
+            // $table->foreign('lesson_version_id')
+            //     ->references('id')
+            //     ->on('lesson_versions')
+            //     ->onDelete('cascade');
         });
     }
 

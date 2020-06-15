@@ -21,10 +21,10 @@ class CreateLessonsTable extends Migration
             $table->text('name');
             $table->timestamps(); 
 
-            $table->foreign('level_id')
-                ->references('id')
-                ->on('levels')
-                ->onDelete('cascade');
+            // $table->foreign('level_id')
+            //     ->references('id')
+            //     ->on('levels')
+            //     ->onDelete('cascade');
         });
     }
 

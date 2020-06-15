@@ -16,10 +16,10 @@ class AddRecommendationColumnToPackagesTable extends Migration
         Schema::table('packages', function (Blueprint $table) {
             $table->string('recommendation_id')->nullable();
 
-            $table->foreign('recommendation_id')
-                ->references('id')
-                ->on('recommendations')
-                ->onDelete('cascade');
+            // $table->foreign('recommendation_id')
+            //     ->references('id')
+            //     ->on('recommendations')
+            //     ->onDelete('cascade');
         });
     }
 

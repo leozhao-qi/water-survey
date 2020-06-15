@@ -16,10 +16,10 @@ class AddReferencesColumnToLogbooksTable extends Migration
         Schema::table('logbooks', function (Blueprint $table) {
             $table->integer('references')->unsigned()->nullable();
 
-            $table->foreign('references')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+            // $table->foreign('references')
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('cascade');
         });
     }
 
