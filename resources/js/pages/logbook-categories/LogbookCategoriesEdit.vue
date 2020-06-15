@@ -133,7 +133,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`/api/logbook-categories/${this.logbookCategory.id}`, this.form)
+            let { data } = await axios.put(`api/logbook-categories/${this.logbookCategory.id}`, this.form)
 
             this.cancel()
 

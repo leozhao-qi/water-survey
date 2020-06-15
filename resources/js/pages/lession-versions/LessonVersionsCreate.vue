@@ -166,7 +166,7 @@ export default {
 
             this.form.valid_on = toMySQLDateFormat(this.form.valid_on)
 
-            let { data } = await axios.post(`/api/lesson-versions`, this.form)
+            let { data } = await axios.post(`api/lesson-versions`, this.form)
 
             this.close()
 

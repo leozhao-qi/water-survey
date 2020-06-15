@@ -238,7 +238,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`/api/objectives-wip/${this.objective.id}`, this.form)
+            let { data } = await axios.put(`api/objectives-wip/${this.objective.id}`, this.form)
 
             await this.setLesson(data.data.lesson)
 

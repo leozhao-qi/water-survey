@@ -187,7 +187,7 @@ export default {
                     toMySQLDateFormat(this.form.reactivated_at) : null
             }
 
-            let { data } = await axios.put(`/api/deactivations/${this.deactivation.id}`, submitData)
+            let { data } = await axios.put(`api/deactivations/${this.deactivation.id}`, submitData)
 
             this.form = {
                 deactivated_at: fromMySQLDateFormat(data.data.deactivation.deactivated_at),
@@ -205,7 +205,7 @@ export default {
         async destroy () {
             this.confirm = false
 
-            let { data } = await axios.delete(`/api/deactivations/${this.deactivation.id}`)
+            let { data } = await axios.delete(`api/deactivations/${this.deactivation.id}`)
 
             window.events.$emit('deactivations:deleted')
 

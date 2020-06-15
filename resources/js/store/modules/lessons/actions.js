@@ -1,5 +1,5 @@
 export const fetch = async ({ commit }) => {
-    let { data: lessons } = await axios.get(`/api/lessons`)
+    let { data: lessons } = await axios.get(`api/lessons`)
 
     commit('SET_LESSONS', lessons.data)
 

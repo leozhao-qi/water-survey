@@ -172,7 +172,7 @@ export default {
         },
 
         async updateReporting () {
-            let { data } = await axios.post(`/api/users/${this.user.id}/role/${this.role}`, {
+            let { data } = await axios.post(`api/users/${this.user.id}/role/${this.role}`, {
                 users: this.selected
             })
 
@@ -200,7 +200,7 @@ export default {
                 return
             }
 
-            let { data: users } = await axios.get(`/api/supervisors/${this.role}`)
+            let { data: users } = await axios.get(`api/supervisors/${this.role}`)
 
             this.users = users
         }

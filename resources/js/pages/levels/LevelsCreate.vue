@@ -77,7 +77,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`/api/levels`, this.form)
+            let { data } = await axios.post(`api/levels`, this.form)
 
             await this.fetch()
 

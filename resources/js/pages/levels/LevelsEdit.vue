@@ -87,7 +87,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`/api/levels/${this.level.id}`, this.form)
+            let { data } = await axios.put(`api/levels/${this.level.id}`, this.form)
 
             this.cancel()
 

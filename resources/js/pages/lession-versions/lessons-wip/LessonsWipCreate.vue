@@ -206,7 +206,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`/api/lessons-wip`, this.form)
+            let { data } = await axios.post(`api/lessons-wip`, this.form)
 
             this.cancel()
 

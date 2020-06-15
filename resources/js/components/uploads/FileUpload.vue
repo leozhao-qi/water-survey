@@ -78,7 +78,7 @@ export default {
         storeMeta (file) {
             let fileObject = this.generateFileObject(file)
 
-            return axios.post(`/api/logbooks/filemeta`, {
+            return axios.post(`api/logbooks/filemeta`, {
                 name: file.name
             })
             .then(
@@ -120,7 +120,7 @@ export default {
 
             window.events.$emit('upload:initialized')
 
-            axios.post(`/api/logbooks/files/upload`, form, {
+            axios.post(`api/logbooks/files/upload`, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

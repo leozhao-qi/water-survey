@@ -134,7 +134,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`/api/logbook-categories`, this.form)
+            let { data } = await axios.post(`api/logbook-categories`, this.form)
 
             this.cancel()
 

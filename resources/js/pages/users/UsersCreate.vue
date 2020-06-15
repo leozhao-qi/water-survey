@@ -80,7 +80,7 @@ export default {
         ucfirst, 
         
         async store () {
-            let { data } = await axios.post('/api/users/moodle', {
+            let { data } = await axios.post('api/users/moodle', {
                 role: this.role,
                 users: this.selected
             })
@@ -106,8 +106,8 @@ export default {
     },
 
     async mounted () {
-        let { data: users } = await axios.get('/api/users/moodle/create')
-        let { data: roles } = await axios.get('/api/roles')
+        let { data: users } = await axios.get('api/users/moodle/create')
+        let { data: roles } = await axios.get('api/roles')
 
         this.users = users
         this.roles = roles

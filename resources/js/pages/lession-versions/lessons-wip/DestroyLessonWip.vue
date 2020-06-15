@@ -55,7 +55,7 @@ export default {
         },
 
         async destroy () {
-            let { data } = await axios.delete(`/api/lessons-wip/${this.lesson.id}`)
+            let { data } = await axios.delete(`api/lessons-wip/${this.lesson.id}`)
 
             await this.fetch()
 

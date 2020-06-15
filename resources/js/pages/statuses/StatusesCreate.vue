@@ -161,7 +161,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`/api/statuses`, this.form)
+            let { data } = await axios.post(`api/statuses`, this.form)
 
             this.cancel()
 

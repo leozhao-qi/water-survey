@@ -233,7 +233,7 @@ export default {
         },
 
         async store () {
-            let { data } = await axios.post(`/api/objectives-wip`, this.form)
+            let { data } = await axios.post(`api/objectives-wip`, this.form)
 
             await this.setLesson(data.data.lesson)
 

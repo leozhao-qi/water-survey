@@ -161,7 +161,7 @@ export default {
         },
 
         async update () {
-            let { data } = await axios.put(`/api/statuses/${this.status.id}`, this.form)
+            let { data } = await axios.put(`api/statuses/${this.status.id}`, this.form)
 
             this.cancel()
 
