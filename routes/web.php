@@ -148,3 +148,7 @@ Route::get('/api/packages/{package}/objectives', 'Logbooks\Api\LogbookPackageCon
 Route::get('/reports', 'Reports\ReportController@index');
 
 Route::get('/reports/users/download', 'Reports\UsersReportController@download');
+
+Route::get('/topics', 'Topics\TopicController@index');
+
+Route::get('/api/topics', 'Topics\Api\TopicController@index');

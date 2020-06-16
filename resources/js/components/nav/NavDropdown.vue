@@ -38,6 +38,8 @@
 
                 <a class="text-gray-900 py-2 px-3" href="statuses">Manage statuses</a>
 
+                <a class="text-gray-900 py-2 px-3" href="topics">Manage topics</a>
+
                 <a class="text-gray-900 py-2 px-3" href="logbook-categories">Manage logbook categories</a>
 
                 <a class="text-gray-900 py-2 px-3" href="reports">Reports</a>

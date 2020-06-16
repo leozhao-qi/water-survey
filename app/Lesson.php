@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Level;
+use App\Topic;
 use App\Package;
 use App\Objective;
 use App\LessonVersion;
@@ -20,12 +21,18 @@ class Lesson extends Model
         'number',
         'name',
         'lesson_version_id',
-        'completed_in_both'
+        'completed_in_both',
+        'topic_id'
     ];
 
-    public function level ()
+    public function level()
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
 
     public function objectives()
