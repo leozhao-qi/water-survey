@@ -24,7 +24,8 @@ class LessonResource extends JsonResource
             'number' => $this->number,
             'version' => LessonVersion::find($this->lesson_version_id)->version,
             'level_id' => $this->level_id,
-            'completed_in_both' => $this->completed_in_both ? true : false
+            'completed_in_both' => $this->completed_in_both ? true : false,
+            'topic_id' => $this->topic_id
         ];
     }
 }
