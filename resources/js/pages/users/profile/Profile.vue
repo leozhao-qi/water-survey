@@ -1,7 +1,15 @@
 <template>
     <div class="flex flex-col items-center w-full py-16">
-        <h1 class="text-3xl mb-4 w-full">
-            {{ user.firstname }} {{ user.lastname }}
+        <h1 class="text-3xl mb-4 w-full flex items-center">
+            <span>{{ user.firstname }} {{ user.lastname }}</span>
+
+            <button 
+                class="btn btn-blue text-sm btn-sm ml-4"
+                v-if="user.role === 'apprentice' && typeof user.packages !== 'undefined' && user.packages.length"
+                @click.prevent="showSot"
+            >
+                View schedule of training
+            </button>
         </h1>
 
         <change-password />
@@ -50,7 +58,11 @@ export default {
     methods: {
         ...mapActions({
             fetch: 'user/fetch'
-        })
+        }),
+
+        showSot () {
+            window.location.href = `${this.urlBase}/users/${this.user.id}/reports/sot`
+        }
     },
 
     mounted() {

@@ -149,6 +149,8 @@ Route::get('/reports', 'Reports\ReportController@index');
 
 Route::get('/reports/users/download', 'Reports\UsersReportController@download');
 
+Route::get('/users/{user}/reports/sot', 'Sot\SotController@index');
+
 Route::get('/topics', 'Topics\TopicController@index');
 
 Route::get('/api/topics', 'Topics\Api\TopicController@index');
