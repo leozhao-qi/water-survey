@@ -69,7 +69,7 @@
                                 for="roles"
                                 class="block text-gray-700 font-bold mb-2"
                             >
-                                Select role
+                                Select role {{ urlBase }}
                             </label>
                             <div class="relative">
                                 <select 
@@ -172,7 +172,7 @@ export default {
         },
 
         async updateReporting () {
-            let { data } = await axios.post(`api/users/${this.user.id}/role/${this.role}`, {
+            let { data } = await axios.post(`${this.urlBase}/api/users/${this.user.id}/role/${this.role}`, {
                 users: this.selected
             })
 

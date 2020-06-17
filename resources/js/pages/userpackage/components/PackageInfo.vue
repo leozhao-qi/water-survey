@@ -9,6 +9,10 @@
         </p>
 
         <p>
+            <strong>Topic: </strong>{{ userPackage.topic }}
+        </p>
+
+        <p>
             <strong>Version: </strong>{{ userPackage.version }}
         </p>
 

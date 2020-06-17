@@ -34,6 +34,7 @@ class UniqueLesson implements Rule
 
         return !Lesson::whereNumber(request('number'))
             ->whereLessonVersionId($this->lesson->lesson_version_id)
+            ->whereTopicId((int) request('topic_id'))
             ->count();
     }
 

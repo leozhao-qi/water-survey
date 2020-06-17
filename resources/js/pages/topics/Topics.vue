@@ -11,13 +11,13 @@
             >Add topics</a>
         </nav>
 
-        <!-- <statuses-create 
+        <topics-create 
             v-if="creating"
         />
 
-        <statuses-edit 
+        <topics-edit 
             v-if="updating"
-        /> -->
+        />
 
         <topics-index 
             v-if="!creating && !updating"
