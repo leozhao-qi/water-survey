@@ -7,6 +7,7 @@ use App\Topic;
 use App\Package;
 use App\Recommendation;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Sot\SotPackageResource;
 
@@ -21,6 +22,26 @@ class SotController extends Controller
     {
         $topics = Topic::orderBy('number')->get();
 
+        $packages = $this->getFormattedPackages($user);
+
+        return view('reports.sot.web', compact('topics', 'packages', 'user'));
+    }
+
+    public function download(User $user)
+    {
+        $topics = Topic::orderBy('number')->get();
+
+        $packages = $this->getFormattedPackages($user);
+
+        $pdf = App::make('dompdf.wrapper');
+
+        $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages'));
+
+        return $pdf->download(str_replace(' ', '_', $user->fullname) . '.pdf');
+    }
+
+    protected function getFormattedPackages(User $user)
+    {
         $packages = $user->packages
             ->map(function ($package) {
                 if ($package->recommendation_id === null) {
@@ -76,7 +97,7 @@ class SotController extends Controller
             []
         );
 
-        return view('reports.sot.test', compact('topics', 'packages', 'user'));
+        return $packages;
     }
 
     protected function getStatus($type, Package $package, $level) {

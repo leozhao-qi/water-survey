@@ -151,6 +151,8 @@ Route::get('/reports/users/download', 'Reports\UsersReportController@download');
 
 Route::get('/users/{user}/reports/sot', 'Sot\SotController@index');
 
+Route::get('/users/{user}/reports/sot/download', 'Sot\SotController@download');
+
 Route::get('/topics', 'Topics\TopicController@index');
 
 Route::get('/api/topics', 'Topics\Api\TopicController@index');
