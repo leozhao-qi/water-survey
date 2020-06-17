@@ -50,6 +50,45 @@
                 class="w-full mb-4"
             >
                 <label 
+                    for="topic_id"
+                    class="block text-gray-700 font-bold mb-2"
+                >
+                    Topic
+                </label>
+
+                <div class="relative">
+                    <select 
+                        id="topic_id"
+                        v-model="form.topic_id"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        :class="{ 'border-red-500': errors.topic_id }"
+                    >
+                        <option value=""></option>
+
+                        <option
+                            :value="topic.id"
+                            v-for="topic in topics"
+                            :key="topic.id"
+                            v-text="`${topic.number} - ${topic.name}`"
+                        ></option>
+                    </select>
+
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+
+                <p
+                    v-if="errors.topic_id"
+                    v-text="errors.topic_id[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
+                class="w-full mb-4"
+            >
+                <label 
                     class="block text-gray-700 font-bold mb-2" 
                     :class="{ 'text-red-500': errors.number }"
                     for="number"
@@ -179,20 +218,23 @@ export default {
                 name_fr: '',
                 number: null,
                 level_id: null,
-                completed_in_both: null
+                completed_in_both: false,
+                topic_id: null
             }
         }
     },
 
     computed: {
         ...mapGetters({
-            levels: 'levels/levels'
+            levels: 'levels/levels',
+            topics: 'topics/topics'
         })
     },
 
     methods: {
         ...mapActions({
-            fetchLevels: 'levels/fetch'
+            fetchLevels: 'levels/fetch',
+            fetchTopics: 'topics/fetch'
         }),
 
         cancel () {
@@ -203,6 +245,7 @@ export default {
             this.form.number = null
             this.form.level_id = null
             this.form.completed_in_both = null
+            this.form.topic_id = null
         },
 
         async store () {
@@ -216,6 +259,8 @@ export default {
 
     async mounted () {
         await this.fetchLevels()
+
+        await this.fetchTopics()
     }
 }
 </script>

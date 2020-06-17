@@ -33,7 +33,9 @@ class PackageVersion
                     'en' => $lesson->getTranslation('name', 'en'),
                     'fr' => $lesson->getTranslation('name', 'fr')
                 ],
-                'lesson_version_id' => $lessonVersion->id
+                'lesson_version_id' => $lessonVersion->id,
+                'completed_in_both' => $lesson->completed_in_both,
+                'topic_id' => $lesson->topic_id
             ]);
 
             $this->populateObjectives($newLesson);
@@ -58,7 +60,9 @@ class PackageVersion
                 'name' => [
                     'en' => $lesson->getTranslation('name', 'en'),
                     'fr' => $lesson->getTranslation('name', 'fr')
-                ]
+                ],
+                'topic_id' => $lesson->topic_id,
+                'completed_in_both' => $lesson->completed_in_both
             ]);
 
             $this->populateWIPObjectives($lessonWIP, $lesson);

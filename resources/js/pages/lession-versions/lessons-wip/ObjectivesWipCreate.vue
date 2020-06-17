@@ -28,9 +28,9 @@
 
                         <option
                             :value="lesson.id"
-                            v-for="lesson in orderBy(lessons, ['number'], ['asc'])"
+                            v-for="lesson in orderBy(lessons, ['formatNumber'], ['asc'])"
                             :key="lesson.id"
-                            v-text="`${lesson.number} - ${lesson.name}`"
+                            v-text="`${lesson.formatNumber} - ${lesson.name}`"
                         ></option>
                     </select>
 
