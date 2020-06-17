@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Topic;
 use App\ObjectiveWIP;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -20,12 +21,18 @@ class LessonWIP extends Model
         'level_id',
         'number',
         'name',
-        'completed_in_both'
+        'completed_in_both',
+        'topic_id'
     ];
 
     public function level ()
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function topic()
+    {
+        return $this->belongsTo(Topic::class);
     }
 
     public function objectives()

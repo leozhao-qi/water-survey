@@ -16,7 +16,7 @@ class ObjectiveResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'lesson' => $this->lesson->number,
+            'lesson' => $this->lesson->topic_id ? $this->lesson->topic->number . '.' . str_pad($this->lesson->number, 2, '0', STR_PAD_LEFT) : 'No topic.' . $this->lesson->number,
             'lesson_id' => $this->lesson_id,
             'lesson_version' => $this->lesson->lessonVersion->version,
             'number' => $this->number,

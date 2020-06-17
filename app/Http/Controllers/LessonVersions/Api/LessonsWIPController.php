@@ -31,7 +31,8 @@ class LessonsWIPController extends Controller
             'number' => 'required|min:1|unique:lessons_wip,number',
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
-            'completed_in_both' => 'required|boolean'
+            'completed_in_both' => 'sometimes|boolean',
+            'topic_id' => 'required|integer|exists:topics,id'
         ]);
 
         LessonWIP::create([
@@ -41,7 +42,8 @@ class LessonsWIPController extends Controller
                 'en' => request('name_en'),
                 'fr' => request('name_fr')
             ],
-            'completed_in_both' => request('completed_in_both')
+            'completed_in_both' => request('completed_in_both'),
+            'topic_id' => request('topic_id')
         ]);
 
         return response()->json([
@@ -62,7 +64,8 @@ class LessonsWIPController extends Controller
             ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
-            'completed_in_both' => 'required|boolean'
+            'completed_in_both' => 'required|boolean',
+            'topic_id' => 'required|integer|exists:topics,id'
         ]);
 
         $lesson->update([
@@ -72,7 +75,8 @@ class LessonsWIPController extends Controller
                 'en' => request('name_en'),
                 'fr' => request('name_fr')
             ],
-            'completed_in_both' => request('completed_in_both')
+            'completed_in_both' => request('completed_in_both'),
+            'topic_id' => request('topic_id')
         ]);
 
         return response()->json([

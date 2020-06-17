@@ -17,30 +17,32 @@
             style="top: 50px;"
             v-if="isOpen"
         >
-            <span class="pb-2 px-3">Logged in as: <a :href="`users/${authUser.id}`"><strong>{{ authUser.name }}</strong></a></span>  
+            <span class="pb-2 px-3">Logged in as: <a :href="`${urlBase}/users/${authUser.id}`"><strong>{{ authUser.name }}</strong></a></span>  
 
             <hr class="border-t border-gray-300">
 
-            <a class="text-gray-900 py-2 px-3" href="logbooks">Logbooks</a>
+            <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbooks`">Logbooks</a>
 
             <template v-if="hasRole(['administrator'])">
-                <a class="text-gray-900 py-2 px-3" href="users">Manage users</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/users`">Manage users</a>
 
-                <a class="text-gray-900 py-2 px-3" href="levels">Manage levels</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/levels`">Manage levels</a>
 
-                <a class="text-gray-900 py-2 px-3" href="lessons">Manage lessons</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/lessons`">Manage lessons</a>
 
-                <a class="text-gray-900 py-2 px-3" href="lesson-versions">Manage lesson versions</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/lesson-versions`">Manage lesson versions</a>
 
-                <a class="text-gray-900 py-2 px-3" href="objectives">Manage objectives</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/objectives`">Manage objectives</a>
 
-                <a class="text-gray-900 py-2 px-3" href="recommendations">Manage recommendations</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/recommendations`">Manage recommendations</a>
 
-                <a class="text-gray-900 py-2 px-3" href="statuses">Manage statuses</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/statuses`">Manage statuses</a>
 
-                <a class="text-gray-900 py-2 px-3" href="logbook-categories">Manage logbook categories</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/topics`">Manage topics</a>
 
-                <a class="text-gray-900 py-2 px-3" href="reports">Reports</a>
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbook-categories`">Manage logbook categories</a>
+
+                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/reports`">Reports</a>
             </template>
 
             <hr class="border-t border-gray-300">

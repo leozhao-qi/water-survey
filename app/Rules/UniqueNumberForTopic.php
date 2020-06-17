@@ -2,21 +2,21 @@
 
 namespace App\Rules;
 
-use App\Lesson;
+use App\Topic;
 use Illuminate\Contracts\Validation\Rule;
 
-class UniqueLesson implements Rule
+class UniqueNumberForTopic implements Rule
 {
-    protected $lesson;
+    protected $topic;
 
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct(Lesson $lesson)
+    public function __construct(Topic $topic)
     {
-        $this->lesson = $lesson;
+        $this->topic = $topic;
     }
 
     /**
@@ -28,13 +28,11 @@ class UniqueLesson implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (request('number') === $this->lesson->number) {
+        if ((int) request('number') === $this->topic->number) {
             return true;
         }
 
-        return !Lesson::whereNumber(request('number'))
-            ->whereLessonVersionId($this->lesson->lesson_version_id)
-            ->whereTopicId((int) request('topic_id'))
+        return !Topic::whereNumber($this->topic->number)
             ->count();
     }
 
@@ -45,6 +43,6 @@ class UniqueLesson implements Rule
      */
     public function message()
     {
-        return 'This lesson number already exists.';
+        return 'This topic number already exists.';
     }
 }

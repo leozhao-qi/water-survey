@@ -30,11 +30,16 @@ class PackageResource extends JsonResource
         return [
             'id' => $this->id,
             'level' => $this->lesson->level->name,
-            'package' => $this->lesson->number . ' - ' . $this->lesson->name,
+            'package' => $this->lesson->topic_id ? 
+                $this->lesson->topic->number . '.' . str_pad($this->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $this->lesson->name : 
+                'No topic.' . str_pad($this->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $this->lesson->name,
             'user' => User::find($this->user_id),
             'user_id' => $this->user_id,
             'lesson_id' => $this->lesson_id,
             'version' => LessonVersion::find($this->lesson->lesson_version_id)->version,
+            'topic' => $this->lesson->topic_id ? 
+                $this->lesson->topic->number . '.' . str_pad($this->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $this->lesson->topic->name : 
+                'No topic asociated with this lesson package',
             'signed_off_by' => $this->signed_off_by ? User::find($this->signed_off_by) : null,
             'signed_off_at' => $this->signed_off_at,
             'commented_by' => $this->commented_by ? User::find($this->commented_by) : null,

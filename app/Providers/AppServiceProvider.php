@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\User;
 use App\Level;
+use App\Topic;
 use App\Lesson;
 use App\Comment;
 use App\Logbook;
@@ -11,6 +12,7 @@ use App\Package;
 use App\LessonWIP;
 use App\Observers\UserObserver;
 use App\Observers\LevelObserver;
+use App\Observers\TopicObserver;
 use App\Observers\LessonObserver;
 use App\Observers\CommentObserver;
 use App\Observers\LogbookObserver;
@@ -47,5 +49,6 @@ class AppServiceProvider extends ServiceProvider
         Package::observe(PackageObserver::class);
         Logbook::observe(LogbookObserver::class);
         Comment::observe(CommentObserver::class);
+        Topic::observe(TopicObserver::class);
     }
 }

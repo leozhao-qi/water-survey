@@ -148,3 +148,13 @@ Route::get('/api/packages/{package}/objectives', 'Logbooks\Api\LogbookPackageCon
 Route::get('/reports', 'Reports\ReportController@index');
 
 Route::get('/reports/users/download', 'Reports\UsersReportController@download');
+
+Route::get('/topics', 'Topics\TopicController@index');
+
+Route::get('/api/topics', 'Topics\Api\TopicController@index');
+
+Route::post('/api/topics', 'Topics\Api\TopicController@store');
+
+Route::put('/api/topics/{topic}', 'Topics\Api\TopicController@update');
+
+Route::delete('/api/topics/{topic}', 'Topics\Api\TopicController@destroy');
