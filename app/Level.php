@@ -12,7 +12,10 @@ class Level extends Model
 
     public $translatable = ['name'];
     
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'code'
+    ];
 
     public function lessons()
     {
