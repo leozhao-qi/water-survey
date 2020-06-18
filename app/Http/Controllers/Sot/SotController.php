@@ -18,7 +18,7 @@ class SotController extends Controller
         $this->middleware(['profile']);
     }
 
-    public function index(User $user)
+    public function show(User $user)
     {
         $topics = Topic::orderBy('number')->get();
 

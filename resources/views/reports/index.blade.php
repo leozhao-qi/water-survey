@@ -7,19 +7,24 @@
             Reports
         </h1>
 
-        <ul>
-            <li>
-                <a href="reports/users/download">
-                    User report
-                </a>
-            </li>
+        @if (auth()->user()->hasRole(['administrator']))
+            <h2 class="text-xl mb-2">
+                Administrator reports
+            </h2>
+            <ul>
+                <li>
+                    <a href="reports/users/download">
+                        User report
+                    </a>
+                </li>
+            </ul>
+        @endif
 
-            <li>
-                <a href="reports/test/download">
-                    test report
-                </a>
-            </li>
-        </ul>
+        <h2 class="text-xl mb-4 mt-6">
+            Statement of training
+        </h2>
+
+        <p>SoT user table to go here.</p>
     </div>
 
 @endsection
