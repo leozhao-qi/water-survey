@@ -38,7 +38,7 @@ class PackageVersion
                 'topic_id' => $lesson->topic_id
             ]);
 
-            $this->populateObjectives($newLesson);
+            $this->populateObjectives($lesson, $newLesson);
         }
     }
 
@@ -86,10 +86,8 @@ class PackageVersion
         }
     }
 
-    protected function populateObjectives(Lesson $lesson)
+    protected function populateObjectives(LessonWIP $lessonWIP, Lesson $lesson)
     {
-        $lessonWIP = LessonWIP::whereNumber($lesson->number)->first();
-
         $objectives = ObjectiveWIP::whereLessonId($lessonWIP->id)->get();
 
         foreach ($objectives as $objective) {

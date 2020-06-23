@@ -6,7 +6,7 @@
             <a 
                 :href="`${urlBase}/lesson-versions/create`"
                 class="btn btn-text"
-            >Create new version</a>
+            >{{lessonsWIPCount ? 'Continue editing lessons WIP' : 'Create new version' }}</a>
         </nav>
 
         <lesson-versions-edit 
@@ -23,11 +23,16 @@
 export default {
      data() {
         return {
-            updating: false
+            updating: false,
+            lessonsWIPCount: 0
         }
     },
 
-    mounted () {
+    async mounted () {
+        let { data } = await axios.get(`${this.urlBase}/api/lessons-wip`)
+
+        this.lessonsWIPCount = data
+
         window.events.$on('lesson-versions:edit', () => {
             this.updating = true
         })

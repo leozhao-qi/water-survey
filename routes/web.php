@@ -1,5 +1,6 @@
 <?php
 
+use App\LessonWIP;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -92,6 +93,10 @@ Route::put('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController
 Route::delete('/api/lessons-wip/{lesson}', 'LessonVersions\Api\LessonsWIPController@destroy');
 
 Route::post('/api/lessons-wip', 'LessonVersions\Api\LessonsWIPController@store');
+
+Route::get('/api/lessons-wip', function () {
+    return LessonWIP::all()->count();
+});
 
 Route::resource('api/lesson-versions', 'LessonVersions\Api\LessonVersionsController');
 

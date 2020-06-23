@@ -43,7 +43,7 @@
 
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0" colspan="2">EG04</th>
 
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0">Status</th>
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0">RoT State</th>
                 </tr>
 
                 <tr>

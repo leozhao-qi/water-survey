@@ -37,7 +37,7 @@ class SotController extends Controller
 
         $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages'));
 
-        return $pdf->download(str_replace(' ', '_', $user->fullname) . '.pdf');
+        return $pdf->download(str_replace(' ', '_', $user->fullname) . '_sot.pdf');
     }
 
     protected function getFormattedPackages(User $user)
