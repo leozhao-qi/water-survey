@@ -28,7 +28,19 @@ class LessonsWIPController extends Controller
     {
         request()->validate([
             'level_id' => 'required|integer|min:1|exists:levels,id',
-            'number' => 'required|min:1|unique:lessons_wip,number',
+            'number' => [
+                'required',
+                'min:1',
+                function ($attribute, $value, $fail) {
+                    $lessonExists = LessonWIP::whereTopicId((int) request('topic_id'))
+                        ->whereNumber((int) request('number'))
+                        ->exists();
+
+                    if ($lessonExists) {
+                        $fail('This lesson number has already been taken for this topic');
+                    }
+                },
+            ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
             'completed_in_both' => 'sometimes|boolean',
