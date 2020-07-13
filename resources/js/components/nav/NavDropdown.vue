@@ -21,28 +21,36 @@
 
             <hr class="border-t border-gray-300">
 
-            <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbooks`">Logbooks</a>
+            <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbooks`">Manage Log Book Entries</a>
 
             <template v-if="hasRole(['administrator'])">
                 <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/users`">Manage users</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/levels`">Manage levels</a>
+                <strong class="text-gray-900 pt-2 pb-0 px-3">Manage lesson packages</strong>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/lessons`">Manage lessons</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/levels`">Working levels</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/lesson-versions`">Manage lesson versions</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/lesson-versions`">Lesson package versions</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/objectives`">Manage objectives</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/lessons`">Lesson package information</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/recommendations`">Manage recommendations</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/objectives`">Edit lesson objectives</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/statuses`">Manage statuses</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/topics`">Lesson package topics</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/topics`">Manage topics</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/logbook-categories`">Logbook categories</a>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbook-categories`">Manage logbook categories</a>
+                <strong class="text-gray-900 pt-2 pb-0 px-3">Reports</strong>
 
-                <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/reports`">Reports</a>
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/recommendations`">Manage supervisor recommendations</a>
+
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/statuses`">Manage lesson package statuses</a>
+
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/reports/users/download`">Generate appointment date report</a>
+
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" href="#">SoT</a>
+
+                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" href="#">RoT</a>
             </template>
 
             <hr class="border-t border-gray-300">

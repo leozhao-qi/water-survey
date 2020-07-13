@@ -3,7 +3,7 @@
         class="text-sm mb-1"
     >
         <div class="flex items-center">
-            {{ pckg.lesson }}
+            {{ pckg.formatNumber }} v{{ pckg.versionNumber }} - {{ pckg.lessonName }}
 
             <button 
                 class="btn btn-text btn-sm no-underline text-blue-500 ml-2 text-xs"

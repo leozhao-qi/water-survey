@@ -17,7 +17,7 @@
                     @click.prevent="changing = true"
                     v-if="hasRole(['administrator'])"
                 >
-                    Change date
+                    {{ !user.appointment_date ? 'Add' : 'Change date' }}
                 </button>
             </div>
         </template>
@@ -35,7 +35,7 @@
                     @click.prevent="changing = true"
                     v-if="hasRole(['administrator'])"
                 >
-                    Change date
+                    {{ !user.appointment_date ? 'Save date' : 'Change date' }}
                 </button>
             </div>
         </template>
@@ -55,13 +55,13 @@
             ></p>
 
             <div
-                class="w-full"
+                class="w-full mb-4"
             >
                 <button 
                     class="btn btn-blue text-sm"
                     @click.prevent="update"
                 >
-                    Change date
+                    {{ !user.appointment_date ? 'Save date' : 'Change date' }}
                 </button>
 
                 <button 

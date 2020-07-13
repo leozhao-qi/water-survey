@@ -84,11 +84,26 @@
                 class="w-full mb-4"
             >
                 <label 
-                    class="block text-gray-700 font-bold mb-2" 
+                    class="flex items-center text-gray-700 font-bold mb-2" 
                     :class="{ 'text-red-500': errors.event_description }"
                     for="event_description"
                 >
-                    Event description
+                    Event description 
+                    
+                    <span 
+                        class="rounded-full h-5 w-5 ml-2 text-xs flex items-center justify-center bg-yellow-500 cursor-pointer"
+                        v-tooltip="{
+                            content: 'Place the event description here',
+                            placement: 'bottom-center',
+                            classes: ['info'],
+                            targetClasses: ['it-has-a-tooltip'],
+                            offset: 10,
+                            delay: {
+                                show: 500,
+                                hide: 300,
+                            }
+                        }"
+                    >?</span>
                 </label>
 
                 <input 
@@ -161,9 +176,9 @@
 
                         <option
                             :value="p.id"
-                            v-for="p in availablePackages"
+                            v-for="p in orderBy(availablePackages, ['formatNumber'], ['asc'])"
                             :key="p.id"
-                            v-text="p.lesson"
+                            v-text="`${p.formatNumber} v${p.versionNumber} - ${p.lessonName}`"
                         ></option>
                     </select>
 
@@ -193,11 +208,26 @@
                 class="w-full mb-4"
             >
                 <label 
-                    class="block text-gray-700 font-bold mb-2" 
+                    class="flex items-center text-gray-700 font-bold mb-2" 
                     :class="{ 'text-red-500': errors.details_of_event }"
                     for="details_of_event"
                 >
                     Details of event
+
+                    <span 
+                        class="rounded-full h-5 w-5 ml-2 text-xs flex items-center justify-center bg-yellow-500 cursor-pointer"
+                        v-tooltip="{
+                            content: 'Place the details of event description here',
+                            placement: 'bottom-center',
+                            classes: ['info'],
+                            targetClasses: ['it-has-a-tooltip'],
+                            offset: 10,
+                            delay: {
+                                show: 500,
+                                hide: 300,
+                            }
+                        }"
+                    >?</span>
                 </label>
 
                 <vue-editor 
@@ -260,7 +290,7 @@ import { mapGetters, mapActions } from 'vuex'
 import Datepicker from 'vuejs-datepicker'
 import toMySQLDateFormat from '../../helpers/toMySQLDateFormat'
 import { VueEditor, Quill } from 'vue2-editor'
-import { filter, includes } from 'lodash-es'
+import { filter, includes, orderBy } from 'lodash-es'
 
 export default {
     components: {
@@ -324,6 +354,8 @@ export default {
         }),
         
         filter,
+
+        orderBy,
 
         cancel () {
             window.events.$emit('logbooks:create-cancel')

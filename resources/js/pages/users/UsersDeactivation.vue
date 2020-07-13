@@ -5,6 +5,7 @@
         </h1> 
 
         <datatable 
+            v-if="users.length"
             :data="users"
             :columns="columns"
             :per-page="10"
@@ -20,6 +21,13 @@
                 class="btn btn-text text-red-500 mr-2"
             >Cancel</button>
         </datatable>
+
+        <div
+            v-else
+            class="alert alert-blue"
+        >
+            There are currently no inactive users.
+        </div>
 
         <modal 
             v-show="modalActive"

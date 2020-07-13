@@ -52,7 +52,7 @@
             <button 
                 @click.prevent="store"
                 class="btn btn-blue"
-            >Submit</button>
+            >Create account{{ selected.length > 1 ? 's' : '' }}</button>
         </datatable>
     </div>
 </template>

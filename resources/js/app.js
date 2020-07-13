@@ -26,6 +26,9 @@ window.events.$on('errors-general', error => {
     Vue.toasted.error(error)
 })
 
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip)
+
 import store from './store'
 
 const files = require.context('./', true, /\.vue$/i)

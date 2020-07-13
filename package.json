@@ -25,6 +25,7 @@
         "dayjs": "^1.8.26",
         "lodash-es": "^4.17.15",
         "tailwindcss": "^1.2.0",
+        "v-tooltip": "^2.0.3",
         "vue-toasted": "^1.1.28",
         "vue2-editor": "^2.10.2",
         "vuejs-datepicker": "^1.6.2",
