@@ -29,6 +29,64 @@
                 Download
             </a>
         </div>
+
+        <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed;">
+            <thead>
+                <tr>
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%;">
+                        RoT State codes
+                    </th>
+
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%;">
+                        EG03/04 Theory/Practical codes
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%; vertical-align: top;">
+                        <ul>
+                            <li style="margin-bottom: .5rem;">
+                                <strong>N</strong> - Not complete (Recommendation code B <strong>or</strong> no Recommendation code entered <strong>and</strong> no statement of competency).
+                            </li>
+
+                            <li style="margin-bottom: .5rem;">
+                                <strong>R</strong> - Recommended by supervisor. Recommendation codes A or C entered. No statement of competency.
+                            </li>
+
+                            <li>
+                                <strong>A</strong> - Approved. Recommendation codes A or C. Statement of competency signed off by manager or head of ops.
+                            </li>
+                        </ul>
+                    </td>
+
+                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%; vertical-align: top;">
+                        <ul>
+                            <li style="margin-bottom: .5rem;">
+                                <strong>Grey</strong> - Not applicable
+                            </li>
+
+                            <li style="margin-bottom: .5rem;">
+                                <strong>I</strong> - In progress
+                            </li>
+
+                            <li style="margin-bottom: .5rem;">
+                                <strong>E</strong> - Exempt
+                            </li>
+
+                            <li style="margin-bottom: .5rem;">
+                                <strong>D</strong> - Deferred
+                            </li>
+
+                            <li>
+                                <strong>C</strong> - Complete
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         
         <table style="width: 100%; font-family: sans-serif;">
             <thead>
@@ -99,19 +157,19 @@
                                 </td>
 
                                 <td 
-                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; {{ !$package['eg3_theory'] ? 'background-color: #CBD5E0;' : '' }}"
+                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg3_t'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['theory_status_eg3'] }}</td>
 
                                 <td 
-                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; {{ !$package['eg3_practical'] ? 'background-color: #CBD5E0;' : '' }}"
+                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg3_p'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['practical_status_eg3'] }}</td>
 
                                 <td 
-                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; {{ !$package['eg4_theory'] ? 'background-color: #CBD5E0;' : '' }}"
+                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg4_t'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['theory_status_eg4'] }}</td>
 
                                 <td 
-                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; {{ !$package['eg4_practical'] ? 'background-color: #CBD5E0;' : '' }}"
+                                    style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg4_p'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['practical_status_eg4'] }}</td>
 
                                 <td 
