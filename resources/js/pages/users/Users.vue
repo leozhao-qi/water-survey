@@ -16,7 +16,7 @@
                 href=""
                 @click.prevent="activating = true"
                 class="btn btn-text"
-            >Activate users</a>
+            >Re-activate users</a>
         </nav>
 
         <users-create 

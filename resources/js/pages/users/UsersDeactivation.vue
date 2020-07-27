@@ -1,7 +1,7 @@
 <template>
     <div class="w-full lg:w-9/12">   
         <h1 class="text-3xl font-bold mb-4">
-            Activate users
+            Re-activate users
         </h1> 
 
         <datatable 
@@ -13,7 +13,7 @@
             :order-key-directions="['asc', 'asc']"
             :has-text-filter="true"
             :has-event="true"
-            event-text="Activate"
+            event-text="Re-activate"
             event="user:activate"
         >
             <button
@@ -35,7 +35,7 @@
             @submit="update"
         >
             <template slot="header">
-                Activate user
+                Re-activate user
             </template>
 
             <template slot="body">

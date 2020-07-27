@@ -112,7 +112,7 @@
 
                             <option
                                 :value="p.package"
-                                v-for="p in packagesIndex"
+                                v-for="p in orderBy(packagesIndex, ['package'], ['asc'])"
                                 :key="p.id"
                                 v-text="p.package"
                             ></option>
@@ -240,7 +240,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import Paginate from 'vuejs-paginate'
-import { filter } from 'lodash-es'
+import { filter, orderBy } from 'lodash-es'
 import dayjs from 'dayjs'
 
 export default {
@@ -270,6 +270,8 @@ export default {
         }),
 
         dayjs,
+
+        orderBy,
 
         paginate (page) {
             this.currentPage = page

@@ -37,7 +37,7 @@ class LogbookIndexResource extends JsonResource
                 $package = Package::find($p['package_id']);
 
                 return [
-                    'number' => $package->lesson->number
+                    'number' => $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT)
                 ];
             })->sortBy('number')->pluck('number')->toArray())
         ];

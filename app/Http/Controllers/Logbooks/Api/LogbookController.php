@@ -83,7 +83,7 @@ class LogbookController extends Controller
 
         $logbooks = $logbooks->merge($usersLogbooks)->merge($referencedLogbooks);
         $logbookPackages = LogbookPackage::whereIn('logbook_id', $logbooks->pluck('id')->toArray())->get();
-        $packages = Package::whereIn('id', $logbookPackages->pluck('package_id')->toArray())->get();
+        $packages = Package::whereIn('id', $logbookPackages->pluck('package_id')->toArray())->get()->unique('lesson_id');
 
         return LogbookIndexResource::collection(
             $logbooks->sortByDesc('created')
