@@ -1,7 +1,7 @@
 <template>
     <ul>
         <selected-package-item 
-            v-for="p in packages"
+            v-for="p in orderBy(packages, ['formatNumber'], ['asc'])"
             :key="p.id"
             :pckg="p"
             :can-delete="canDelete"
@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { orderBy } from 'lodash-es'
+
 export default {
     props: {
         packages: {
@@ -21,6 +23,10 @@ export default {
             required: false,
             default: true
         }
+    },
+
+    methods: {
+        orderBy
     }
 }
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Resources\Logbooks;
 
 use App\User;
 use App\Package;
+use App\LessonVersion;
 use App\Http\Resources\Comments\CommentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\LogbookCategories\LogbookCategoryResource;
@@ -42,9 +43,14 @@ class LogbookShowResource extends JsonResource
                 return [
                     'id' => $p['package_id'],
                     'lesson' => $package->lesson->number . ' - ' . $package->lesson->name,
+                    'formatNumber' => $package->lesson->topic_id ? 
+                    $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) : 
+                    'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT),
+                    'versionNumber' => LessonVersion::find($package->lesson->lesson_version_id)->version,
+                    'lessonName' => $package->lesson->name,
                     'complete' => $package->complete
                 ];
-            })->sortBy('lesson')->toArray(),
+            })->sortBy('formatName')->toArray(),
             'references' => $this->references ? User::find($this->references) : null,
         ];
     }

@@ -161,9 +161,9 @@
 
                         <option
                             :value="p.id"
-                            v-for="p in availablePackages"
+                            v-for="p in orderBy(availablePackages, ['formatNumber'], ['asc'])"
                             :key="p.id"
-                            v-text="p.lesson"
+                            v-text="`${p.formatNumber} v${p.versionNumber} - ${p.lessonName}`"
                         ></option>
                     </select>
 
@@ -274,7 +274,7 @@ import fromMySQLDateFormat from '../../helpers/fromMySQLDateFormat'
 import toMySQLDateFormat from '../../helpers/toMySQLDateFormat'
 import Datepicker from 'vuejs-datepicker'
 import { VueEditor, Quill } from 'vue2-editor'
-import { filter, includes } from 'lodash-es'
+import { filter, includes, orderBy } from 'lodash-es'
 
 export default {
     components: {
@@ -337,6 +337,8 @@ export default {
             fetchLessonPackages: 'logbooks/fetchLessonPackages',
             editEntry: 'logbooks/update'
         }),
+
+        orderBy,
 
         cancel () {
             window.events.$emit('logbooks:edit-cancel')
