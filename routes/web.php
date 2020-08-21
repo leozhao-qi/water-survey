@@ -154,9 +154,15 @@ Route::get('/reports', 'Reports\ReportController@index');
 
 Route::get('/reports/users/download', 'Reports\UsersReportController@download');
 
-Route::get('/users/{user}/reports/sot', 'Sot\SotController@show');
+Route::get('/reports/sot/{user}', 'Sot\SotController@show');
 
-Route::get('/users/{user}/reports/sot/download', 'Sot\SotController@download');
+Route::get('/reports/sot/{user}/download', 'Sot\SotController@download');
+
+Route::get('/reports/rot', 'Rot\RotController@index');
+
+Route::get('/api/reports/rot', 'Rot\Api\RotController@index');
+
+Route::get('/api/reports/rot/download', 'Rot\Api\RotController@download');
 
 Route::get('/topics', 'Topics\TopicController@index');
 

@@ -93,9 +93,9 @@
                     <span 
                         class="rounded-full h-5 w-5 ml-2 text-xs flex items-center justify-center bg-yellow-500 cursor-pointer"
                         v-tooltip="{
-                            content: 'Place the event description here',
+                            content: 'Provide a brief description of the event indicating if a Theory Training Event or a Field trip (Example, Field trip to Complete Annual Levels)',
                             placement: 'bottom-center',
-                            classes: ['info'],
+                            classes: ['info', 'text-sm'],
                             targetClasses: ['it-has-a-tooltip'],
                             offset: 10,
                             delay: {
@@ -217,9 +217,9 @@
                     <span 
                         class="rounded-full h-5 w-5 ml-2 text-xs flex items-center justify-center bg-yellow-500 cursor-pointer"
                         v-tooltip="{
-                            content: 'Place the details of event description here',
+                            content: 'Provide more specific details , include the Who if anyone assisted or was providing training.  Then an explanation of the event and what was accomplished or practiced',
                             placement: 'bottom-center',
-                            classes: ['info'],
+                            classes: ['info', 'text-sm'],
                             targetClasses: ['it-has-a-tooltip'],
                             offset: 10,
                             delay: {

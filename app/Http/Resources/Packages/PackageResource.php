@@ -38,7 +38,7 @@ class PackageResource extends JsonResource
             'lesson_id' => $this->lesson_id,
             'version' => LessonVersion::find($this->lesson->lesson_version_id)->version,
             'topic' => $this->lesson->topic_id ? 
-                $this->lesson->topic->number . '.' . str_pad($this->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $this->lesson->topic->name : 
+                $this->lesson->topic->number . ' - ' . $this->lesson->topic->name : 
                 'No topic asociated with this lesson package',
             'signed_off_by' => $this->signed_off_by ? User::find($this->signed_off_by) : null,
             'signed_off_at' => $this->signed_off_at,

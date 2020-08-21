@@ -30,8 +30,8 @@ class Package extends Model
 
     protected $casts = [
         'signed_off_at' => 'date',
-        'commented_off_at' => 'date',
-        'evaluated_off_at' => 'date',
+        'commented_at' => 'date',
+        'evaluated_at' => 'date',
         'recommendation_comment_at' => 'date'
     ];
 

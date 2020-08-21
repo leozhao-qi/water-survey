@@ -1,0 +1,236 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+        <style>
+            body { margin: 0; padding: 0; min-width: 100%; width: 100% !important; height: 100% !important;}
+            body, table, td, div, p, a { -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%; }
+            html {
+                font-size: 14px;
+                font-family: sans-serif;
+            }
+
+            h2 {
+                width: 100%;
+                font-size: 1.5rem;
+                line-height: 1.3;
+                margin-bottom: .5rem;
+            }
+
+            h3 {
+                width: 100%;
+                font-size: 1.25rem;
+                line-height: 1.3;
+                margin-bottom: .5rem;
+            }
+
+            h4 {
+                width: 100%;
+                font-size: 1rem;
+                line-height: 1.3;
+                margin-bottom: .5rem;
+            }
+
+            th,
+            td {
+                padding: .5rem 1rem;
+                border: 1px solid #e2e8f0;
+            }
+
+            .checkmark {
+                display:inline-block;
+                width: 18px;
+                height: 18px;
+                -ms-transform: rotate(45deg); /* IE 9 */
+                -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+                transform: rotate(45deg);
+            }
+
+            .checkmark_stem {
+                position: absolute;
+                width:3px;
+                height:9px;
+                background-color:green;
+                left:11px;
+                top:6px;
+            }
+
+            .checkmark_kick {
+                position: absolute;
+                width:3px;
+                height:3px;
+                background-color:green;
+                left:8px;
+                top:12px;
+            }
+        </style>
+    </head>
+
+    <body>
+        @foreach($packages as $package)
+            <h2>
+                {{ $package->lesson->topic_id ? 
+                $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name : 
+                'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name }}
+            </h2>
+
+            <p style="margin-bottom: .25rem;">
+                <strong>Level:</strong> {{ $package->lesson->level->name }}
+            </p>
+
+            <p style="margin-bottom: .25rem;">
+                <strong>Topic:</strong> {{ $package->lesson->topic->number }} - {{ $package->lesson->topic->name }}
+            </p>
+
+            <p style="margin-bottom: .25rem;">
+                <strong>Version:</strong> {{ $package->lesson->lessonVersion->version }}
+            </p>
+
+            <p style="margin-bottom: .25rem;">
+                <strong>Apprentice:</strong> {{ $user->moodleuser->firstname }}
+            </p>
+
+            <table style="width: 100%; font-family: sans-serif; border-collapse: collapse; margin-top: 1rem;">
+                <thead>
+                    <tr>
+                        <th style="text-align: left">Lesson Package</th>
+                        <th>Progress EG03 Level</th>
+                        <th>Progress EG04 Level</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <th style="text-align: left">Theory</th>
+                        <td style="text-align: center; {{ !$packageMeta[$package->lesson->name]['eg3_t'] ? 'background-color: #CBD5E0;' : '' }}">
+                            {{ $packageMeta[$package->lesson->name]['theory_status_eg3'] }}
+                        </td>
+                        <td style="text-align: center; {{ !$packageMeta[$package->lesson->name]['eg4_t'] ? 'background-color: #CBD5E0;' : '' }}">
+                            {{ $packageMeta[$package->lesson->name]['theory_status_eg4'] }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th style="text-align: left">Practical Application</th>
+                        <td style="text-align: center; {{ !$packageMeta[$package->lesson->name]['eg3_p'] ? 'background-color: #CBD5E0;' : '' }}">
+                            {{ $packageMeta[$package->lesson->name]['practical_status_eg3'] }}
+                        </td>
+                        <td style="text-align: center; {{ !$packageMeta[$package->lesson->name]['eg4_p'] ? 'background-color: #CBD5E0;' : '' }}">
+                            {{ $packageMeta[$package->lesson->name]['practical_status_eg4'] }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin: .5rem 0;">
+                <strong>Status Indicators:</strong> <strong>I</strong> = In Progress, <strong>C</strong> = Complete, <strong>D</strong> = Deferred, <strong>E</strong> = Exempt
+            </p>
+
+            <h3>Objectives</h3>
+
+            <ul style="list-style: none; margin: 0; padding: 0;">
+
+                @foreach ($package->lesson->objectives as $objective)
+
+                    <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
+                        @if ($user->objectives->where('id', '=', $objective->id)->count()) 
+                            <span class="checkmark" style="position: relative;">
+                                <div class="checkmark_stem"></div>
+                                <div class="checkmark_kick"></div>
+                            </span> 
+                        @else 
+                            &ndash; 
+                        @endif
+                        {{ $objective->number }} - 
+                        {{ $objective->name }}
+                    </li>
+
+                @endforeach
+            </ul>
+
+            <h3>Evaluation details</h3>
+
+            @if ($package->evaluated_by)
+                <p>
+                    <small>
+                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['evaluated_by'] }} 
+                        ({{ $packageMeta[$package->lesson->name]['evaluated_by_role'] }}) on 
+                        {{ $package->evaluated_at->format('m/d/Y') }}
+                    </small>
+                </p>
+
+                {!! $package->evaluation_details !!}
+            @else
+                <p>No evaluation details entered.</p>
+            @endif
+
+            <h3>Recommendation</h3>
+
+            @if ($package->recommendation_id)
+                <p>
+                    <strong>{{ $packageMeta[$package->lesson->name]['recommendation']->code }}</strong> - 
+                    {{ $packageMeta[$package->lesson->name]['recommendation']->name }}
+                </p>
+
+                @if ($package->recommendation_comment)
+
+                    <h4>Comment</h4>
+
+                    <p>
+                        <small>
+                            <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
+                            ({{ $packageMeta[$package->lesson->name]['recommendation_comment_by_role'] }}) on 
+                            {{ $package->recommendation_comment_at->format('m/d/Y') }}
+                        </small>
+                    </p>
+
+                    {!! $package->recommendation_comment !!}
+
+                @endif
+            @else
+                <p>No recommendation given.</p>
+            @endif
+
+            <h3>Statement of competency</h3>
+
+            <p>[ 
+                @if ($package->complete)  
+                    <span class="checkmark" style="position: relative;">
+                        <div class="checkmark_stem"></div>
+                        <div class="checkmark_kick"></div>
+                    </span>
+                @endif
+            ] I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete</p>
+
+            @if ($package->complete)
+
+                <p>
+                    <small>
+                        <strong>Signed of by:</strong> {{ $packageMeta[$package->lesson->name]['signed_off_by'] }} 
+                        ({{ $packageMeta[$package->lesson->name]['signed_off_by_role'] }}) on 
+                        {{ $package->signed_off_at->format('m/d/Y') }}
+                    </small>
+                </p>
+
+            @endif
+
+            @if ($package->comment)
+
+                <h4>Comment</h4>
+
+                <p>
+                    <small>
+                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['commented_by'] }} 
+                        ({{ $packageMeta[$package->lesson->name]['commented_by_role'] }}) on 
+                        {{ $package->commented_at->format('m/d/Y') }}
+                    </small>
+                </p>
+
+                {!! $package->comment !!}
+
+            @endif
+
+            <hr style="border-top: 1px solid #CBD5E0; border-bottom: 1px solid #CBD5E0; margin-top: 2rem; margin-bottom: 2rem;">
+        @endforeach
+    </body>
+</html>

@@ -23,6 +23,15 @@
 
             <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/logbooks`">Manage Log Book Entries</a>
 
+            <template v-if="hasRole(['apprentice']) && authUser.role !== 'administrator'">
+                <strong class="text-gray-900 pt-2 pb-0 px-3">Reports</strong>
+
+                <a 
+                    class="text-gray-900 py-1 pl-5 pr-3 text-sm" 
+                    :href="`${urlBase}/reports/sot/${authUser.id}`"
+                >View statement of training</a>
+            </template>
+
             <template v-if="hasRole(['administrator'])">
                 <a class="text-gray-900 py-2 px-3" :href="`${urlBase}/users`">Manage users</a>
 
@@ -48,9 +57,12 @@
 
                 <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/reports/users/download`">Generate appointment date report</a>
 
-                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" href="#">SoT</a>
-
-                <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" href="#">RoT</a>
+                <template v-if="hasRole(['administrator', 'supervisor', 'head_of_operations'])">
+                    <a 
+                        class="text-gray-900 pt-1 pb-2 pl-5 pr-3 text-sm" 
+                        :href="`${urlBase}/reports/rot`"
+                    >View SoTs and RoTs</a>
+                </template>
             </template>
 
             <hr class="border-t border-gray-300">

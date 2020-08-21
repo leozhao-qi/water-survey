@@ -14,7 +14,7 @@
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
-            Statement of competency
+            I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete
         </label> 
 
         <p 

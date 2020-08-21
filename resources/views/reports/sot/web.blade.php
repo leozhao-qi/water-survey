@@ -25,7 +25,7 @@
         </p>
         
         <div class="w-full flex items-center mb-4">
-            <a href="{{ env('APP_URL') }}/users/{{ $user['id'] }}/reports/sot/download" class="ml-auto">
+            <a href="{{ env('APP_URL') }}/reports/sot/{{ $user['id'] }}/download" class="ml-auto">
                 Download
             </a>
         </div>

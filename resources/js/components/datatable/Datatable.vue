@@ -269,6 +269,12 @@ export default {
         window.events.$on('datatable:cancel', () => {
             this.reset()
         })
+
+        window.events.$on('datatable:select-all', items => {
+            this.selected = items
+
+            window.events.$emit('users:selected', this.selected)
+        })
     }
 }
 </script>
