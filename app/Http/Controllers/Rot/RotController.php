@@ -8,7 +8,7 @@ class RotController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:administrator']);
+        $this->middleware(['role:administrator|supervisor|head_of_operations']);
     }
 
     public function index()

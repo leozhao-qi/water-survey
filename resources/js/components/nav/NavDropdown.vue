@@ -56,13 +56,15 @@
                 <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/statuses`">Manage lesson package statuses</a>
 
                 <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/reports/users/download`">Generate appointment date report</a>
+            </template>
 
-                <template v-if="hasRole(['administrator', 'supervisor', 'head_of_operations'])">
-                    <a 
-                        class="text-gray-900 pt-1 pb-2 pl-5 pr-3 text-sm" 
-                        :href="`${urlBase}/reports/rot`"
-                    >View SoTs and RoTs</a>
-                </template>
+            <template v-if="hasRole(['supervisor', 'head_of_operations'])">
+                <strong class="text-gray-900 pt-2 pb-0 px-3">Reports</strong>
+                
+                <a 
+                    class="text-gray-900 pt-1 pb-2 pl-5 pr-3 text-sm" 
+                    :href="`${urlBase}/reports/rot`"
+                >View SoTs and RoTs</a>
             </template>
 
             <hr class="border-t border-gray-300">

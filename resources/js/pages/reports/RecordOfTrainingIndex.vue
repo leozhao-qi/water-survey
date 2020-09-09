@@ -38,20 +38,46 @@
                 v-if="user !== null"
             >
                 <div class="my-4">
-                   <datatable 
-                        :data="user.packages"
-                        :columns="packageColumns"
-                        :per-page="10"
-                        :order-keys="['package']"
-                        :order-key-directions="['asc']"
-                        :has-text-filter="true"
-                        :checkable="true"
+                    <div
+                        class="w-full lg:w-1/2 mb-4"
                     >
-                        <button
-                            @click.prevent="selectAll"
-                            class="btn btn-text text-red-500 mr-2"
-                        >Select all</button>
-                   </datatable>
+                        <label 
+                            for="report_type"
+                            class="block text-gray-700 font-bold mb-2"
+                        >
+                            Select report type
+                        </label>
+
+                        <div class="relative">
+                            <select 
+                                id="report_type"
+                                v-model="reportType"
+                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            >
+                                <option value=""></option>
+
+                                <option value="eg_3_4">EG03 - EG04 Report</option>
+                                <option value="eg_4_5">EG04 - EG05 Report</option>
+                                <option value="custom">Custom Report</option>
+                            </select>
+
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <template v-if="reportType === 'custom'">
+                        <datatable 
+                            :data="user.packages"
+                            :columns="packageColumns"
+                            :per-page="10"
+                            :order-keys="['package']"
+                            :order-key-directions="['asc']"
+                            :has-text-filter="true"
+                            :checkable="true"
+                        />
+                    </template>
                 </div>
             </template>
         </modal>
@@ -76,7 +102,8 @@ export default {
             user: null,
             selected: [],
             idArr: [],
-            selectedJoin: ''
+            selectedJoin: '',
+            reportType: ''
         }
     },
 
@@ -94,7 +121,11 @@ export default {
         },
 
         async download () {
-            window.location.href = `${this.urlBase}/api/reports/rot/download?packages=${this.selectedJoin}&user=${this.user.id}`
+            if (this.reportType === 'custom') {
+                window.location.href = `${this.urlBase}/api/reports/rot/download?packages=${this.selectedJoin}&user=${this.user.id}`
+            } else {
+                window.location.href = `${this.urlBase}/api/reports/rot/download?type=${this.reportType}&user=${this.user.id}`
+            }
 
             this.close()
         },
