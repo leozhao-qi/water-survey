@@ -77,8 +77,6 @@ class RotController extends Controller
                 ->sortBy('name');
         }
 
-        // dd($packages->first());
-
         $packageMeta = [];
 
         foreach ($packages as $package) {

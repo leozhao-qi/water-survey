@@ -15,7 +15,7 @@ class SotController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['profile']);
+        $this->middleware(['sot']);
     }
 
     public function show(User $user)

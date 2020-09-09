@@ -5,7 +5,7 @@
         </h2>
 
         
-        <div class="relative w-full lg:w-2/3">
+        <div class="relative w-full">
             <select 
                 v-model="recommendation"
                 class="shadow appearance-none border rounded w-full py-2 px-3 mt-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

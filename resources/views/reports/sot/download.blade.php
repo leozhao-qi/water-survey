@@ -26,7 +26,7 @@
         </p>
 
         <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-            <strong>Appointment date:</strong> {{ $user->appointment_date->format('m/d/y') }}
+            <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
         </p>
 
         <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 1rem;">
@@ -97,7 +97,7 @@
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0"></th>
         
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0;" colspan="2">
-                        {{ strtoupper('Training sections / Lesson packages') }}
+                        {{ strtoupper('Lesson packages') }}
                     </th>
         
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0" colspan="2">EG03</th>
@@ -111,7 +111,6 @@
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0"></th>
         
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: left;" colspan="2">
-                        All training identified scheduled to be completed in EG level but some maybe deferred to EG04 approved by a manager
                     </th>
         
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0">Theory</th>

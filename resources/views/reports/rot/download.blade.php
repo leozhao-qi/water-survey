@@ -74,20 +74,16 @@
                 'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name }}
             </h2>
 
-            <p style="margin-bottom: .25rem;">
-                <strong>Level:</strong> {{ $package->lesson->level->name }}
+            <p style="margin-bottom: -0.5rem;">
+                <strong>Name:</strong> {{ $user->fullname }}
             </p>
 
-            <p style="margin-bottom: .25rem;">
-                <strong>Topic:</strong> {{ $package->lesson->topic->number }} - {{ $package->lesson->topic->name }}
+            <p style="margin-bottom: -0.5rem;">
+                <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
             </p>
 
-            <p style="margin-bottom: .25rem;">
+            <p>
                 <strong>Version:</strong> {{ $package->lesson->lessonVersion->version }}
-            </p>
-
-            <p style="margin-bottom: .25rem;">
-                <strong>Apprentice:</strong> {{ $user->moodleuser->firstname }}
             </p>
 
             <table style="width: 100%; font-family: sans-serif; border-collapse: collapse; margin-top: 1rem;">
@@ -230,7 +226,7 @@
 
             @endif
 
-            <hr style="border-top: 1px solid #CBD5E0; border-bottom: 1px solid #CBD5E0; margin-top: 2rem; margin-bottom: 2rem;">
+            <hr style="border-top: 1px solid #CBD5E0; border-bottom: 1px solid #CBD5E0; margin-top: 2rem; margin-bottom: 2rem; page-break-after: always;">
         @endforeach
     </body>
 </html>

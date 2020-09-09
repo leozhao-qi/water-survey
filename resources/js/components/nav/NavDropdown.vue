@@ -29,7 +29,7 @@
                 <a 
                     class="text-gray-900 py-1 pl-5 pr-3 text-sm" 
                     :href="`${urlBase}/reports/sot/${authUser.id}`"
-                >View statement of training</a>
+                >View schedule of training</a>
             </template>
 
             <template v-if="hasRole(['administrator'])">
