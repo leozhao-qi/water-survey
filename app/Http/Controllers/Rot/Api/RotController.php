@@ -45,7 +45,12 @@ class RotController extends Controller
         } elseif (request()->query('type') === 'eg_3_4') {
             $packages = $user->packages
                 ->filter(function ($package) {
-                    return $package->lesson->level->code === '3' || $package->lesson->completed_in_both;
+                    return $package->lesson->level->code === '3' || 
+                    $package->lesson->completed_in_both &&
+                    (
+                        $package->theory_status === 'complete_eg3' || 
+                        $package->practical_status === 'complete_eg3'
+                    );
                 })
                 ->map(function ($package) {
                     $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;

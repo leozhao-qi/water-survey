@@ -79,6 +79,7 @@ export default {
     data() {
         return {
             editing: false,
+            counter: 0,
             comment: ''
         }
     },
@@ -103,12 +104,16 @@ export default {
         },
 
         comment () {
-            this.$emit('userpackage:change', [
-                {
-                    type: 'comment',
-                    value: this.comment
-                }
-            ])
+            if (this.counter !== 0) {
+                this.$emit('userpackage:change', [
+                    {
+                        type: 'comment',
+                        value: this.comment
+                    }
+                ])
+            }
+
+            this.counter += 1
         }
     },
 

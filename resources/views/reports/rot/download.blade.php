@@ -174,7 +174,7 @@
 
                     <p>
                         <small>
-                            <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
+                            <strong>Recommended by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
                             ({{ $packageMeta[$package->lesson->name]['recommendation_comment_by_role'] }}) on 
                             {{ $package->recommendation_comment_at->format('m/d/Y') }}
                         </small>

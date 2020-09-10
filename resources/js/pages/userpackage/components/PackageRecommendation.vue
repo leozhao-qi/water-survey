@@ -103,6 +103,7 @@ export default {
         return {
             recommendation: null,
             recommendation_comment: '',
+            counter: 0,
             showComment: false
         }
     },
@@ -162,12 +163,16 @@ export default {
         },
 
         recommendation_comment () {
-            this.$emit('userpackage:change', [
-                {
-                    type: 'recommendation_comment',
-                    value: this.recommendation_comment
-                }
-            ])
+            if (this.counter !== 0) {
+                this.$emit('userpackage:change', [
+                    {
+                        type: 'recommendation_comment',
+                        value: this.recommendation_comment
+                    }
+                ])
+            }
+
+            this.counter += 1
         }
     },
 
