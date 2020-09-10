@@ -45,11 +45,19 @@ class RotController extends Controller
         } elseif (request()->query('type') === 'eg_3_4') {
             $packages = $user->packages
                 ->filter(function ($package) {
-                    return $package->lesson->level->code === '3' || 
-                    $package->lesson->completed_in_both &&
+                    return 
+                    (
+                        $package->lesson->level->code === '3' || 
+                        $package->lesson->completed_in_both
+                    )
+                     && 
                     (
                         $package->theory_status === 'complete_eg3' || 
-                        $package->practical_status === 'complete_eg3'
+                        $package->practical_status === 'complete_eg3' || 
+                        $package->theory_status === 'exempt' || 
+                        $package->practical_status === 'exempt' || 
+                        $package->theory_status === 'deferred' || 
+                        $package->practical_status === 'deferred'
                     );
                 })
                 ->map(function ($package) {
@@ -61,18 +69,28 @@ class RotController extends Controller
         } elseif (request()->query('type') === 'eg_4_5') {
             $packages = $user->packages
                 ->filter(function ($package) {
-                    return $package->lesson->level->code === '4' ||
+                    return 
                     (
                         $package->lesson->level->code === '3' &&
                         (
-                            optional($package->recommendation)->code === 'B' || 
-                            $package->theory_status === 'deferred' || 
-                            $package->practical_status === 'deferred' ||
                             $package->theory_status === 'complete_eg4' ||
                             $package->practical_status === 'complete_eg4'
                         ) 
-                    ) || 
-                    $package->lesson->completed_in_both;
+                    ) 
+                    || 
+                    (
+                        (
+                            $package->lesson->level->code === '4' || 
+                            $package->lesson->completed_in_both
+                        ) 
+                        && 
+                        (
+                            $package->theory_status === 'complete_eg4' ||
+                            $package->practical_status === 'complete_eg4' || 
+                            $package->theory_status === 'exempt' || 
+                            $package->practical_status === 'exempt'
+                        )
+                    );
                 })
                 ->map(function ($package) {
                     $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;

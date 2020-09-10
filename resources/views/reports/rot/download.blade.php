@@ -225,8 +225,10 @@
                 {!! $package->comment !!}
 
             @endif
-
-            <hr style="border-top: 1px solid #CBD5E0; border-bottom: 1px solid #CBD5E0; margin-top: 2rem; margin-bottom: 2rem; page-break-after: always;">
+            
+            @if (!$loop->last)
+                <hr style="visibility: hidden; page-break-after: always;">
+            @endif
         @endforeach
     </body>
 </html>
