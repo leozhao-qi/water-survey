@@ -17,7 +17,7 @@
             Schedule of Training
         </h1>
         
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
             <strong>Name:</strong> 
             <a 
                 href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
@@ -25,22 +25,30 @@
             >{{ $user['fullname'] }}</a>
         </p>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
             <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
         </p>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 1rem;">
-            <strong>Created on:</strong> {{ Carbon\Carbon::now()->format('m/d/y') }}
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+            <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
         </p>
 
-        <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed;">
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+            <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
+        </p>
+
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 1rem;">
+            <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
+        </p>
+
+        <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed; font-size: .85rem;">
             <thead>
                 <tr>
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%;">
-                        RoT State codes
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%;">
+                        RoT Status codes
                     </th>
 
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%;">
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 30%;">
                         EG03/04 Theory/Practical codes
                     </th>
                 </tr>
@@ -48,7 +56,7 @@
 
             <tbody>
                 <tr>
-                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%; vertical-align: top;">
+                    <td style="padding: .5em; border: 1px solid #e2e8f0; width: 70%; vertical-align: top;">
                         <ul>
                             <li style="margin-bottom: .5rem;">
                                 <strong>N</strong> - Not complete (Recommendation code B <strong>or</strong> no Recommendation code entered <strong>and</strong> no statement of competency).
@@ -64,7 +72,7 @@
                         </ul>
                     </td>
 
-                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 50%; vertical-align: top;">
+                    <td style="padding: .5em; border: 1px solid #e2e8f0; width: 30%; vertical-align: top;">
                         <ul>
                             <li style="margin-bottom: .5rem;">
                                 <strong>Grey</strong> - Not applicable
@@ -91,11 +99,9 @@
             </tbody>
         </table>
         
-        <table style="width: 100%; font-family: sans-serif;">
+        <table style="width: 100%; font-family: sans-serif; font-size: .85rem">
             <thead>
                 <tr>
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0"></th>
-        
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0;" colspan="2">
                         {{ strtoupper('Lesson packages') }}
                     </th>
@@ -108,10 +114,7 @@
                 </tr>
         
                 <tr>
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0"></th>
-        
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: left;" colspan="2">
-                    </th>
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: left;" colspan="2"></th>
         
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0">Theory</th>
         
@@ -130,22 +133,16 @@
                 @foreach($topics as $topic)
         
                         <tr>
-                            <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center;">
-                                <strong>{{ $topic->number }}.00</strong>
-                            </td>
-        
                             <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0" colspan="7">
-                                <strong>{{ $topic->name }}</strong>
+                                <strong>{{ $topic->number }}.00 - {{ $topic->name }}</strong>
                             </td>
                         </tr>
         
                         @foreach($packages[$topic->number] as $package)
         
                             <tr>
-                                <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0"></td>
-        
                                 <td style="padding: .5rem 1rem; border: 1px solid #bcc9da; width: 10%; text-align: center;">
-                                    {{ $package['lesson_number'] }}
+                                    {{ $topic->number }}.{{ str_pad($package['lesson_number'], 2, '0', STR_PAD_LEFT) }}
                                 </td>
         
                                 <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 90%;">

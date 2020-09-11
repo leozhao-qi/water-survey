@@ -108,7 +108,8 @@ trait HasSupervisors
             'role' => $employee->roles[0]->name, 
             'rank' => $employee->roles[0]->rank,
             'firstname' => $employee->moodleuser->firstname, 
-            'lastname' => $employee->moodleuser->lastname
+            'lastname' => $employee->moodleuser->lastname,
+            'fullname' => "{$employee->moodleuser->firstname} {$employee->moodleuser->lastname}"
         ];
     }
 
@@ -119,7 +120,8 @@ trait HasSupervisors
             'role' => $supervisor->user->roles[0]->name, 
             'rank' => $supervisor->user->roles[0]->rank, 
             'firstname' => $supervisor->user->moodleuser->firstname, 
-            'lastname' => $supervisor->user->moodleuser->lastname
+            'lastname' => $supervisor->user->moodleuser->lastname,
+            'fullname' => "{$supervisor->user->moodleuser->firstname} {$supervisor->user->moodleuser->lastname}"
         ];
     }
 }

@@ -20,22 +20,26 @@ class SotController extends Controller
 
     public function show(User $user)
     {
+        $reportingStructure = $user->reportingStructure();
+
         $topics = Topic::orderBy('number')->get();
 
         $packages = $this->getFormattedPackages($user);
 
-        return view('reports.sot.web', compact('topics', 'packages', 'user'));
+        return view('reports.sot.web', compact('topics', 'packages', 'user', 'reportingStructure'));
     }
 
     public function download(User $user)
     {
+        $reportingStructure = $user->reportingStructure();
+
         $topics = Topic::orderBy('number')->get();
 
         $packages = $this->getFormattedPackages($user);
 
         $pdf = App::make('dompdf.wrapper');
 
-        $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages'));
+        $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages', 'reportingStructure'));
 
         return $pdf->download(str_replace(' ', '_', $user->fullname) . '_sot.pdf');
     }
