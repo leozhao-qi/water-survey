@@ -22,7 +22,8 @@ class IssueResource extends JsonResource
             'body' => $this->body,
             'closed' => $this->closed ? 'Yes' : 'No',
             'closed_at' => $this->closed_at ? $this->closed_at->format('m/d/y') : 'Open',
-            'status' => $this->status
+            'status' => $this->status,
+            'code' => $this->code
         ];
     }
 }

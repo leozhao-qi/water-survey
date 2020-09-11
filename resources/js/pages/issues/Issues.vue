@@ -16,11 +16,11 @@
             >Submit issue</a>
         </div>
 
-        <!-- <issues-create 
+        <issues-create 
             v-if="creating"
         />
 
-        <issues-edit 
+        <!-- <issues-edit 
             v-if="updating"
         /> -->
 

@@ -58,6 +58,10 @@
                 <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/reports/users/download`">Generate appointment date report</a>
             </template>
 
+            <strong class="text-gray-900 pt-2 pb-0 px-3">Issues</strong>
+
+            <a class="text-gray-900 py-1 pl-5 pr-3 text-sm" :href="`${urlBase}/issues`">Report an issue</a>
+
             <template v-if="hasRole(['supervisor', 'head_of_operations'])">
                 <strong class="text-gray-900 pt-2 pb-0 px-3">Reports</strong>
                 

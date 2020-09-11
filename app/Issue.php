@@ -12,7 +12,8 @@ class Issue extends Model
         'body',
         'closed',
         'closed_at',
-        'status'
+        'status',
+        'title'
     ];
 
     protected $casts = [
