@@ -17,6 +17,7 @@ class CreateIssuesTable extends Migration
             $table->id();
             $table->string('code');
             $table->integer('issuer_id');
+            $table->string('title');
             $table->longText('body');
             $table->boolean('closed')->default(0);
             $table->date('closed_at')->nullable();

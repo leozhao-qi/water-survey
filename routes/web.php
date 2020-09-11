@@ -173,3 +173,7 @@ Route::post('/api/topics', 'Topics\Api\TopicController@store');
 Route::put('/api/topics/{topic}', 'Topics\Api\TopicController@update');
 
 Route::delete('/api/topics/{topic}', 'Topics\Api\TopicController@destroy');
+
+Route::get('/issues', 'Issues\IssuesController@index');
+
+Route::resource('/api/issues', 'Issues\Api\IssuesController');
