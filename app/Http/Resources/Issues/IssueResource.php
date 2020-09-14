@@ -21,7 +21,9 @@ class IssueResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'closed' => $this->closed ? 'Yes' : 'No',
-            'closed_at' => $this->closed_at ? $this->closed_at->format('m/d/y') : 'Open',
+            'closed_at' => $this->closed_at ? $this->closed_at->format('m/d/y') : 'No',
+            'created_at' => $this->created_at->format('m/d/y'),
+            'updated_at' => $this->updated_at->notEqualTo($this->created_at) ? $this->updated_at->format('m/d/y') : null,
             'status' => $this->status,
             'code' => $this->code
         ];

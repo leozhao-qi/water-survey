@@ -20,9 +20,9 @@
             v-if="creating"
         />
 
-        <!-- <issues-edit 
+        <issues-edit 
             v-if="updating"
-        /> -->
+        />
 
         <issues-index 
             v-if="!creating && !updating && hasRole(['administrator'])"
