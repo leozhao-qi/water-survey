@@ -20,6 +20,7 @@ import statuses from './modules/statuses'
 import logbookCategories from './modules/logbook-categories'
 import logbooks from './modules/logbooks'
 import topics from './modules/topics'
+import issues from './modules/issues'
 
 export default new Vuex.Store({
 	state, 
@@ -38,6 +39,7 @@ export default new Vuex.Store({
 		statuses,
 		logbookCategories,
 		logbooks,
-		topics
+		topics,
+		issues
 	} 
 })
