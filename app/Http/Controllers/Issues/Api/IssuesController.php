@@ -17,14 +17,18 @@ class IssuesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:administrator']);
+        $this->middleware(['role:administrator'])->only(['update']);
     }
 
     public function index()
     {
-        return IssueResource::collection(
-            Issue::orderBy('code')->get()
-        );
+        if (auth()->user()->hasAnyRole(['administrator'])) {
+            return IssueResource::collection(
+                Issue::orderBy('code')->get()
+            );
+        }
+
+        return response()->json([]);
     }
     
     public function store()
