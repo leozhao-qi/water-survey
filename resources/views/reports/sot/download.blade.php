@@ -29,17 +29,23 @@
             <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
         </p>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-            <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
-        </p>
+        @if (isset($reportingStructure['manager']))
+            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
+            </p>
+        @endif
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-            <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
-        </p>
+        @if (isset($reportingStructure['head_of_operations']))
+            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
+            </p>
+        @endif
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 1rem;">
-            <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
-        </p>
+        @if (isset($reportingStructure['supervisor']))
+            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
+                <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
+            </p>
+        @endif
 
         <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed; font-size: .85rem;">
             <thead>
