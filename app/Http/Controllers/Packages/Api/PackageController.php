@@ -79,7 +79,7 @@ class PackageController extends Controller
                 Rule::in($package->lesson->objectives->pluck('id')->toArray())
             ],
             'recommendation_id' => 'sometimes|nullable|exists:recommendations,id',
-            'evaluation_details' => 'sometimes|min:20'
+            'evaluation_details' => 'sometimes|min:8'
         ]);
 
         if (auth()->user()->can('update', $package)) {

@@ -118,7 +118,7 @@ class LogbookController extends Controller
             'logbook_category_id' => 'required|exists:logbook_categories,id',
             'created' => 'required|date',
             'event_description' => 'required|min:3',
-            'details_of_event' => 'required|min:20',
+            'details_of_event' => 'required|min:3',
             'files' => 'sometimes|array',
             'packages' => 'required|array',
             'packages.*' => 'exists:packages,id',
@@ -191,7 +191,7 @@ class LogbookController extends Controller
             'logbook_category_id' => 'required|exists:logbook_categories,id',
             'created' => 'required|date',
             'event_description' => 'required|min:3',
-            'details_of_event' => 'required|min:20',
+            'details_of_event' => 'required|min:3',
             'files' => 'sometimes|array',
             'packages' => 'required|array',
             'packages.*' => 'exists:packages,id'
