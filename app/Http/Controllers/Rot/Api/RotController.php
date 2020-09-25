@@ -183,6 +183,10 @@ class RotController extends Controller
             return 'C';
         }
 
+        if ((int) $package['lesson']['level']['code'] === 4 && $level === 3 && $package[$type . '_status'] === 'complete_eg3') {
+            return 'C';
+        }
+
         if ((int) $package['lesson']['level']['code'] === $level && $level === 3 && $package[$type . '_status'] === 'complete_eg3') {
             return 'C';
         }
