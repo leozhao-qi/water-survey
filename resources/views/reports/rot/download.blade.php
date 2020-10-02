@@ -63,6 +63,10 @@
                 left:8px;
                 top:12px;
             }
+
+            @page {
+                margin: 1.5cm;
+            }
         </style>
     </head>
 
