@@ -20,6 +20,10 @@
             <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
         </p>
 
+        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+            <strong>Version:</strong> {{ $version }}
+        </p>
+
         @if (isset($reportingStructure['manager']))
             <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
                 <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}

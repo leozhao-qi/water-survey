@@ -24,9 +24,11 @@ class SotController extends Controller
 
         $topics = Topic::orderBy('number')->get();
 
+        $version = $user->packages->first()->lesson->lessonVersion->version;
+
         $packages = $this->getFormattedPackages($user);
 
-        return view('reports.sot.web', compact('topics', 'packages', 'user', 'reportingStructure'));
+        return view('reports.sot.web', compact('topics', 'packages', 'user', 'reportingStructure', 'version'));
     }
 
     public function download(User $user)
@@ -37,9 +39,11 @@ class SotController extends Controller
 
         $packages = $this->getFormattedPackages($user);
 
+        $version = $user->packages->first()->lesson->lessonVersion->version;
+
         $pdf = App::make('dompdf.wrapper');
 
-        $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages', 'reportingStructure'));
+        $pdf->loadView('reports.sot.download', compact('user', 'topics', 'packages', 'reportingStructure', 'version'));
 
         return $pdf->download(str_replace(' ', '_', $user->fullname) . '_sot.pdf');
     }
