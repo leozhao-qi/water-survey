@@ -7,40 +7,49 @@
             Schedule of Training
         </h1>
 
-        
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem;">
-            <strong>Name:</strong> 
-            <a 
-                href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
-                style="color: #4299E1; text-decoration: none;"
-            >{{ $user['fullname'] }}</a>
-        </p>
+        <table class="w-full">
+            <tbody>
+                <tr>
+                    <td>
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem;">
+                            <strong>Name:</strong> 
+                            <a 
+                                href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
+                                style="color: #4299E1; text-decoration: none;"
+                            >{{ $user['fullname'] }}</a>
+                        </p>
+                
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                            <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
+                        </p>
+                
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                            <strong>Version:</strong> {{ $version }}
+                        </p>
+                    </td>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-            <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
-        </p>
+                    <td>
+                        @if (isset($reportingStructure['manager']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                                <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-            <strong>Version:</strong> {{ $version }}
-        </p>
+                        @if (isset($reportingStructure['head_of_operations']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
+                                <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
 
-        @if (isset($reportingStructure['manager']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-                <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
-
-        @if (isset($reportingStructure['head_of_operations']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-                <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
-
-        @if (isset($reportingStructure['supervisor']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
-                <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
+                        @if (isset($reportingStructure['supervisor']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
+                                <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         
         <div class="w-full flex items-center mb-4">
             <a href="{{ env('APP_URL') }}/reports/sot/{{ $user['id'] }}/download" class="ml-auto">

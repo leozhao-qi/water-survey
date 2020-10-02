@@ -16,40 +16,50 @@
         <h1 style="font-family: sans-serif; width: 100%; font-size: 1.75rem; margin-bottom: .5rem;">
             Schedule of Training
         </h1>
-        
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-            <strong>Name:</strong> 
-            <a 
-                href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
-                style="color: #4299E1; text-decoration: none;"
-            >{{ $user['fullname'] }}</a>
-        </p>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-            <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
-        </p>
+        <table style="width: 100%; margin-bottom: 1rem;">
+            <tbody>
+                <tr>
+                    <td>
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                            <strong>Name:</strong> 
+                            <a 
+                                href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
+                                style="color: #4299E1; text-decoration: none;"
+                            >{{ $user['fullname'] }}</a>
+                        </p>
+                
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                            <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
+                        </p>
+                
+                        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                            <strong>Version:</strong> {{ $version }}
+                        </p>
+                    </td>
 
-        <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-            <strong>Version:</strong> {{ $version }}
-        </p>
+                    <td>
+                        @if (isset($reportingStructure['manager']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
 
-        @if (isset($reportingStructure['manager']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-                <strong>Manager:</strong> {{ implode(',', $reportingStructure['manager']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
+                        @if (isset($reportingStructure['head_of_operations']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
 
-        @if (isset($reportingStructure['head_of_operations']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
-                <strong>Area Head:</strong> {{ implode(',', $reportingStructure['head_of_operations']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
-
-        @if (isset($reportingStructure['supervisor']))
-            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
-                <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
-            </p>
-        @endif
+                        @if (isset($reportingStructure['supervisor']))
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
+                                <strong>Supervisor:</strong> {{ implode(',', $reportingStructure['supervisor']->pluck('fullname')->toArray()) }}
+                            </p>
+                        @endif
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed; font-size: .85rem;">
             <thead>
