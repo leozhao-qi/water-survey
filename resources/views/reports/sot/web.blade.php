@@ -60,34 +60,18 @@
         <table style="width: 100%; font-family: sans-serif; margin-bottom: 2rem; table-layout: fixed; font-size: .85rem">
             <thead>
                 <tr>
-                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%;">
-                        RoT Status codes
-                    </th>
-
                     <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 30%;">
                         EG03/04 Theory/Practical codes
+                    </th>
+
+                    <th style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%;">
+                        RoT Status codes
                     </th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%; vertical-align: top;">
-                        <ul>
-                            <li style="margin-bottom: .5rem;">
-                                <strong>N</strong> - Not complete (Recommendation code B <strong>or</strong> no Recommendation code entered <strong>and</strong> no statement of competency).
-                            </li>
-
-                            <li style="margin-bottom: .5rem;">
-                                <strong>R</strong> - Recommended by supervisor. Recommendation codes A or C entered. No statement of competency.
-                            </li>
-
-                            <li>
-                                <strong>A</strong> - Approved. Recommendation codes A or C. Statement of competency signed off by manager or head of ops.
-                            </li>
-                        </ul>
-                    </td>
-
                     <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 30%; vertical-align: top;">
                         <ul>
                             <li style="margin-bottom: .5rem;">
@@ -108,6 +92,22 @@
 
                             <li>
                                 <strong>C</strong> - Complete
+                            </li>
+                        </ul>
+                    </td>
+
+                    <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%; vertical-align: top;">
+                        <ul>
+                            <li style="margin-bottom: .5rem;">
+                                <strong>N</strong> - Not complete (Recommendation code B <strong>or</strong> no Recommendation code entered <strong>and</strong> no statement of competency).
+                            </li>
+
+                            <li style="margin-bottom: .5rem;">
+                                <strong>R</strong> - Recommended by supervisor. Recommendation codes A or C entered. No statement of competency.
+                            </li>
+
+                            <li>
+                                <strong>A</strong> - Approved. Recommendation codes A or C. Statement of competency signed off by manager or head of ops.
                             </li>
                         </ul>
                     </td>
