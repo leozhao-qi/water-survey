@@ -27,17 +27,13 @@ class LogbookFilesController extends Controller
 
         $upload = request()->file('file');
 
-        $extension = strtolower(
-            explode('.', request()->file('file')->getClientOriginalName())[1]
-        );
-
         Storage::putFileAs(
-            '/public/entries/' . auth()->id(), $upload, request('id') . '.' . $extension
+            '/public/entries/' . auth()->id(), $upload, request('id') . '.' . $upload->getClientOriginalExtension()
         );
 
         return [
             'codedFilename' => request('id') . '.' . $upload->getClientOriginalExtension(),
-            'actualFilename' => request()->file('file')->getClientOriginalName()
+            'actualFilename' => $upload->getClientOriginalName()
         ];
     }
 
