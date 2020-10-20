@@ -17,6 +17,7 @@ class PackageController extends Controller
 {
     public function __construct()
     {
+        $this->middleware(['auth']);
         $this->middleware(['role:administrator'])->only(['store', 'add']);
         $this->middleware(['profile'])->only(['show', 'update']);
     }

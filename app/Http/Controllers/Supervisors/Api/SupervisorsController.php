@@ -12,7 +12,7 @@ class SupervisorsController extends Controller
 {
     public function __construct ()
     {
-        $this->middleware(['role:administrator|manager|head_of_operations']);
+        $this->middleware(['role:administrator|manager|head_of_operations', 'auth']);
     }
     
     public function index($role)

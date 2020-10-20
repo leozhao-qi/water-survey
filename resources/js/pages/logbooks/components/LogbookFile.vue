@@ -131,8 +131,6 @@ export default {
 
                 let fileExtension = last(fileExtensionArr).toLowerCase()
 
-                console.log(fileExtension)
-
                 switch (fileExtension) {
                     case 'pdf':
                         return '180, 8, 8'

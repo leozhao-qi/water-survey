@@ -11,6 +11,11 @@ use App\Http\Resources\Logbooks\LogbookPackageResource;
 
 class LogbookPackageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+    
     public function index(User $user)
     {
         return LogbookPackageResource::collection(

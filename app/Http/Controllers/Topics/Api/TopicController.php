@@ -11,7 +11,7 @@ class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:administrator']);
+        $this->middleware(['role:administrator', 'auth']);
     }
 
     public function index()

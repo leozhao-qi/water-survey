@@ -10,6 +10,8 @@ class LogbookCategoryController extends Controller
 {
     public function __construct()
     {
+        $this->middleware(['role:administrator', 'auth']);
+        
         $this->middleware(['role:administrator'])->except(['index', 'all']);
     }
 
