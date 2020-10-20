@@ -3,9 +3,7 @@
 use App\LessonWIP;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::put(
     '/api/files/{file}',
