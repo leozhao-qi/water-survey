@@ -110,6 +110,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { last } from 'lodash-es'
 
 export default {
     props: {
@@ -128,7 +129,9 @@ export default {
             if (typeof this.file.actual_filename !== 'undefined') {
                 let fileExtensionArr = this.file.actual_filename.split('.')
 
-                let fileExtension = fileExtensionArr[fileExtensionArr.length - 1].toLowerCase()
+                let fileExtension = last(fileExtensionArr).toLowerCase()
+
+                console.log(fileExtension)
 
                 switch (fileExtension) {
                     case 'pdf':
@@ -157,7 +160,7 @@ export default {
 
         icon () {
             if (typeof this.file.actual_filename !== 'undefined') {
-                let fileExtension = this.file.actual_filename.split('.')[1].toLowerCase()
+                let fileExtension = last(this.file.actual_filename.split('.')).toLowerCase()
             
                 switch (fileExtension) {
                     case 'pdf':
