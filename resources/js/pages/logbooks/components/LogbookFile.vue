@@ -126,7 +126,9 @@ export default {
 
         fillColor () {
             if (typeof this.file.actual_filename !== 'undefined') {
-                let fileExtension = this.file.actual_filename.split('.')[1].toLowerCase()
+                let fileExtensionArr = this.file.actual_filename.split('.')
+
+                let fileExtension = fileExtensionArr[fileExtensionArr.length - 1].toLowerCase()
 
                 switch (fileExtension) {
                     case 'pdf':
