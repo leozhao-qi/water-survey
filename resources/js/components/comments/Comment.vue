@@ -97,6 +97,9 @@ export default {
         formattedEntry () {
             return this.comment.body
                 .replace(/<p><br><\/p>/g, '')
+                .replace(/<p class="ql-align-justify">&nbsp;<\/p>/g, '')
+                .replace(/<p class="ql-align-right">&nbsp;<\/p>/g, '')
+                .replace(/<p class="ql-align-left">&nbsp;<\/p>/g, '')
                 .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-right"><br><\/p>/g, '')
                 .replace(/<p class="ql-align-left"><br><\/p>/g, '')

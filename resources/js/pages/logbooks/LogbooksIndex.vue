@@ -137,7 +137,7 @@
                         </h2>
 
                         <h1 class="title-font text-lg font-medium text-gray-900 mb-1">
-                            {{ logbook.event_description }}
+                            {{ formattedEventDescription(logbook.event_description) }}
                         </h1>
 
                         <p class="text-sm text-gray-500 mb-3">
@@ -272,6 +272,17 @@ export default {
         dayjs,
 
         orderBy,
+
+        formattedEventDescription(description) {
+            return description 
+                .replace(/<p><br><\/p>/g, '')
+                .replace(/<p class="ql-align-justify">&nbsp;<\/p>/g, '')
+                .replace(/<p class="ql-align-right">&nbsp;<\/p>/g, '')
+                .replace(/<p class="ql-align-left">&nbsp;<\/p>/g, '')
+                .replace(/<p class="ql-align-justify"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-right"><br><\/p>/g, '')
+                .replace(/<p class="ql-align-left"><br><\/p>/g, '')
+        },
 
         paginate (page) {
             this.currentPage = page
