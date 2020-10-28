@@ -137,6 +137,7 @@ export default {
         formattedEntry () {
             return this.logbook.details_of_event
                 .replace(/<p><br><\/p>/g, '')
+                .replace(/&nbsp;/g, ' ')
                 .replace(/<p class="ql-align-justify">&nbsp;<\/p>/g, '')
                 .replace(/<p class="ql-align-right">&nbsp;<\/p>/g, '')
                 .replace(/<p class="ql-align-left">&nbsp;<\/p>/g, '')
