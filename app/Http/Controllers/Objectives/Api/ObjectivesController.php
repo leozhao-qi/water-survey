@@ -68,7 +68,7 @@ class ObjectivesController extends Controller
             'number' => [
                 'required',
                 'min:1',
-                new UniqueObjectiveNumberForLesson($objective)
+                // new UniqueObjectiveNumberForLesson($objective)
             ],
             'name_en' => 'required|min:3',
             'name_fr' => 'required|min:3',
