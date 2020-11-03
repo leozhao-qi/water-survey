@@ -99,15 +99,15 @@
                     <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 70%; vertical-align: top;">
                         <ul>
                             <li style="margin-bottom: .5rem;">
-                                <strong>N</strong> - Not complete (Recommendation code B <strong>or</strong> no Recommendation code entered <strong>and</strong> no statement of competency).
+                                <strong>N</strong> - Not complete (recommendation code <strong>B</strong> or No recommendation code and No Final Sign Off).
                             </li>
 
                             <li style="margin-bottom: .5rem;">
-                                <strong>R</strong> - Recommended by supervisor. Recommendation codes A or C entered. No statement of competency.
+                                <strong>R</strong> - Recommended by supervisor. Recommendation codes A,C or D entered. Final Sign off not yet complete.
                             </li>
 
                             <li>
-                                <strong>A</strong> - Approved. Recommendation codes A or C. Statement of competency signed off by manager or head of ops.
+                                <strong>A</strong> - Approved. Final Sign off complete.
                             </li>
                         </ul>
                     </td>
