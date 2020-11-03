@@ -83,7 +83,7 @@
                             </li>
 
                             <li style="margin-bottom: .5rem;">
-                                <strong>I</strong> - In progress
+                                <strong>I</strong> - Incomplete
                             </li>
 
                             <li style="margin-bottom: .5rem;">

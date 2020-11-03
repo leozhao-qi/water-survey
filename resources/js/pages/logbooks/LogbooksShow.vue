@@ -120,7 +120,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import ucfirst from '../../helpers/ucfirst'
 import dayjs from 'dayjs'
-import { some } from 'lodash-es'
+import { filter } from 'lodash-es'
 
 export default {
     data() {
@@ -147,11 +147,15 @@ export default {
         },
 
         somePackagesCompleted () {
-            return some(this.logbook.packagesArr, { 'complete': 1 })
+            return filter(this.logbook.packagesArr, p => {
+                return p.complete === 'A' || p.complete === 'B'
+            }).length > 0
         },
 
         everyPackageCompleted () {
-            return every(this.logbook.packagesArr, { 'complete': 1 })
+            return filter(this.logbook.packagesArr, p => {
+                return p.complete === 'A' || p.complete === 'B'
+            }).length === this.logbook.packagesArr.length
         }
     },
 

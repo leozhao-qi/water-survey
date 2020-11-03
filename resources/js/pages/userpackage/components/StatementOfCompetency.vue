@@ -1,20 +1,43 @@
 <template>
     <div class="w-full mt-8">
         <h2 class="text-2xl mb-2">
-            Statement of competency and sign off
+            Final Sign off
         </h2>
 
-        <label for="complete" class="ml-2">
+        <label for="complete-null" class="block mb-4 ml-2">
             <input 
-                type="checkbox"
-                id="complete"
+                type="radio"
+                id="complete-null"
                 v-model="complete"
-                :true-value="1"
-                :false-value="0"
+                :value="null"
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
-            I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete
+            Package not complete
+        </label> 
+
+        <label for="complete-a" class="block mb-4 ml-2">
+            <input 
+                type="radio"
+                id="complete-a"
+                v-model="complete"
+                value="A"
+                @change="update"
+                :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
+            > 
+            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete.
+        </label> 
+
+        <label for="complete-b" class="block mb-4 ml-2">
+            <input 
+                type="radio"
+                id="complete-b"
+                v-model="complete"
+                value="B"
+                @change="update"
+                :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
+            > 
+            <strong>Exemption</strong> - I agree with the recommendation and not all objectives were expected to be completed for this lesson package. This does not exempt the candidate from the Lesson Package objectives should Management decide it is required at any time.
         </label> 
 
         <p 
@@ -45,7 +68,7 @@ import fromMySQLDateFormat from '../../../helpers/fromMySQLDateFormat'
 export default {
     data() {
         return {
-            complete: false
+            complete: null
         }
     },
 

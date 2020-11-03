@@ -60,7 +60,8 @@ class PackageController extends Controller
         request()->validate([
             'complete' => [
                 'sometimes',
-                'boolean',
+                'nullable',
+                'max:1',
                 new IsValidCompletion($user, $package)
             ],
             'theory_status' => [
@@ -80,13 +81,13 @@ class PackageController extends Controller
                 Rule::in($package->lesson->objectives->pluck('id')->toArray())
             ],
             'recommendation_id' => 'sometimes|nullable|exists:recommendations,id',
-            'evaluation_details' => 'sometimes|min:8'
+            'evaluation_details' => 'sometimes|nullable|min:8'
         ]);
 
         if (auth()->user()->can('update', $package)) {
             $data = request()->all();
 
-            if (request()->has('complete') && request('complete') === 1) {
+            if (request()->has('complete') && (request('complete') === 'A' || request('complete') === 'B')) {
                 $data = array_merge($data, [
                     'signed_off_by' => auth()->id(),
                     'signed_off_at' => Carbon::now()
