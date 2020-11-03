@@ -27,14 +27,8 @@ class CanDownloadFile
             return $next($request);
         }
 
-        foreach(auth()->user()->reportingStructure()->flatten(1) as $employee) {
-            if (
-                $employee['id'] === (int) request()->query('user') && 
-                $employee['rank'] > auth()->user()->roles->first()->rank && 
-                auth()->user()->active === 1
-            ) {
-                return $next($request);
-            }
+        if (array_search((int) request()->query('user'), array_column(auth()->user()->reportingStructure()->flatten(1)->toArray(), 'id')) !== false && auth()->user()->active === 1) {
+            return $next($request);
         }
 
         return abort(404);

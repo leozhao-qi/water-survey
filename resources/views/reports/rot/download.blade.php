@@ -123,30 +123,56 @@
             </table>
 
             <p style="margin: .5rem 0;">
-                <strong>Status Indicators:</strong> <strong>I</strong> = In Progress, <strong>C</strong> = Complete, <strong>D</strong> = Deferred, <strong>E</strong> = Exempt
+                <strong>Status Indicators:</strong> <strong>I</strong> = Incomplete, <strong>C</strong> = Complete, <strong>D</strong> = Deferred, <strong>E</strong> = Exempt
             </p>
 
             <h3>Objectives</h3>
 
-            <ul style="list-style: none; margin: 0; padding: 0;">
+            @if (count($packageMeta[$package->lesson->name]['theory_objectives']))
+                <strong style="margin-bottom: 0.5rem;">Theory</strong>
+                
+                <ul style="list-style: none; margin: 0; padding: 0;">
+                    @foreach ($packageMeta[$package->lesson->name]['theory_objectives'] as $objective)
 
-                @foreach ($package->lesson->objectives as $objective)
+                        <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
+                            @if ($user->objectives->where('id', '=', $objective->id)->count()) 
+                                <span class="checkmark" style="position: relative;">
+                                    <div class="checkmark_stem"></div>
+                                    <div class="checkmark_kick"></div>
+                                </span> 
+                            @else 
+                                &ndash; 
+                            @endif
+                            {{ $objective->number }} - 
+                            {{ $objective->name }}
+                        </li>
 
-                    <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
-                        @if ($user->objectives->where('id', '=', $objective->id)->count()) 
-                            <span class="checkmark" style="position: relative;">
-                                <div class="checkmark_stem"></div>
-                                <div class="checkmark_kick"></div>
-                            </span> 
-                        @else 
-                            &ndash; 
-                        @endif
-                        {{ $objective->number }} - 
-                        {{ $objective->name }}
-                    </li>
+                    @endforeach
+                </ul>
+            @endif
 
-                @endforeach
-            </ul>
+            @if (count($packageMeta[$package->lesson->name]['practical_objectives']))
+                <strong style="margin-bottom: 0.5rem; margin-top: 0.75rem; display: block;">Practical application</strong>
+
+                <ul style="list-style: none; margin: 0; padding: 0;">
+                    @foreach ($packageMeta[$package->lesson->name]['practical_objectives'] as $objective)
+
+                        <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
+                            @if ($user->objectives->where('id', '=', $objective->id)->count()) 
+                                <span class="checkmark" style="position: relative;">
+                                    <div class="checkmark_stem"></div>
+                                    <div class="checkmark_kick"></div>
+                                </span> 
+                            @else 
+                                &ndash; 
+                            @endif
+                            {{ $objective->number }} - 
+                            {{ $objective->name }}
+                        </li>
+
+                    @endforeach
+                </ul>
+            @endif
 
             <h3>Evaluation details</h3>
 
@@ -194,13 +220,22 @@
             <h3>Statement of competency</h3>
 
             <p>[ 
-                @if ($package->complete)  
+                @if ($package->complete === 'A')  
                     <span class="checkmark" style="position: relative;">
                         <div class="checkmark_stem"></div>
                         <div class="checkmark_kick"></div>
                     </span>
                 @endif
-            ] I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete</p>
+            ] <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete.</p>
+
+            <p>[ 
+                @if ($package->complete === 'B')  
+                    <span class="checkmark" style="position: relative;">
+                        <div class="checkmark_stem"></div>
+                        <div class="checkmark_kick"></div>
+                    </span>
+                @endif
+            ] <strong>Exemption</strong> - I agree with the recommendation and not all objectives were expected to be completed for this lesson package. This does not exempt the candidate from the Lesson Package objectives should Management decide it is required at any time.</p>
 
             @if ($package->complete)
 

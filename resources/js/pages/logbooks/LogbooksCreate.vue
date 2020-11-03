@@ -323,7 +323,7 @@ export default {
         
         availablePackages () {
             return filter(this.packages, p => {
-                return !includes(this.form.packages, p.id)
+                return !includes(this.form.packages, p.id) && p.complete === null
             })
         },
 

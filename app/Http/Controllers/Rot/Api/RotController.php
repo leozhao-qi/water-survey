@@ -156,6 +156,12 @@ class RotController extends Controller
                 'signed_off_by_role' => $package->signed_off_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->signed_off_by))->roles->first()->name)) : null,
                 'commented_by' => $package->commented_by ? optional(User::find($package->commented_by))->fullname : null,
                 'commented_by_role' => $package->commented_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->commented_by))->roles->first()->name)) : null,
+                'practical_objectives' => $package->lesson->objectives->filter(function ($objective) {
+                    return $objective->type === 'practical_application';
+                }),
+                'theory_objectives' => $package->lesson->objectives->filter(function ($objective) {
+                    return $objective->type === 'theory';
+                })
             ];
         }
 
