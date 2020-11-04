@@ -227,7 +227,13 @@ class IsValidCompletion implements Rule
             return false;
         }
 
-        if ($this->completionValue  && !$this->package->recommendation_comment) {
+        if (request()->has('recommendation_comment')) {
+            $recommendationComment = request('recommendation_comment');
+        } else {
+            $recommendationComment =  $this->package->recommendation_comment;
+        }
+
+        if ($this->completionValue  && !$recommendationComment) {
             $this->errorMessage = 'You need to add a recommendation comment.';
 
             return false;
