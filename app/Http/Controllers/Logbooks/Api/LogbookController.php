@@ -27,7 +27,9 @@ class LogbookController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole(['administrator'])) {
-            $users = Logbook::all()->pluck('id')->unique()->toArray();
+            $userIds = Logbook::all()->pluck('user_id')->unique()->toArray();
+
+            $users = User::find($userIds);
 
             return LogbookIndexResource::collection(
                 Logbook::all()->sortByDesc('created')
