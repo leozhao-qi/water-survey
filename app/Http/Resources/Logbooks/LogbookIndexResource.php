@@ -23,7 +23,7 @@ class LogbookIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'event_description' => $this->event_description,
-            'details_of_event_truncated' => Str::limit(strip_tags($this->details_of_event), 256) . '...',
+            'details_of_event_truncated' => str_replace("&nbsp;", " ", Str::limit(strip_tags($this->details_of_event), 256) . '...'),
             'category' => new LogbookCategoryResource(
                 $this->logbookCategory
             ),
