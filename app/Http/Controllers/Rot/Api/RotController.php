@@ -66,6 +66,26 @@ class RotController extends Controller
                     return $package;
                 })
                 ->sortBy('name');
+
+            $incompletePackages = $user->packages
+                ->filter(function ($package) {
+                    return 
+                    (
+                        $package->lesson->level->code === '3' || 
+                        $package->lesson->completed_in_both
+                    )
+                     && 
+                    (
+                        $package->theory_status === 'incomplete' || 
+                        $package->practical_status === 'incomplete'
+                    );
+                })
+                ->map(function ($package) { 
+                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+
+                    return $package;
+                })
+                ->sortBy('name');
         } elseif (request()->query('type') === 'eg_4_5') {
             $packages = $user->packages
                 ->filter(function ($package) {
@@ -93,6 +113,36 @@ class RotController extends Controller
                     );
                 })
                 ->map(function ($package) {
+                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+
+                    return $package;
+                })
+                ->sortBy('name');
+
+            $incompletePackages = $user->packages
+                ->filter(function ($package) {
+                    return 
+                    (
+                        $package->lesson->level->code === '3' &&
+                        (
+                            $package->theory_status === 'deferred' ||
+                            $package->practical_status === 'deferred'
+                        ) 
+                    ) 
+                    || 
+                    (
+                        (
+                            $package->lesson->level->code === '4' || 
+                            $package->lesson->completed_in_both
+                        ) 
+                        && 
+                        (
+                            $package->theory_status === 'incomplete' ||
+                            $package->practical_status === 'incomplete'
+                        )
+                    );
+                })
+                ->map(function ($package) { 
                     $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
 
                     return $package;
@@ -167,7 +217,7 @@ class RotController extends Controller
 
         $pdf = App::make('dompdf.wrapper');
 
-        $pdf->loadView('reports.rot.download', compact('packages', 'user', 'packageMeta'));
+        $pdf->loadView('reports.rot.download', compact('packages', 'user', 'packageMeta', 'incompletePackages'));
 
         return $pdf->download(str_replace(' ', '_', $user->fullname) . '_rot.pdf');
     }

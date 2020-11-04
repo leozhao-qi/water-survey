@@ -80,6 +80,25 @@
     </head>
 
     <body>
+        @if (count($incompletePackages))
+            <h2>
+                Incomplete packages for {{ $user->fullname }}
+            </h2>
+
+            <ul>
+                @foreach($incompletePackages as $package)
+                    <li style="margin-bottom: .25rem;">
+                        <a 
+                            href="{{ env('APP_URL') }}/users/{{ $user->id }}/packages/{{ $package->id }}"
+                            style="color: #4299E1; text-decoration: none;"
+                        >{{ $package->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+
+            <hr style="visibility: hidden; page-break-after: always;">
+        @endif
+
         @foreach($packages as $package)
             <h2 class="margin-bottom: 0;">
                 {{ $package->lesson->topic_id ? 
