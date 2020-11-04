@@ -37,6 +37,15 @@
                 border: 1px solid #e2e8f0;
             }
 
+            .no-table-border {
+                padding: .5rem;
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+                border-collapse: collapse !important;
+                border-spacing: 0;
+                border: 1px solid white;
+            }
+
             .checkmark {
                 display:inline-block;
                 width: 18px;
@@ -72,23 +81,55 @@
 
     <body>
         @foreach($packages as $package)
-            <h2>
+            <h2 class="margin-bottom: 0;">
                 {{ $package->lesson->topic_id ? 
                 $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name : 
                 'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name }}
             </h2>
 
-            <p style="margin-bottom: -0.5rem;">
-                <strong>Name:</strong> {{ $user->fullname }}
-            </p>
-
-            <p style="margin-bottom: -0.5rem;">
-                <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
-            </p>
-
-            <p>
-                <strong>Version:</strong> {{ $package->lesson->lessonVersion->version }}
-            </p>
+            <table style="width: 100%; border-collapse: collapse !important; border-spacing: 0;">
+                <tbody>
+                    <tr>
+                        <td class="no-table-border">
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                <strong>Name:</strong> 
+                                <a 
+                                    href="{{ env('APP_URL') }}/users/{{ $user->id }}"
+                                    style="color: #4299E1; text-decoration: none;"
+                                >{{ $user->fullname }}</a>
+                            </p>
+                    
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
+                            </p>
+                    
+                            <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                <strong>Version:</strong> {{ $package->lesson->lessonVersion->version }}
+                            </p>
+                        </td>
+    
+                        <td class="no-table-border">
+                            @if (isset($user->reportingStructure()['manager']))
+                                <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                    <strong>Manager:</strong> {{ implode(',', $user->reportingStructure()['manager']->pluck('fullname')->toArray()) }}
+                                </p>
+                            @endif
+    
+                            @if (isset($user->reportingStructure()['head_of_operations']))
+                                <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
+                                    <strong>Area Head:</strong> {{ implode(',', $user->reportingStructure()['head_of_operations']->pluck('fullname')->toArray()) }}
+                                </p>
+                            @endif
+    
+                            @if (isset($user->reportingStructure()['supervisor']))
+                                <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
+                                    <strong>Supervisor:</strong> {{ implode(',', $user->reportingStructure()['supervisor']->pluck('fullname')->toArray()) }}
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <table style="width: 100%; font-family: sans-serif; border-collapse: collapse; margin-top: 1rem;">
                 <thead>
