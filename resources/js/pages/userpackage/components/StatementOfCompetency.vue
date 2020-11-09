@@ -25,7 +25,7 @@
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
-            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete.
+            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been met and that the Lesson Package is complete as specified by management.
         </label> 
 
         <label for="complete-b" class="block mb-4 ml-2">

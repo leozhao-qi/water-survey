@@ -286,7 +286,7 @@
                         <div class="checkmark_kick"></div>
                     </span>
                 @endif
-            ] <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the objectives have been met and that the Lesson Package is complete.</p>
+            ] <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been met and that the Lesson Package is complete as specified by management.</p>
 
             <p>[ 
                 @if ($package->complete === 'B')  
