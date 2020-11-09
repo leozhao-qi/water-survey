@@ -25,9 +25,9 @@ class RotController extends Controller
             );
         }
 
-        return UserResource::collection(
-            User::role('apprentice')->get()
-        );
+        // return UserResource::collection(
+        return User::role('apprentice')->get();
+        // );
     }
 
     public function download()

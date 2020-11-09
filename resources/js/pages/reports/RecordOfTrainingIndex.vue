@@ -138,12 +138,18 @@ export default {
     async mounted () {
         let { data: users } = await axios.get(`${this.urlBase}/api/reports/rot`)
 
-        this.users = users.data
+        this.users = users
 
-        window.events.$on('rot:view', user => {
+        window.events.$on('rot:view', async user => {
             this.modalRoT = true
 
             this.user = user
+
+            let { data: packages } = await axios.get(`${this.urlBase}/api/users/${this.user.id}/packages`)
+
+            this.user.packages = packages.data
+
+            console.log(this.user.packages)
 
             this.idArr = map(this.user.packages, p => {
                 return p.id
