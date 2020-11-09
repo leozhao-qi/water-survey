@@ -28,6 +28,13 @@
             <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been met and that the Lesson Package is complete as specified by management.
         </label> 
 
+        <div 
+            v-if="needsSignOffConfirm"
+            class="alert alert-red mb-3"
+        >
+            {{ signOffConfirmText }}
+        </div>
+
         <label for="complete-b" class="block mb-4 ml-2">
             <input 
                 type="radio"
@@ -68,13 +75,17 @@ import fromMySQLDateFormat from '../../../helpers/fromMySQLDateFormat'
 export default {
     data() {
         return {
-            complete: null
+            complete: null,
+            needsSignOffConfirm: false,
+            recommendationId: null,
+            signOffConfirmText: ''
         }
     },
 
     computed: {
         ...mapGetters({
-            userPackage: 'userpackage/userPackage'
+            userPackage: 'userpackage/userPackage',
+            form: 'userpackage/form'
         })
     },
 
@@ -83,7 +94,31 @@ export default {
             deep: true,
 
             handler () {
+                this.recommendationId = this.form.recommendation_id
+
                 this.complete = this.userPackage.complete
+
+                if (this.userPackage.recommendation) {
+                    this.recommendationId = this.userPackage.recommendation.id
+
+                    this.needsSignOffConfirm = this.userPackage.recommendation.code === 'D' && this.complete === 'A'
+
+                    this.signOffConfirmText = 'This lesson package has been signed off as partially completed.  If the "Status" changes please update the Evaluation Details and Recommendation Details.'
+                }
+            }
+        },
+
+        complete () {
+            console.log(this.recommendationId)
+            if (this.userPackage.recommendation && this.userPackage.recommendation.code === 'D' && this.complete === 'A' && !this.form.recommendation_id) {
+                this.signOffConfirmText = 'This lesson package has been signed off as partially completed.  If the "Status" changes please update the Evaluation Details and Recommendation Details.'
+                this.needsSignOffConfirm = true
+            } else if (this.recommendationId === 4 && this.complete === 'A') {
+                this.signOffConfirmText = 'You are about to sign off on a partially complete lesson package.  If you wish to continue select "Update lesson package"'
+                this.needsSignOffConfirm = true
+            } else {
+                this.signOffConfirmText = ''
+                this.needsSignOffConfirm = false
             }
         }
     },
@@ -107,6 +142,20 @@ export default {
                 }
             ])
         }
+    },
+
+    mounted () {
+        this.recommendationId = this.form.recommendation_id
+
+        window.events.$on('recommendation:change', recommendation => {
+            this.recommendationId = recommendation
+
+            if (this.recommendationId === 4 && this.complete === 'A') {
+                this.needsSignOffConfirm = true
+
+                this.signOffConfirmText = 'You are about to sign off on a partially complete lesson package.  If you wish to continue select "Update lesson package"'
+            }
+        })
     }
 }
 </script>

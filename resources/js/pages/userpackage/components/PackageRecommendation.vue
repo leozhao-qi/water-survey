@@ -140,6 +140,8 @@ export default {
                     value: this.recommendation
                 }
             ])
+
+            window.events.$emit('recommendation:change', this.recommendation)
         },
 
         cancel () {
