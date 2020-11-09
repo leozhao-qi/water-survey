@@ -151,8 +151,6 @@ export default {
 
             this.user.packages = packages.data
 
-            console.log(this.user.packages)
-
             this.idArr = map(this.user.packages, p => {
                 return p.id
             })

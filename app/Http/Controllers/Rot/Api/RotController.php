@@ -25,9 +25,7 @@ class RotController extends Controller
             );
         }
 
-        // return UserResource::collection(
         return User::role('apprentice')->get();
-        // );
     }
 
     public function download()
@@ -42,6 +40,8 @@ class RotController extends Controller
             $packages = $user->packages->filter(function ($package) use ($packagesFromRequest) {
                 return in_array($package->id, $packagesFromRequest);
             });
+
+            $incompletePackages = [];
         } elseif (request()->query('type') === 'eg_3_4') {
             $packages = $user->packages
                 ->filter(function ($package) {

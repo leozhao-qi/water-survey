@@ -233,7 +233,7 @@ class IsValidCompletion implements Rule
             $recommendationComment =  $this->package->recommendation_comment;
         }
 
-        if ($this->completionValue  && !$recommendationComment) {
+        if ($this->completionValue === 'A'  && !$recommendationComment && $recommendation->code === 'A') {
             $this->errorMessage = 'You need to add a recommendation comment.';
 
             return false;
