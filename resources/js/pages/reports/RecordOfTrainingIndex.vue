@@ -115,6 +115,8 @@ export default {
 
             this.selected = []
 
+            this.reportType = ''
+
             this.idArr = []
 
             window.events.$emit('datatable:clear')
