@@ -25,14 +25,17 @@ class Package extends Model
         'commented_by',
         'commented_at',
         'evaluated_by',
-        'evaluated_at'
+        'evaluated_at',
+        'recommended_by',
+        'recommended_on'
     ];
 
     protected $casts = [
         'signed_off_at' => 'date',
         'commented_at' => 'date',
         'evaluated_at' => 'date',
-        'recommendation_comment_at' => 'date'
+        'recommendation_comment_at' => 'date',
+        'recommended_on' => 'date'
     ];
 
     public function user()

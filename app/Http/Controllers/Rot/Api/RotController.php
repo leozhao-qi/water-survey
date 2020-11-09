@@ -37,9 +37,16 @@ class RotController extends Controller
         if (request()->query('packages')) {
             $packagesFromRequest = explode(',', request()->query('packages'));
 
-            $packages = $user->packages->filter(function ($package) use ($packagesFromRequest) {
-                return in_array($package->id, $packagesFromRequest);
-            });
+            $packages = $user->packages
+                ->filter(function ($package) use ($packagesFromRequest) {
+                    return in_array($package->id, $packagesFromRequest);
+                })
+                ->map(function ($package) {
+                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+
+                    return $package;
+                })
+                ->sortBy('name');;
 
             $incompletePackages = [];
         } elseif (request()->query('type') === 'eg_3_4') {
@@ -198,7 +205,9 @@ class RotController extends Controller
                 'theory_status_eg4' => $this->getStatus('theory', $package, 4),
                 'practical_status_eg4' => $this->getStatus('practical', $package, 4),
                 'evaluated_by' => $package->evaluated_by ? optional(User::find($package->evaluated_by))->fullname : null,
+                'recommended_by' => $package->recommended_by ? optional(User::find($package->recommended_by))->fullname : null,
                 'evaluated_by_role' => $package->evaluated_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->evaluated_by))->roles->first()->name)) : null,
+                'recommended_user_by_role' => $package->recommended_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->recommended_by))->roles->first()->name)) : null,
                 'recommendation' => $package->recommendation_id ? Recommendation::find($package->recommendation_id) : null,
                 'recommendation_comment_by' => $package->recommendation_comment_by ? optional(User::find($package->recommendation_comment_by))->fullname : null,
                 'recommendation_comment_by_role' => $package->recommendation_comment_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->recommendation_comment_by))->roles->first()->name)) : null,

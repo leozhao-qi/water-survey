@@ -116,6 +116,20 @@ class PackageController extends Controller
                 ]);
             }
 
+            if (request()->has('recommendation_id') && request('recommendation_id') !== null) {
+                $data = array_merge($data, [
+                    'recommended_by' => auth()->id(),
+                    'recommended_on' => Carbon::now()
+                ]);
+            }
+
+            if (request()->has('recommendation_id') && request('recommendation_id') === null) {
+                $data = array_merge($data, [
+                    'recommended_by' => null,
+                    'recommended_on' => null
+                ]);
+            }
+
             if (request()->has('recommendation_comment')) {
                 $data = array_merge($data, [
                     'recommendation_comment_by' => auth()->id(),

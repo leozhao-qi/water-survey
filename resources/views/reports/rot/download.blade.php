@@ -250,7 +250,19 @@
                 <p>No evaluation details entered.</p>
             @endif
 
-            <h3>Recommendation</h3>
+            <h3>
+                Recommendation 
+            </h3>
+
+            @if ($package->recommended_by)
+                <p>
+                    <small>
+                        <strong>Recommended by:</strong> {{ $packageMeta[$package->lesson->name]['recommended_by'] }} 
+                        ({{ $packageMeta[$package->lesson->name]['recommended_user_by_role'] }}) on 
+                        {{ $package->recommended_on->format('m/d/Y') }}
+                    </small>
+                </p>
+            @endif
 
             @if ($package->recommendation_id)
                 <p>
@@ -264,7 +276,7 @@
 
                     <p>
                         <small>
-                            <strong>Recommended by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
+                            <strong>Recommendation comment by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
                             ({{ $packageMeta[$package->lesson->name]['recommendation_comment_by_role'] }}) on 
                             {{ $package->recommendation_comment_at->format('m/d/Y') }}
                         </small>

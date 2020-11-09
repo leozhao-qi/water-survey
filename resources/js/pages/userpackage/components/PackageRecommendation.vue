@@ -2,6 +2,15 @@
     <div class="w-full mt-8">
         <h2 class="text-2xl mb-2">
             Recommendation
+
+            <span 
+                class="mr-2 text-sm"
+                v-if="userPackage.recommended_by"
+            >
+                <strong>Recommended by:</strong>  
+                {{ userPackage.recommended_by.firstname }} {{ userPackage.recommended_by.lastname }} 
+                ({{ ucfirst(userPackage.recommended_by.role) }}) on {{ fromMySQLDateFormat(userPackage.recommended_on) }}
+            </span>
         </h2>
 
         

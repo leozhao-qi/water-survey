@@ -46,6 +46,8 @@ class PackageResource extends JsonResource
             'commented_at' => $this->commented_at,
             'evaluated_by' => $this->evaluated_by ? User::find($this->evaluated_by) : null,
             'evaluated_at' => $this->evaluated_at,
+            'recommended_by' => $this->recommended_by ? User::find($this->recommended_by) : null,
+            'recommended_on' => $this->recommended_on,
             'practical_status' => $this->practical_status,
             'theory_status' => $this->theory_status,
             'complete' => $this->complete,
