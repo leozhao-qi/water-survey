@@ -8,4 +8,10 @@ export const UPDATE_USERPACKAGE = (state, arr) => {
     forEach(arr, item => state.form[item.type] = item.value)
 }
 
-export const SET_COMPLETE = (state, complete) => state.isComplete = complete
+export const SET_COMPLETE = (state, complete) => {
+    if (complete === 'A' || complete === 'B') {
+        state.isComplete = true
+    } else {
+        state.isComplete = false
+    }
+}

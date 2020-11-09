@@ -26,6 +26,6 @@ export const updatePackageObj = ({ commit }, arr) => {
     commit('UPDATE_USERPACKAGE', arr)
 }
 
-export const updateCompletion  = ({ commit, state }) => {
-    commit('SET_COMPLETE', !state.isComplete)
+export const updateCompletion  = ({ commit, state }, complete) => {
+    commit('SET_COMPLETE', complete)
 }

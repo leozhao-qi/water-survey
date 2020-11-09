@@ -98,7 +98,7 @@ export default {
         fromMySQLDateFormat,
 
         update () {
-            this.updateCompletion()
+            this.updateCompletion(this.complete)
             
             this.$emit('userpackage:change', [
                 {
