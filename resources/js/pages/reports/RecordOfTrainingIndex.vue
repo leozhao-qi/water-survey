@@ -140,7 +140,11 @@ export default {
     async mounted () {
         let { data: users } = await axios.get(`${this.urlBase}/api/reports/rot`)
 
-        this.users = users
+        if (this.authUser.role === 'administrator') {
+            this.users = users
+        } else {
+            this.users = users.data
+        }        
 
         window.events.$on('rot:view', async user => {
             this.modalRoT = true
