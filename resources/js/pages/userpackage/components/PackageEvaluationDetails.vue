@@ -106,7 +106,7 @@ export default {
         },
 
         evaluation_details () {
-            if (this.counter !== 0) {
+            if (this.counter !== 0 || this.evaluation_details) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'evaluation_details',

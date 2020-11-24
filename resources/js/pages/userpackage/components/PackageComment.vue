@@ -104,7 +104,7 @@ export default {
         },
 
         comment () {
-            if (this.counter !== 0) {
+            if (this.counter !== 0 || this.comment) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'comment',
