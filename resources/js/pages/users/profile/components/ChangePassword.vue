@@ -1,7 +1,7 @@
 <template>
     <div 
         class="w-full mb-6"
-        v-if="(user.id === authUser.id) || hasRole['administrator']"
+        v-if="(parseInt(user.id) === parseInt(authUser.id)) || hasRole['administrator']"
     >
         <button
             v-if="!changing"
@@ -122,6 +122,6 @@ export default {
             this.form.password = ''
             this.form.passwordConfirm = ''
         }
-    },
+    }
 }
 </script>
