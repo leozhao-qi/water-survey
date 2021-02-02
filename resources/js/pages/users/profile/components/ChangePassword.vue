@@ -1,7 +1,7 @@
 <template>
     <div 
         class="w-full mb-6"
-        v-if="hasRole['administrator'] || (user.id === authUser.id)"
+        v-if="(user.id === authUser.id) || hasRole['administrator']"
     >
         <button
             v-if="!changing"
