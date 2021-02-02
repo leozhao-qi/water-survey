@@ -109,7 +109,6 @@ export default {
         },
 
         complete () {
-            console.log(this.recommendationId)
             if (this.userPackage.recommendation && this.userPackage.recommendation.code === 'D' && this.complete === 'A' && !this.form.recommendation_id) {
                 this.signOffConfirmText = 'This lesson package has been signed off as partially completed.  If the "Status" changes please update the Evaluation Details and Recommendation Details.'
                 this.needsSignOffConfirm = true

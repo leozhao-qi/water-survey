@@ -27,7 +27,7 @@ class PackagePolicy
     {
         preg_match_all("/\/users\/([\d]+)/",request()->url(),$matches);
 
-    	$this->user = User::find((int) $matches[1][0]);
+        $this->user = User::find((int) $matches[1][0]);
     }
 
     public function update(User $authUser, Package $package)

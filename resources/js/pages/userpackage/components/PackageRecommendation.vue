@@ -174,7 +174,7 @@ export default {
         },
 
         recommendation_comment () {
-            if (this.counter !== 0 || this.recommendation_comment) {
+            if (this.counter !== 0) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'recommendation_comment',
