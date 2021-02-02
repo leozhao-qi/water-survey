@@ -39,6 +39,8 @@ class SotController extends Controller
 
         $packages = $this->getFormattedPackages($user);
 
+        dd($user->packages);
+
         $version = $user->packages->first()->lesson->lessonVersion->version;
 
         $pdf = App::make('dompdf.wrapper');

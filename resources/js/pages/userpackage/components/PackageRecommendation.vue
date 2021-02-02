@@ -17,7 +17,7 @@
         <div class="relative w-full">
             <select 
                 v-model="recommendation"
-                class="shadow appearance-none border rounded w-full py-2 px-3 mt-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                class="shadow appearance-none border rounded w-full py-2 px-3 mt-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm"
                 :class="{ 'border-red-500': errors.recommendation }"
                 @change="updateRecommendation"
                 :disabled="isComplete || !hasRole(['administrator', 'manager', 'head_of_operations', 'supervisor'])"

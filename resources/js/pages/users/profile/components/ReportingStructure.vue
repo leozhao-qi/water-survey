@@ -69,7 +69,7 @@
                                 for="roles"
                                 class="block text-gray-700 font-bold mb-2"
                             >
-                                Select role {{ urlBase }}
+                                Select role:
                             </label>
                             <div class="relative">
                                 <select 

@@ -1,7 +1,7 @@
 <template>
     <div class="w-full mb-6">
         <button
-            v-if="!changing"
+            v-if="!changing && hasRole['administrator']"
             @click.prevent="changing = true"
             class="btn btn-text text-sm"
         >Change password</button>
