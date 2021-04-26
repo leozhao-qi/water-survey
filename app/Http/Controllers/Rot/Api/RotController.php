@@ -210,7 +210,7 @@ class RotController extends Controller
                 'recommended_user_by_role' => $package->recommended_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->recommended_by))->roles->first()->name)) : null,
                 'recommendation' => $package->recommendation_id ? Recommendation::find($package->recommendation_id) : null,
                 'recommendation_comment_by' => $package->recommendation_comment_by ? optional(User::find($package->recommendation_comment_by))->fullname : null,
-                'recommendation_comment_by_role' => $package->recommendation_comment_by ? ucfirst(str_replace('_', ' ', optional(optional(User::find($package->recommendation_comment_by))->roles)->first()->name)) : null,
+                'recommendation_comment_by_role' => $package->recommendation_comment_by ? ucfirst(str_replace('_', ' ', optional(optional(optional(User::find($package->recommendation_comment_by))->roles)->first())->name)) : null,
                 'signed_off_by' => $package->signed_off_by ? optional(User::find($package->signed_off_by))->fullname : null,
                 'signed_off_by_role' => $package->signed_off_by ? ucfirst(str_replace('_', ' ', optional(User::find($package->signed_off_by))->roles->first()->name)) : null,
                 'commented_by' => $package->commented_by ? optional(User::find($package->commented_by))->fullname : null,
