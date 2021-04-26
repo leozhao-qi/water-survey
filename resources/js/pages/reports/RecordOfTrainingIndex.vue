@@ -38,6 +38,10 @@
                 v-if="user !== null"
             >
                 <div class="my-4">
+                    <div class="alert alert-blue mb-4">
+                        Note: This report may take up to a minute to generate. It will download immediately after.
+                    </div>
+
                     <div
                         class="w-full lg:w-1/2 mb-4"
                     >
