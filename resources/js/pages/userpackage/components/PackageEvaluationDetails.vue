@@ -106,16 +106,17 @@ export default {
         },
 
         evaluation_details () {
-            if (this.counter !== 0) {
+            // console.log('here')
+            // if (this.counter !== 0) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'evaluation_details',
                         value: this.evaluation_details
                     }
                 ])
-            }
+            // }
 
-            this.counter += 1
+            // this.counter += 1
         }
     },
 

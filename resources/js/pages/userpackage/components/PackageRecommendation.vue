@@ -174,16 +174,16 @@ export default {
         },
 
         recommendation_comment () {
-            if (this.counter !== 0) {
+            // if (this.counter !== 0) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'recommendation_comment',
                         value: this.recommendation_comment
                     }
                 ])
-            }
+            // }
 
-            this.counter += 1
+            // this.counter += 1
         }
     },
 

@@ -104,16 +104,16 @@ export default {
         },
 
         comment () {
-            if (this.counter !== 0) {
+            // if (this.counter !== 0) {
                 this.$emit('userpackage:change', [
                     {
                         type: 'comment',
                         value: this.comment
                     }
                 ])
-            }
+            // }
 
-            this.counter += 1
+            // this.counter += 1
         }
     },
 
