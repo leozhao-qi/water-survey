@@ -25,7 +25,7 @@
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
-            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been met and that the Lesson Package is complete as specified by management.
+            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been completed as approved by Manager (Recommended as Option A or D)
         </label> 
 
         <div 
@@ -44,7 +44,7 @@
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
             > 
-            <strong>Exemption</strong> - I agree with the recommendation and not all objectives were expected to be completed for this lesson package. This does not exempt the candidate from the Lesson Package objectives should Management decide it is required at any time.
+            <strong>Exemption</strong> - Fully Exempt – No objectives are expected to be completed as pre approved by Manager.  This does not exempt the candidate from the Lesson Package objectives should Management decide it is required at any time. ( Recommended as Option C)
         </label> 
 
         <p 
