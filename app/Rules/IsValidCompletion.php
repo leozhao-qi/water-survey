@@ -113,7 +113,7 @@ class IsValidCompletion implements Rule
                     return false;
                 }
 
-                $validValue = array_search($this->packageStatuses[$type]['value'], ['incomplete', 'complete_eg3', 'complete_eg4']);
+                $validValue = array_search($this->packageStatuses[$type]['value'], ['incomplete', 'complete_eg3', 'complete_eg4', 'exempt']);
 
                 if ($validValue === false) {
                     $this->errorMessage = 'One of the statuses has not been marked "Incomplete", "Complete - EG3" or "Complete - EG4".';
