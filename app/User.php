@@ -115,7 +115,7 @@ class User extends Authenticatable
     {
         $user = User::find($this->id);
 
-        return MoodleUser::whereId($user->moodle_id)
+         return MoodleUser::whereId($user->moodle_id)
             ->first()
             ->{$column};
     }

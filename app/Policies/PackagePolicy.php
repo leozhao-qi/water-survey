@@ -44,7 +44,7 @@ class PackagePolicy
         $userRole = auth()->user()->roles->first()->name;
 
         if ($userRole === 'supervisor') {
-            $request = request()->except(['comments']);
+            $request = request()->except(['comment']);
         } else {
             $request = request()->all();
         }
