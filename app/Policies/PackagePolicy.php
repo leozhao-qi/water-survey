@@ -43,7 +43,13 @@ class PackagePolicy
     {
         $userRole = auth()->user()->roles->first()->name;
 
-        foreach (array_keys(request()->all()) as $item) {
+        if ($userRole === 'supervisor') {
+            $request = request()->except(['comments']);
+        } else {
+            $request = request()->all();
+        }
+
+        foreach (array_keys($request) as $item) {
             if (array_search($userRole, $this->authArr[$item]) === false) {
                  return false;
             }
