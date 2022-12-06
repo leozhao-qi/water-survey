@@ -44,7 +44,7 @@ class UserResource extends JsonResource
             'active' => $this->active,
             'role' => $this->roles->first()->name,
             'roleRank' => $this->roles->first()->rank,
-            'reportingStructure' => $this->reportingStructure(),
+            // 'reportingStructure' => $this->reportingStructure(),
             'appointment_date' => $this->appointment_date,
             'packages' => PackageResource::collection(
                 $this->packages
