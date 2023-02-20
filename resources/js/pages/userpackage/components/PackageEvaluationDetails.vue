@@ -81,10 +81,10 @@ export default {
             counter: 0,
             evaluation_details: '',
             customToolbar: [
-                [{header: 1}, {header: 2}, {header: 3}],
+                [{header: [1, 2, 3, 4, 5, 6, false] }],
                 ["bold", "italic", "underline"],
                 [{script: 'sub'}, {script: 'super'}],
-                [{align: 'left'}, {align: 'center'}, {align: 'right'}],
+                [{align: false}, {align: 'center'}, {align: 'right'}],
                 [{ list: "ordered" }, { list: "bullet" }],
                 [{indent: '-1'}, {indent: '+1'}],
                 ["link", "image"]
