@@ -26,6 +26,7 @@
         <div class="mt-2" v-if="editing">
             <vue-editor 
                 v-model="evaluation_details"
+                :editorToolbar="customToolbar"
             ></vue-editor>
 
             <div
@@ -78,7 +79,15 @@ export default {
         return {
             editing: false,
             counter: 0,
-            evaluation_details: ''
+            evaluation_details: '',
+            customToolbar: [
+                ["size"],
+                ["bold", "italic", "underline"],
+                ["align"],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["indent"],
+                ["link", "image"]
+            ]
         }
     },
 
