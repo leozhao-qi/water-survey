@@ -32,6 +32,7 @@
             <div class="mt-2" v-if="editing">
                 <vue-editor 
                     v-model="comment"
+                    :editorToolbar="customToolbar"
                 ></vue-editor>
 
                 <div
@@ -80,7 +81,16 @@ export default {
         return {
             editing: false,
             counter: 0,
-            comment: ''
+            comment: '',
+            customToolbar: [
+                [{header: [1, 2, 3, 4, 5, 6, false] }],
+                ["bold", "italic", "underline"],
+                [{script: 'sub'}, {script: 'super'}],
+                [{align: []}],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{indent: '-1'}, {indent: '+1'}],
+                ["link", "image"]
+            ]
         }
     },
 
