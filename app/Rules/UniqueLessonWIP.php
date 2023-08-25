@@ -32,7 +32,9 @@ class UniqueLessonWIP implements Rule
             return true;
         }
 
-        return !LessonWIP::whereNumber(request('number'))->count();
+        return !LessonWIP::whereNumber(request('number'))
+            ->whereTopicId((int) request('topic_id'))
+            ->count();
     }
 
     /**
