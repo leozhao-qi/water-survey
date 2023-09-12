@@ -18,9 +18,9 @@ class LessonWIPResource extends JsonResource
     {
         if ($this->topic_id) {
             if (strlen($this->number) === 2 && !is_numeric($this->number)) {
-                $formatNumber = $this->topic->number . str_pad($this->number, 3, '0', STR_PAD_LEFT);
+                $formatNumber = $this->topic->number . '.' . str_pad($this->number, 3, '0', STR_PAD_LEFT);
             } else {
-                $formatNumber = $this->topic->number . str_pad($this->number, 2, '0', STR_PAD_LEFT);
+                $formatNumber = $this->topic->number . '.' . str_pad($this->number, 2, '0', STR_PAD_LEFT);
             }
         } else {
             $formatNumber = 'No topic.' . $this->number;
