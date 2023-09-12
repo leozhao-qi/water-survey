@@ -33,7 +33,7 @@ class LessonsWIPController extends Controller
                 'min:1',
                 function ($attribute, $value, $fail) {
                     $lessonExists = LessonWIP::whereTopicId((int) request('topic_id'))
-                        ->whereNumber((int) request('number'))
+                        ->whereNumber(request('number'))
                         ->exists();
 
                     if ($lessonExists) {
