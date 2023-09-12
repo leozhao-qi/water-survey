@@ -16,12 +16,22 @@ class LessonWIPResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->topic_id) {
+            if (strlen($this->number) === 2 && !is_numeric($this->number)) {
+                $formatNumber = str_pad($this->number, 3, '0', STR_PAD_LEFT);
+            } else {
+                $formatNumber = str_pad($this->number, 2, '0', STR_PAD_LEFT);
+            }
+        } else {
+            $formatNumber = 'No topic.' . $this->number;
+        }
+        
         return [
             'id' => $this->id,
             'name_en' => $this->getTranslation('name', 'en'),
             'name_fr' => $this->getTranslation('name', 'fr'),
             'name' => $this->name,
-            'formatNumber' => $this->topic_id ? $this->topic->number . '.' . str_pad($this->number, 2, '0', STR_PAD_LEFT) : 'No topic.' . $this->number,
+            'formatNumber' => $formatNumber,
             'number' => $this->number,
             'level_id' => $this->level_id,
             'level' => $this->level,
