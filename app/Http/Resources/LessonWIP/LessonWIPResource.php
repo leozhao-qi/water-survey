@@ -36,7 +36,7 @@ class LessonWIPResource extends JsonResource
             'level_id' => $this->level_id,
             'level' => $this->level,
             'objectives' => ObjectiveWIPResource::collection(
-                ObjectiveWIP::whereLessonId($this->id)->get()
+                ObjectiveWIP::whereLessonId($this->id)->->orderBy('number', 'DESC')->get()
             )->sortByDesc('number'),
             'completed_in_both' => $this->completed_in_both ? true : false,
             'topic_id' => $this->topic_id,
