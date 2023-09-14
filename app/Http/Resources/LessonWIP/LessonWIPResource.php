@@ -28,11 +28,11 @@ class LessonWIPResource extends JsonResource
 
         $objectives = ObjectiveWIPResource::collection(
             ObjectiveWIP::whereLessonId($this->id)->get()
-        )
+        );
 
         foreach ($objectives as $object) {
             if (is_numeric($object['number'])) {
-                $object['number'] = (int) $object['number']
+                $object['number'] = (int) $object['number'];
             }
         }
         
