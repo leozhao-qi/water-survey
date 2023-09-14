@@ -25,6 +25,16 @@ class LessonWIPResource extends JsonResource
         } else {
             $formatNumber = 'No topic.' . $this->number;
         }
+
+        $objectives = ObjectiveWIPResource::collection(
+            ObjectiveWIP::whereLessonId($this->id)->get()
+        )
+
+        foreach ($objectives as $object) {
+            if (is_numeric($object['number'])) {
+                $object['number'] = (int) $object['number']
+            }
+        }
         
         return [
             'id' => $this->id,
@@ -35,9 +45,7 @@ class LessonWIPResource extends JsonResource
             'number' => $this->number,
             'level_id' => $this->level_id,
             'level' => $this->level,
-            'objectives' => ObjectiveWIPResource::collection(
-                ObjectiveWIP::whereLessonId($this->id)->orderBy('number', 'ASC')->get()
-            ),
+            'objectives' => $objectives,
             'completed_in_both' => $this->completed_in_both ? true : false,
             'topic_id' => $this->topic_id,
             'topic' => $this->topic_id ? $this->topic->number . ' - ' . $this->topic->name : 'No topic'
