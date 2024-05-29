@@ -88,7 +88,7 @@
             <ul>
                 @foreach($incompletePackages as $package)
                     <li style="margin-bottom: .25rem;">
-                        <a 
+                        <a
                             href="{{ env('APP_URL') }}/users/{{ $user->id }}/packages/{{ $package->id }}"
                             style="color: #4299E1; text-decoration: none;"
                         >{{ $package->name }}</a>
@@ -101,9 +101,9 @@
 
         @foreach($packages as $package)
             <h2 class="margin-bottom: 0;">
-                {{ $package->lesson->topic_id ? 
-                $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name : 
-                'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name }}
+                {{ $package->lesson->topic_id ?
+                $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name :
+                'No topic.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name }}
             </h2>
 
             <table style="width: 100%; border-collapse: collapse !important; border-spacing: 0;">
@@ -111,35 +111,35 @@
                     <tr>
                         <td class="no-table-border">
                             <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
-                                <strong>Name:</strong> 
-                                <a 
+                                <strong>Name:</strong>
+                                <a
                                     href="{{ env('APP_URL') }}/users/{{ $user->id }}"
                                     style="color: #4299E1; text-decoration: none;"
                                 >{{ $user->fullname }}</a>
                             </p>
-                    
+
                             <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
                                 <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
                             </p>
-                    
+
                             <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
                                 <strong>Version:</strong> {{ $package->lesson->lessonVersion->version }}
                             </p>
                         </td>
-    
+
                         <td class="no-table-border">
                             @if (isset($user->reportingStructure()['manager']))
                                 <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
                                     <strong>Manager:</strong> {{ implode(',', $user->reportingStructure()['manager']->pluck('fullname')->toArray()) }}
                                 </p>
                             @endif
-    
+
                             @if (isset($user->reportingStructure()['head_of_operations']))
                                 <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: -.5rem;">
                                     <strong>Area Head:</strong> {{ implode(',', $user->reportingStructure()['head_of_operations']->pluck('fullname')->toArray()) }}
                                 </p>
                             @endif
-    
+
                             @if (isset($user->reportingStructure()['supervisor']))
                                 <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: 0;">
                                     <strong>Supervisor:</strong> {{ implode(',', $user->reportingStructure()['supervisor']->pluck('fullname')->toArray()) }}
@@ -190,20 +190,20 @@
 
             @if (count($packageMeta[$package->lesson->name]['theory_objectives']))
                 <strong style="margin-bottom: 0.5rem;">Theory</strong>
-                
+
                 <ul style="list-style: none; margin: 0; padding: 0;">
                     @foreach ($packageMeta[$package->lesson->name]['theory_objectives'] as $objective)
 
                         <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
-                            @if ($user->objectives->where('id', '=', $objective->id)->count()) 
+                            @if ($user->objectives->where('id', '=', $objective->id)->count())
                                 <span class="checkmark" style="position: relative;">
                                     <div class="checkmark_stem"></div>
                                     <div class="checkmark_kick"></div>
-                                </span> 
-                            @else 
-                                &ndash; 
+                                </span>
+                            @else
+                                &ndash;
                             @endif
-                            {{ $objective->number }} - 
+                            {{ $objective->number }} -
                             {{ $objective->name }}
                         </li>
 
@@ -218,15 +218,15 @@
                     @foreach ($packageMeta[$package->lesson->name]['practical_objectives'] as $objective)
 
                         <li style="margin: 0; padding: 0; margin-top: .25rem; margin-bottom: 0.25rem; line-height: 1.5;">
-                            @if ($user->objectives->where('id', '=', $objective->id)->count()) 
+                            @if ($user->objectives->where('id', '=', $objective->id)->count())
                                 <span class="checkmark" style="position: relative;">
                                     <div class="checkmark_stem"></div>
                                     <div class="checkmark_kick"></div>
-                                </span> 
-                            @else 
-                                &ndash; 
+                                </span>
+                            @else
+                                &ndash;
                             @endif
-                            {{ $objective->number }} - 
+                            {{ $objective->number }} -
                             {{ $objective->name }}
                         </li>
 
@@ -239,8 +239,8 @@
             @if ($package->evaluated_by)
                 <p>
                     <small>
-                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['evaluated_by'] }} 
-                        ({{ $packageMeta[$package->lesson->name]['evaluated_by_role'] }}) on 
+                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['evaluated_by'] }}
+                        ({{ $packageMeta[$package->lesson->name]['evaluated_by_role'] }}) on
                         {{ $package->evaluated_at->format('m/d/Y') }}
                     </small>
                 </p>
@@ -251,14 +251,14 @@
             @endif
 
             <h3>
-                Recommendation 
+                Recommendation
             </h3>
 
             @if ($package->recommended_by)
                 <p>
                     <small>
-                        <strong>Recommended by:</strong> {{ $packageMeta[$package->lesson->name]['recommended_by'] }} 
-                        ({{ $packageMeta[$package->lesson->name]['recommended_user_by_role'] }}) on 
+                        <strong>Recommended by:</strong> {{ $packageMeta[$package->lesson->name]['recommended_by'] }}
+                        ({{ $packageMeta[$package->lesson->name]['recommended_user_by_role'] }}) on
                         {{ $package->recommended_on->format('m/d/Y') }}
                     </small>
                 </p>
@@ -266,7 +266,7 @@
 
             @if ($package->recommendation_id)
                 <p>
-                    <strong>{{ $packageMeta[$package->lesson->name]['recommendation']->code }}</strong> - 
+                    <strong>{{ $packageMeta[$package->lesson->name]['recommendation']->code }}</strong> -
                     {{ $packageMeta[$package->lesson->name]['recommendation']->name }}
                 </p>
 
@@ -276,8 +276,8 @@
 
                     <p>
                         <small>
-                            <strong>Recommendation comment by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }} 
-                            ({{ $packageMeta[$package->lesson->name]['recommendation_comment_by_role'] }}) on 
+                            <strong>Recommendation comment by:</strong> {{ $packageMeta[$package->lesson->name]['recommendation_comment_by'] }}
+                            ({{ $packageMeta[$package->lesson->name]['recommendation_comment_by_role'] }}) on
                             {{ $package->recommendation_comment_at->format('m/d/Y') }}
                         </small>
                     </p>
@@ -291,8 +291,8 @@
 
             <h3>Statement of competency</h3>
 
-            <p>[ 
-                @if ($package->complete === 'A')  
+            <p>[
+                @if ($package->complete === 'A')
                     <span class="checkmark" style="position: relative;">
                         <div class="checkmark_stem"></div>
                         <div class="checkmark_kick"></div>
@@ -300,8 +300,8 @@
                 @endif
             ] <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been met and that the Lesson Package is complete as specified by management.</p>
 
-            <p>[ 
-                @if ($package->complete === 'B')  
+            <p>[
+                @if ($package->complete === 'B')
                     <span class="checkmark" style="position: relative;">
                         <div class="checkmark_stem"></div>
                         <div class="checkmark_kick"></div>
@@ -313,8 +313,8 @@
 
                 <p>
                     <small>
-                        <strong>Signed of by:</strong> {{ $packageMeta[$package->lesson->name]['signed_off_by'] }} 
-                        ({{ $packageMeta[$package->lesson->name]['signed_off_by_role'] }}) on 
+                        <strong>Signed of by:</strong> {{ $packageMeta[$package->lesson->name]['signed_off_by'] }}
+                        ({{ $packageMeta[$package->lesson->name]['signed_off_by_role'] }}) on
                         {{ $package->signed_off_at->format('m/d/Y') }}
                     </small>
                 </p>
@@ -327,8 +327,8 @@
 
                 <p>
                     <small>
-                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['commented_by'] }} 
-                        ({{ $packageMeta[$package->lesson->name]['commented_by_role'] }}) on 
+                        <strong>Written by:</strong> {{ $packageMeta[$package->lesson->name]['commented_by'] }}
+                        ({{ $packageMeta[$package->lesson->name]['commented_by_role'] }}) on
                         {{ $package->commented_at->format('m/d/Y') }}
                     </small>
                 </p>
@@ -336,7 +336,7 @@
                 {!! $package->comment !!}
 
             @endif
-            
+
             @if (!$loop->last)
                 <hr style="visibility: hidden; page-break-after: always;">
             @endif

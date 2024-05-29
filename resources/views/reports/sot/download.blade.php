@@ -161,8 +161,8 @@
                         @foreach($packages[$topic->number] as $package)
         
                             <tr>
-                                <td style="padding: .5rem 1rem; border: 1px solid #bcc9da; width: 10%; text-align: center;">
-                                    {{ $topic->number }}.{{ str_pad($package['lesson_number'], 2, '0', STR_PAD_LEFT) }}
+                                <td style="padding: .5rem 1rem; border: 1px solid #bcc9da; width: 10%; text-align: left;">
+                                    {{ $topic->number }}.{{ $package['display_number'] }}
                                 </td>
         
                                 <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0; width: 90%;">

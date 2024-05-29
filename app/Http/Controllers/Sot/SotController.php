@@ -105,6 +105,7 @@ class SotController extends Controller
                     'id' => $package->id,
                     'topic_number' => $package->lesson->topic->number,
                     'lesson_number' => (int) $package->lesson->number,
+                    'display_number' => $package->lesson->formatNumber(), 
                     'lesson_name' => $package->lesson->name,
                     'completed_in_both' => $package->lesson->completed_in_both ? true : false,
                     'level' => $package->lesson->level->code,
@@ -123,7 +124,7 @@ class SotController extends Controller
                 ];
             })
             ->toArray();
-
+        
         array_multisort(
             array_column($packages, 'topic_number'), SORT_ASC,
             array_column($packages, 'lesson_number'), SORT_ASC,

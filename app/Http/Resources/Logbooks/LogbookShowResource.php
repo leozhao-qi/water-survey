@@ -44,8 +44,8 @@ class LogbookShowResource extends JsonResource
                     'id' => $p['package_id'],
                     'lesson' => $package->lesson->number . ' - ' . $package->lesson->name,
                     'formatNumber' => $package->lesson->topic_id ? 
-                    $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) : 
-                    'No topic.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT),
+                    $package->lesson->topic->number . '.' . $package->lesson->formatNumber() : 
+                    'No topic.' . $package->lesson->formatNumber(),
                     'versionNumber' => LessonVersion::find($package->lesson->lesson_version_id)->version,
                     'lessonName' => $package->lesson->name,
                     'complete' => $package->complete
