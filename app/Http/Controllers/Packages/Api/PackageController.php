@@ -29,9 +29,7 @@ class PackageController extends Controller
 
     public function store(User $user)
     {
-        request()->validate([
-            'version' => 'required|exists:lesson_versions,id'
-        ]);
+        request()->validate(['version' => 'required|exists:lesson_versions,id']);
 
         $lessons = Lesson::whereLessonVersionId(request('version'))->get();
 
@@ -55,111 +53,96 @@ class PackageController extends Controller
         ], 200);
     }
 
-    public function update(User $user, Package $package)
-    {
+    public function update(User $user, Package $package) {
+        $status_rule = Rule::in(['incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt']);
+
         request()->validate([
-            'complete' => [
-                'sometimes',
-                'nullable',
-                'max:1',
-                new IsValidCompletion($user, $package)
-            ],
-            'theory_status' => [
-                'sometimes',
-                Rule::in([
-                    'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
-                ])
-            ],
-            'practical_status' => [
-                'sometimes',
-                Rule::in([
-                    'incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt'
-                ])
-            ],
-            'objectives.*' => [
-                'sometimes',
-                Rule::in($package->lesson->objectives->pluck('id')->toArray())
-            ],
+            'complete' => ['sometimes', 'nullable', 'max:1', new IsValidCompletion($user, $package)],
+            'theory_status' => ['sometimes', $status_rule],
+            'practical_status' => ['sometimes', $status_rule],
+            'objectives.*' => ['sometimes', Rule::in($package->lesson->objectives->pluck('id')->toArray())],
             'recommendation_id' => 'sometimes|nullable|exists:recommendations,id',
             'evaluation_details' => 'sometimes|nullable|min:8'
         ]);
 
-        if (auth()->user()->can('update', $package)) {
-            $data = request()->all();
-
-            if (request()->has('complete') && (request('complete') === 'A' || request('complete') === 'B')) {
-                $data = array_merge($data, [
-                    'signed_off_by' => auth()->id(),
-                    'signed_off_at' => Carbon::now()
-                ]);
-            } elseif (request()->has('complete') && request('complete') === 0) {
-                $data = array_merge($data, [
-                    'signed_off_by' => null,
-                    'signed_off_at' => null
-                ]);
-            }
-
-            if (Arr::has($data, 'objectives')) {
-                $allObjectivesForPackage = $package->lesson->objectives->pluck('id');
-        
-                $user->objectives()->detach($allObjectivesForPackage);
-
-                $user->objectives()->attach(request('objectives'));
-
-                Arr::forget($data, 'objectives');
-            }
-
-            if (request()->has('comment')) {
-                $data = array_merge($data, [
-                    'commented_by' => auth()->id(),
-                    'commented_at' => Carbon::now()
-                ]);
-            }
-
-            if (request()->has('recommendation_id') && request('recommendation_id') !== null) {
-                $data = array_merge($data, [
-                    'recommended_by' => auth()->id(),
-                    'recommended_on' => Carbon::now()
-                ]);
-            }
-
-            if (request()->has('recommendation_id') && request('recommendation_id') === null) {
-                $data = array_merge($data, [
-                    'recommended_by' => null,
-                    'recommended_on' => null
-                ]);
-            }
-
-            if (request()->has('recommendation_comment')) {
-                $data = array_merge($data, [
-                    'recommendation_comment_by' => auth()->id(),
-                    'recommendation_comment_at' => Carbon::now()
-                ]);
-            }
-
-            if (request()->has('evaluation_details')) {
-                $data = array_merge($data, [
-                    'evaluated_by' => auth()->id(),
-                    'evaluated_at' => Carbon::now()
-                ]);
-            }
-
-            $package->update($data);
-
+        if (!auth()->user()->can('update', $package)) {
+            // Not authorized to do this
             return response()->json([
                 'data' => [
-                    'type' => 'success',
-                    'message' => 'Package successfully updated.',
-                    'package' => new PackageResource($package)
+                    'message' => 'You are not authorized to do that.'
                 ]
-            ], 200);
+            ], 403);
         }
+
+        // Is authorized; process request
+        $data = request()->all();
+
+        if (request()->has('complete') && (request('complete') === 'A' || request('complete') === 'B')) {
+            $data = array_merge($data, [
+                'signed_off_by' => auth()->id(),
+                'signed_off_at' => Carbon::now()
+            ]);
+        } elseif (request()->has('complete') && request('complete') === 0) {
+            $data = array_merge($data, [
+                'signed_off_by' => null,
+                'signed_off_at' => null
+            ]);
+        }
+
+        if (Arr::has($data, 'objectives')) {
+            $allObjectivesForPackage = $package->lesson->objectives->pluck('id');
+
+            $user->objectives()->detach($allObjectivesForPackage);
+
+            $user->objectives()->attach(request('objectives'));
+
+            Arr::forget($data, 'objectives');
+        }
+
+        if (request()->has('comment')) {
+            $data = array_merge($data, [
+                'commented_by' => auth()->id(),
+                'commented_at' => Carbon::now()
+            ]);
+        }
+
+        if (request()->has('recommendation_id') && request('recommendation_id') !== null) {
+            $data = array_merge($data, [
+                'recommended_by' => auth()->id(),
+                'recommended_on' => Carbon::now()
+            ]);
+        }
+
+        if (request()->has('recommendation_id') && request('recommendation_id') === null) {
+            $data = array_merge($data, [
+                'recommended_by' => null,
+                'recommended_on' => null
+            ]);
+        }
+
+        if (request()->has('recommendation_comment') && $package->recommendation_comment === null) {
+            $data = array_merge($data, [
+                'recommendation_comment_by' => auth()->id(),
+                'recommendation_comment_at' => Carbon::now()
+            ]);
+        }
+
+        if (request()->has('evaluation_details') && $package->evaluation_details === null) {
+            $data = array_merge($data, [
+                'evaluated_by' => auth()->id(),
+                'evaluated_at' => Carbon::now()
+            ]);
+        }
+
+        $package->update($data);
 
         return response()->json([
             'data' => [
-                'message' => 'You are not authorized to do that.'
+                'type' => 'success',
+                'message' => 'Package successfully updated.',
+                'package' => new PackageResource($package)
             ]
-        ], 403);
+        ], 200);
     }
 
     public function add(User $user)
