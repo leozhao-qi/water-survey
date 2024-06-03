@@ -15,7 +15,7 @@ class Lesson extends Model
     use HasTranslations;
 
     public $translatable = ['name'];
-    
+
     protected $fillable = [
         'level_id',
         'number',
@@ -50,14 +50,24 @@ class Lesson extends Model
         return $this->belongsTo(LessonVersion::class);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         $attributes = parent::toArray();
-        
+
         foreach ($this->getTranslatableAttributes() as $name) {
             $attributes[$name] = $this->getTranslation($name, app()->getLocale());
         }
-        
+
         return $attributes;
+    }
+
+    /**
+     * Returns lesson number as padded alphanumeric, for example "05A"
+     *
+     * @return string
+     */
+    public function formatNumber(): string
+    {
+        return str_pad($this->number, 2, 0, STR_PAD_LEFT);
     }
 }

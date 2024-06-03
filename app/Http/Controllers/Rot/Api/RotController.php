@@ -31,9 +31,15 @@ class RotController extends Controller
     public function download()
     {
         $user = User::with(
-            'objectives', 'packages', 'packages.lesson', 'packages.lesson.topic', 'packages.lesson.level', 'packages.lesson.lessonVersion', 'packages.lesson.objectives'
+            'objectives',
+            'packages',
+            'packages.lesson',
+            'packages.lesson.topic',
+            'packages.lesson.level',
+            'packages.lesson.lessonVersion',
+            'packages.lesson.objectives'
         )->find(request()->query('user'));
-        
+
         if (request()->query('packages')) {
             $packagesFromRequest = explode(',', request()->query('packages'));
 
@@ -42,7 +48,7 @@ class RotController extends Controller
                     return in_array($package->id, $packagesFromRequest);
                 })
                 ->map(function ($package) {
-                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+                    $package->name = $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name;
 
                     return $package;
                 })
@@ -52,23 +58,23 @@ class RotController extends Controller
         } elseif (request()->query('type') === 'eg_3_4') {
             $packages = $user->packages
                 ->filter(function ($package) {
-                    return 
+                    return
                     (
-                        $package->lesson->level->code === '3' || 
+                        $package->lesson->level->code === '3' ||
                         $package->lesson->completed_in_both
                     )
-                     && 
+                     &&
                     (
-                        $package->theory_status === 'complete_eg3' || 
-                        $package->practical_status === 'complete_eg3' || 
-                        $package->theory_status === 'exempt' || 
-                        $package->practical_status === 'exempt' || 
-                        $package->theory_status === 'deferred' || 
+                        $package->theory_status === 'complete_eg3' ||
+                        $package->practical_status === 'complete_eg3' ||
+                        $package->theory_status === 'exempt' ||
+                        $package->practical_status === 'exempt' ||
+                        $package->theory_status === 'deferred' ||
                         $package->practical_status === 'deferred'
                     );
                 })
                 ->map(function ($package) {
-                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+                    $package->name = $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name;
 
                     return $package;
                 })
@@ -76,19 +82,19 @@ class RotController extends Controller
 
             $incompletePackages = $user->packages
                 ->filter(function ($package) {
-                    return 
+                    return
                     (
-                        $package->lesson->level->code === '3' || 
+                        $package->lesson->level->code === '3' ||
                         $package->lesson->completed_in_both
                     )
-                     && 
+                     &&
                     (
-                        $package->theory_status === 'incomplete' || 
+                        $package->theory_status === 'incomplete' ||
                         $package->practical_status === 'incomplete'
                     );
                 })
-                ->map(function ($package) { 
-                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+                ->map(function ($package) {
+                    $package->name = $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name;
 
                     return $package;
                 })
@@ -96,31 +102,31 @@ class RotController extends Controller
         } elseif (request()->query('type') === 'eg_4_5') {
             $packages = $user->packages
                 ->filter(function ($package) {
-                    return 
-                    (
-                        $package->lesson->level->code === '3' &&
+                    return
                         (
-                            $package->theory_status === 'complete_eg4' ||
-                            $package->practical_status === 'complete_eg4'
-                        ) 
-                    ) 
-                    || 
-                    (
-                        (
-                            $package->lesson->level->code === '4' || 
-                            $package->lesson->completed_in_both
-                        ) 
-                        && 
-                        (
-                            $package->theory_status === 'complete_eg4' ||
-                            $package->practical_status === 'complete_eg4' || 
-                            $package->theory_status === 'exempt' || 
-                            $package->practical_status === 'exempt'
+                            $package->lesson->level->code === '3' &&
+                            (
+                                $package->theory_status === 'complete_eg4' ||
+                                $package->practical_status === 'complete_eg4'
+                            )
                         )
-                    );
+                        ||
+                        (
+                            (
+                                $package->lesson->level->code === '4' ||
+                                $package->lesson->completed_in_both
+                            )
+                            &&
+                            (
+                                $package->theory_status === 'complete_eg4' ||
+                                $package->practical_status === 'complete_eg4' ||
+                                $package->theory_status === 'exempt' ||
+                                $package->practical_status === 'exempt'
+                            )
+                        );
                 })
                 ->map(function ($package) {
-                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+                    $package->name = $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name;
 
                     return $package;
                 })
@@ -128,29 +134,29 @@ class RotController extends Controller
 
             $incompletePackages = $user->packages
                 ->filter(function ($package) {
-                    return 
-                    (
-                        $package->lesson->level->code === '3' &&
+                    return
                         (
-                            $package->theory_status === 'deferred' ||
-                            $package->practical_status === 'deferred'
-                        ) 
-                    ) 
-                    || 
-                    (
-                        (
-                            $package->lesson->level->code === '4' || 
-                            $package->lesson->completed_in_both
-                        ) 
-                        && 
-                        (
-                            $package->theory_status === 'incomplete' ||
-                            $package->practical_status === 'incomplete'
+                            $package->lesson->level->code === '3' &&
+                            (
+                                $package->theory_status === 'deferred' ||
+                                $package->practical_status === 'deferred'
+                            )
                         )
-                    );
+                        ||
+                        (
+                            (
+                                $package->lesson->level->code === '4' ||
+                                $package->lesson->completed_in_both
+                            )
+                            &&
+                            (
+                                $package->theory_status === 'incomplete' ||
+                                $package->practical_status === 'incomplete'
+                            )
+                        );
                 })
-                ->map(function ($package) { 
-                    $package->name = $package->lesson->topic->number . '.' . str_pad($package->lesson->number, 2, '0', STR_PAD_LEFT) . ' - ' . $package->lesson->name;
+                ->map(function ($package) {
+                    $package->name = $package->lesson->topic->number . '.' . $package->lesson->formatNumber() . ' - ' . $package->lesson->name;
 
                     return $package;
                 })
@@ -160,39 +166,39 @@ class RotController extends Controller
         $packageMeta = [];
 
         foreach ($packages as $package) {
-            $eg3_theory = 
-                ((int) $package->lesson->level->code === 4 && 
+            $eg3_theory =
+                ((int) $package->lesson->level->code === 4 &&
                 (bool) $package->lesson->completed_in_both &&
-                $package->theory_status !== null) 
-                || 
-                ((int) $package->lesson->level->code === 3 && 
-                $package->theory_status !== null) ? 
+                $package->theory_status !== null)
+                ||
+                ((int) $package->lesson->level->code === 3 &&
+                $package->theory_status !== null) ?
                 true : false;
 
-            $eg3_practical = 
-                ((int) $package->lesson->level->code === 4 && 
+            $eg3_practical =
+                ((int) $package->lesson->level->code === 4 &&
                 (bool) $package->lesson->completed_in_both &&
-                $package->practical_status !== null) 
-                || 
-                ((int) $package->lesson->level->code === 3 && 
-                $package->practical_status !== null) ? 
+                $package->practical_status !== null)
+                ||
+                ((int) $package->lesson->level->code === 3 &&
+                $package->practical_status !== null) ?
                 true : false;
 
-            $eg4_theory = 
-                ((int) $package->lesson->level->code === 3 && 
+            $eg4_theory =
+                ((int) $package->lesson->level->code === 3 &&
                 (bool) $package->lesson->completed_in_both &&
-                $package->theory_status !== null) 
-                || 
-                ((int) $package->lesson->level->code === 4 && 
-                $package->theory_status !== null) ? 
+                $package->theory_status !== null)
+                ||
+                ((int) $package->lesson->level->code === 4 &&
+                $package->theory_status !== null) ?
                 true : false;
-            
-            $eg4_practical = 
-                ((int) $package->lesson->level->code === 3 && 
-                (bool) $package->lesson->completed_in_both && 
+
+            $eg4_practical =
+                ((int) $package->lesson->level->code === 3 &&
+                (bool) $package->lesson->completed_in_both &&
                 !is_null($package->practical_status))
-                || 
-                ((int) $package->lesson->level->code === 4 && 
+                ||
+                ((int) $package->lesson->level->code === 4 &&
                 !is_null($package->practical_status));
 
             $packageMeta[$package->lesson->name] = [

@@ -12,17 +12,17 @@
                 <tr>
                     <td>
                         <p style="font-family: sans-serif; width: 100%; font-size: 1rem;">
-                            <strong>Name:</strong> 
-                            <a 
+                            <strong>Name:</strong>
+                            <a
                                 href="{{ env('APP_URL') }}/users/{{ $user['id'] }}"
                                 style="color: #4299E1; text-decoration: none;"
                             >{{ $user['fullname'] }}</a>
                         </p>
-                
+
                         <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
                             <strong>Appointment date:</strong> {{ $user->appointment_date ? $user->appointment_date->format('m/d/y') : 'No appointment date entered' }}
                         </p>
-                
+
                         <p style="font-family: sans-serif; width: 100%; font-size: 1rem; margin-bottom: .25rem;">
                             <strong>Version:</strong> {{ $version }}
                         </p>
@@ -50,7 +50,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <div class="w-full flex items-center mb-4">
             <a href="{{ env('APP_URL') }}/reports/sot/{{ $user['id'] }}/download" class="ml-auto">
                 Download
@@ -114,7 +114,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <table style="width: 100%; font-family: sans-serif; font-size: .85rem;">
             <thead>
                 <tr>
@@ -146,7 +146,6 @@
             </thead>
 
             <tbody>
-
                 @foreach($topics as $topic)
 
                         <tr>
@@ -155,52 +154,57 @@
                             </td>
                         </tr>
 
+                        @php($has_footnote = false)
                         @foreach($packages[$topic->number] as $package)
 
                             <tr>
                                 <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0">
-                                    {{ $topic->number }}.{{ str_pad($package['lesson_number'], 2, '0', STR_PAD_LEFT) }}
+                                    {{ $topic->number }}.{{ $package['display_number'] }}
                                 </td>
 
                                 <td style="padding: .5rem 1rem; border: 1px solid #e2e8f0">
-                                    <a 
+                                    <a
                                         href="{{ env('APP_URL') }}/users/{{ $package['user_id'] }}/packages/{{ $package['id'] }}"
                                         style="color: #4299E1; text-decoration: none;"
                                     >
                                         {{ $package['lesson_name'] }}
                                     </a>
                                     <strong>{{ $package['completed_in_both'] ? '*' : '' }}</strong>
+                                    @if($package['completed_in_both'])
+                                        @php($has_footnote = true)
+                                    @endif
                                 </td>
 
-                                <td 
+                                <td
                                     style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg3_t'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['theory_status_eg3'] }}</td>
 
-                                <td 
+                                <td
                                     style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg3_p'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['practical_status_eg3'] }}</td>
 
-                                <td 
+                                <td
                                     style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg4_t'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['theory_status_eg4'] }}</td>
 
-                                <td 
+                                <td
                                     style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center; {{ !$package['eg4_p'] ? 'background-color: #CBD5E0;' : '' }}"
                                 >{{ $package['practical_status_eg4'] }}</td>
 
-                                <td 
+                                <td
                                     style="padding: .5rem 1rem; border: 1px solid #e2e8f0; text-align: center;"
                                 >
                                     {{ $package['status'] }}
                                 </td>
                             </tr>
-                        
-                        @endforeach
 
+                        @endforeach
+                        @if($has_footnote)
+                            <tr><td style="padding: .5rem 1rem; border: 1px solid #e2e8f0" colspan="7"><em>* This lesson can be initiated either at the EG-03 or EG-04 level.</em></td></tr>
+                        @endif
                 @endforeach
 
             </tbody>
         </table>
     </div>
-
 @endsection
