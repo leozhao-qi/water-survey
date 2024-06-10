@@ -5,30 +5,31 @@
         </h2>
 
         <label for="complete-null" class="block mb-4 ml-2">
-            <input 
+            <input
                 type="radio"
                 id="complete-null"
                 v-model="complete"
                 :value="null"
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
-            > 
+            >
             Package not complete
-        </label> 
+        </label>
 
         <label for="complete-a" class="block mb-4 ml-2">
-            <input 
+            <input
                 type="radio"
                 id="complete-a"
                 v-model="complete"
                 value="A"
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
-            > 
-            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been reviewed, the required objectives have been completed as approved by Manager (Recommended as Option A or D)
-        </label> 
+            >
+            <strong>Statement of Competency</strong> - I agree with the recommendation and that the details have been
+            reviewed, the required objectives have been completed as approved by Manager (Recommended as Option A or D)
+        </label>
 
-        <div 
+        <div
             v-if="needsSignOffConfirm"
             class="alert alert-red mb-3"
         >
@@ -36,27 +37,27 @@
         </div>
 
         <label for="complete-b" class="block mb-4 ml-2">
-            <input 
+            <input
                 type="radio"
                 id="complete-b"
                 v-model="complete"
                 value="B"
                 @change="update"
                 :disabled="!hasRole(['administrator', 'manager', 'head_of_operations'])"
-            > 
+            >
             <strong>Exemption</strong> - Fully Exempt – No objectives are expected to be completed as pre approved by Manager.  This does not exempt the candidate from the Lesson Package objectives should Management decide it is required at any time. ( Recommended as Option C)
-        </label> 
+        </label>
 
-        <p 
+        <p
             class="mt-2 ml-2 text-sm"
             v-if="userPackage.signed_off_by"
         >
-            <strong>Signed off by:</strong> 
-            {{ userPackage.signed_off_by.firstname }} {{ userPackage.signed_off_by.lastname }} 
+            <strong>Signed off by:</strong>
+            {{ userPackage.signed_off_by.firstname }} {{ userPackage.signed_off_by.lastname }}
             ({{ ucfirst(userPackage.signed_off_by.role) }}) on {{ fromMySQLDateFormat(userPackage.signed_off_at) }}
         </p>
 
-        <div 
+        <div
             class="alert alert-red mt-4"
             v-if="errors.complete"
             v-text="errors.complete[0]"
@@ -133,7 +134,7 @@ export default {
 
         update () {
             this.updateCompletion(this.complete)
-            
+
             this.$emit('userpackage:change', [
                 {
                     type: 'complete',

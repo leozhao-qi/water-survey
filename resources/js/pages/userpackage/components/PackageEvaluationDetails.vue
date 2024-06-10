@@ -5,7 +5,7 @@
                 Evaluation details
             </h2>
 
-            <button 
+            <button
                 class="btn btn-text text-sm ml-2"
                 v-if="!editing && !isComplete && hasRole(['manager', 'head_of_operations', 'supervisor'])"
                 @click.prevent="editing = true"
@@ -14,17 +14,17 @@
             </button>
         </div>
 
-        <p 
+        <p
             class="mt-2 text-sm"
             v-if="userPackage.evaluated_by"
         >
-            <strong>Evaluated by:</strong> 
-            {{ userPackage.evaluated_by.firstname }} {{ userPackage.evaluated_by.lastname }} 
+            <strong>Evaluated by:</strong>
+            {{ userPackage.evaluated_by.firstname }} {{ userPackage.evaluated_by.lastname }}
             ({{ ucfirst(userPackage.evaluated_by.role) }}) on {{ fromMySQLDateFormat(userPackage.evaluated_at) }}
         </p>
 
         <div class="mt-2" v-if="editing">
-            <vue-editor 
+            <vue-editor
                 v-model="evaluation_details"
                 :editorToolbar="customToolbar"
             ></vue-editor>
@@ -32,14 +32,14 @@
             <div
                 class="w-full mt-4"
             >
-                <button 
+                <button
                     class="btn btn-blue text-sm"
                     @click.prevent="$emit('save')"
                 >
                     Save
                 </button>
 
-                <button 
+                <button
                     class="btn btn-text text-sm"
                     @click.prevent="cancel"
                 >
@@ -48,13 +48,13 @@
             </div>
         </div>
 
-        <article 
+        <article
             v-if="!editing"
             v-html="formattedEvaluationDetails"
             class="content mt-2"
         ></article>
 
-        <div 
+        <div
             v-if="!editing && formattedEvaluationDetails === ''"
             class="alert alert-blue mt-2"
         >No evaluation details entered yet.</div>
@@ -96,7 +96,6 @@ export default {
         ...mapGetters({
             userPackage: 'userpackage/userPackage'
         }),
-
         formattedEvaluationDetails () {
             return this.evaluation_details
                 .replace(/<p><br><\/p>/g, '')

@@ -8,28 +8,28 @@
 
         <package-entries />
 
-        <package-evaluation-details 
-            @userpackage:change="updatePackage" 
+        <package-evaluation-details
+            @userpackage:change="updatePackage"
             @save="update({ userId, userpackageId })"
         />
 
-        <package-recommendation 
-            @userpackage:change="updatePackage" 
+        <package-recommendation
+            @userpackage:change="updatePackage"
             @save="update({ userId, userpackageId })"
         />
 
         <statement-of-competency @userpackage:change="updatePackage" />
 
-        <package-comment 
-            @userpackage:change="updatePackage" 
+        <package-comment
+            @userpackage:change="updatePackage"
             @save="update({ userId, userpackageId })"
         />
 
-        <div 
+        <div
             class="fixed bottom-0 w-full flex bg-white p-4 shadow-inner"
             v-if="hasRole(['manager', 'head_of_operations', 'supervisor'])"
         >
-            <button 
+            <button
                 class="btn btn-blue ml-auto"
                 @click.prevent="update({ userId, userpackageId })"
             >
@@ -53,7 +53,6 @@ export default {
             required: true
         }
     },
-
     methods: {
         ...mapActions({
             fetch: 'userpackage/fetch',
