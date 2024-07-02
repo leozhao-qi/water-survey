@@ -53,7 +53,8 @@ class PackageController extends Controller
         ], 200);
     }
 
-    public function update(User $user, Package $package) {
+    public function update(User $user, Package $package)
+    {
         $status_rule = Rule::in(['incomplete', 'complete_eg3', 'complete_eg4', 'deferred', 'exempt']);
 
         request()->validate([
@@ -64,6 +65,7 @@ class PackageController extends Controller
             'recommendation_id' => 'sometimes|nullable|exists:recommendations,id',
             'evaluation_details' => 'sometimes|nullable|min:8'
         ]);
+        // Valid request ...
 
         if (!auth()->user()->can('update', $package)) {
             // Not authorized to do this
@@ -76,64 +78,47 @@ class PackageController extends Controller
 
         // Is authorized; process request
         $data = request()->all();
-
-        if (request()->has('complete') && (request('complete') === 'A' || request('complete') === 'B')) {
-            $data = array_merge($data, [
-                'signed_off_by' => auth()->id(),
-                'signed_off_at' => Carbon::now()
-            ]);
-        } elseif (request()->has('complete') && request('complete') === 0) {
-            $data = array_merge($data, [
-                'signed_off_by' => null,
-                'signed_off_at' => null
-            ]);
-        }
+        $changelist = array();
 
         if (Arr::has($data, 'objectives')) {
             $allObjectivesForPackage = $package->lesson->objectives->pluck('id');
 
             $user->objectives()->detach($allObjectivesForPackage);
-
             $user->objectives()->attach(request('objectives'));
 
             Arr::forget($data, 'objectives');
         }
 
+        if (request()->has('complete') && (request('complete') === 'A' || request('complete') === 'B')) {
+            $changelist['signed_off_by'] = auth()->id();
+            $changelist['signed_off_at'] = Carbon::now();
+        } else if (request()->has('complete') && request('complete') === 0) {
+            $changelist['signed_off_by'] = null;
+            $changelist['signed_off_at'] = null;
+        }
         if (request()->has('comment')) {
-            $data = array_merge($data, [
-                'commented_by' => auth()->id(),
-                'commented_at' => Carbon::now()
-            ]);
+            $changelist['commented_by'] = auth()->id();
+            $changelist['commented_at'] = Carbon::now();
         }
-
-        if (request()->has('recommendation_id') && request('recommendation_id') !== null) {
-            $data = array_merge($data, [
-                'recommended_by' => auth()->id(),
-                'recommended_on' => Carbon::now()
-            ]);
+        if (request()->has('recommendation_id')) {
+            if (request('recommendation_id') !== null) {
+                $changelist['recommended_by'] = auth()->id();
+                $changelist['recommended_on'] = Carbon::now();
+            } else {
+                $changelist['recommended_by'] = null;
+                $changelist['recommended_on'] = null;
+            }
         }
-
-        if (request()->has('recommendation_id') && request('recommendation_id') === null) {
-            $data = array_merge($data, [
-                'recommended_by' => null,
-                'recommended_on' => null
-            ]);
-        }
-
         if (request()->has('recommendation_comment') && $package->recommendation_comment === null) {
-            $data = array_merge($data, [
-                'recommendation_comment_by' => auth()->id(),
-                'recommendation_comment_at' => Carbon::now()
-            ]);
+            $changelist['recommendation_comment_by'] = auth()->id();
+            $changelist['recommendation_comment_at'] = Carbon::now();
         }
-
         if (request()->has('evaluation_details') && $package->evaluation_details === null) {
-            $data = array_merge($data, [
-                'evaluated_by' => auth()->id(),
-                'evaluated_at' => Carbon::now()
-            ]);
+            $changelist['evaluated_by'] = auth()->id();
+            $changelist['evaluated_at'] = Carbon::now();
         }
 
+        $data = array_merge($data, $changelist);
         $package->update($data);
 
         return response()->json([
