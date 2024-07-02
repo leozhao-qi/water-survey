@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js" defer></script> 
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js" defer></script>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -19,7 +19,7 @@
 
     <script>
         window.User = {
-            'name': '{{ auth()->user() ? auth()->user()->moodleuser->firstname : '' }} {{ auth()->user() ? auth()->user()->moodleuser->lastname : '' }}',
+            'name': '{{ auth()->user() ? auth()->user()->firstname : '' }} {{ auth()->user() ? auth()->user()->lastname : '' }}',
             'id': '{{ auth()->id() }}',
             'role': '{{ auth()->user() ? auth()->user()->roles->first()->name : '' }}',
             'rank': '{{ auth()->user() ? auth()->user()->roles->first()->rank : '' }}'

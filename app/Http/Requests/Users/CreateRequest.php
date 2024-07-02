@@ -21,12 +21,11 @@ class CreateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'users' => ['required', 'array'],
-            'users.*' => ['integer', 'unique:users,moodle_id'],
-            'role' => ['required', 'exists:roles,name']
+            'role' => 'required',
+            'user' => 'required'
         ];
     }
 }
