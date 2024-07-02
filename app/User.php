@@ -2,19 +2,10 @@
 
 namespace App;
 
-use App\User;
-use App\Comment;
-use App\Logbook;
-use App\Package;
-use App\Objective;
-use App\MoodleUser;
-use App\Supervisor;
-use App\Deactivation;
+
 use App\Traits\HasSupervisors;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -29,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'moodle_id', 'password', 'email', 'active', 'appointment_date'
+        'password', 'email', 'active', 'appointment_date', 'firstname', 'lastname', 'fullname'
     ];
 
     /**
@@ -52,7 +43,7 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'firstname', 'lastname', 'role', 'fullname'
+        'role'
     ];
 
     public function deactivations()
@@ -64,11 +55,6 @@ class User extends Authenticatable
     public function supervisor()
     {
         return $this->hasOne(Supervisor::class);
-    }
-
-    public function moodleuser()
-    {
-        return $this->hasOne(MoodleUser::class, 'id', 'moodle_id');
     }
 
     public function packages()
@@ -91,39 +77,15 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function getFirstnameAttribute()
-    {
-        return $this->moodleProfile('firstname');
-    }
-
-    public function getLastnameAttribute()
-    {
-        return $this->moodleProfile('lastname');
-    }
-
-    public function getFullnameAttribute()
-    {
-        return $this->moodleProfile('firstname') . ' ' . $this->moodleProfile('lastname');
-    }
-
     public function getRoleAttribute()
     {
         return $this->roles()->first()->name;
     }
 
-    protected function moodleProfile($column)
-    {
-        $user = User::find($this->id);
-
-         return MoodleUser::whereId($user->moodle_id)
-            ->first()
-            ->{$column};
-    }
-
     public function updateRole($role)
 	{
         $this->roles()->detach();
-        
+
         if ($this->supervisor !== null) {
             $this->supervisor()->delete();
         }

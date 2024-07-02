@@ -9,7 +9,7 @@ trait HasSupervisors
     protected $employeeArr = [];
 
     protected $supervisorArr = [];
-    
+
     public function supervisors()
     {
         return $this->belongsToMany(Supervisor::class, 'supervisors_users');
@@ -104,24 +104,24 @@ trait HasSupervisors
     protected function getEmployeeMeta($employee)
     {
         return [
-            'id' => $employee->id, 
-            'role' => $employee->roles[0]->name, 
+            'id' => $employee->id,
+            'role' => $employee->roles[0]->name,
             'rank' => $employee->roles[0]->rank,
-            'firstname' => $employee->moodleuser->firstname, 
-            'lastname' => $employee->moodleuser->lastname,
-            'fullname' => "{$employee->moodleuser->firstname} {$employee->moodleuser->lastname}"
+            'firstname' => $employee->firstname,
+            'lastname' => $employee->lastname,
+            'fullname' => "{$employee->firstname} {$employee->lastname}"
         ];
     }
 
     protected function getSupervisorMeta($supervisor)
     {
         return [
-            'id' => $supervisor->user_id, 
-            'role' => $supervisor->user->roles[0]->name, 
-            'rank' => $supervisor->user->roles[0]->rank, 
-            'firstname' => $supervisor->user->moodleuser->firstname, 
-            'lastname' => $supervisor->user->moodleuser->lastname,
-            'fullname' => "{$supervisor->user->moodleuser->firstname} {$supervisor->user->moodleuser->lastname}"
+            'id' => $supervisor->user_id,
+            'role' => $supervisor->user->roles[0]->name,
+            'rank' => $supervisor->user->roles[0]->rank,
+            'firstname' => $supervisor->user->firstname,
+            'lastname' => $supervisor->user->lastname,
+            'fullname' => "{$supervisor->user->firstname} {$supervisor->user->lastname}"
         ];
     }
 }
