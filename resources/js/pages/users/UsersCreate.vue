@@ -130,11 +130,16 @@ export default {
             let { data } = await axios.post(`${this.urlBase}/api/users/create`, {
                 role: this.role,
                 user: this.form
-            })
+            });
 
-            this.reset()
-            window.events.$emit('datatable:clear')
-            this.$toasted.success(data.data.message)
+            this.reset();
+            window.events.$emit('datatable:clear');
+
+            if (data.data.type === 'failure') {
+                this.$toasted.error(data.data.message);
+            } else {
+                this.$toasted.success(data.data.message);
+            }
         },
 
         reset () {

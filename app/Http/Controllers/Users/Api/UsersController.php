@@ -98,6 +98,14 @@ class UsersController extends Controller
                 ]
             ], 400);
         }
+        if (User::where('email', $email)->exists()) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'User email already exists'
+                ]
+            ]);
+        }
 
         $names = $this->detect_names($fullname);
 

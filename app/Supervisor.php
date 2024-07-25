@@ -18,7 +18,7 @@ class Supervisor extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'supervisors_users')->with('moodleuser')->with('roles');
+        return $this->belongsToMany(User::class, 'supervisors_users')->with('roles');
     }
 
     public function role()
