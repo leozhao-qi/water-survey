@@ -114,7 +114,7 @@ class UsersController extends Controller
                 ]
             ]);
         }
-        if (!str_ends_with($email, "@ec.gc.ca")) {
+        if (!preg_match('/ec\.gc\.ca$/', $email)) {
             return response()->json([
                 'data' => [
                     'type' => 'failure',
