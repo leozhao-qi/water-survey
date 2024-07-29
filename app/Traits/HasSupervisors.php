@@ -50,7 +50,7 @@ trait HasSupervisors
     protected function getEmployees()
     {
         $employees = $this->supervisor->users->load(
-            'moodleuser', 'roles'
+            'roles'
         );
 
         $this->mappedEmployees($employees);
@@ -59,7 +59,7 @@ trait HasSupervisors
     protected function getSupervisors()
     {
         $supervisors = $this->supervisors->each->load(
-            'user.moodleuser', 'user.roles'
+            'user.roles'
         );
 
         $this->mappedSupervisors($supervisors);
@@ -79,7 +79,7 @@ trait HasSupervisors
             if (optional($employee->supervisor)->users !== null) {
                 $this->mappedEmployees(
                     $employee->supervisor->users->load(
-                        'moodleuser', 'roles'
+                        'roles'
                     )
                 );
             }
@@ -94,7 +94,7 @@ trait HasSupervisors
             if (optional($supervisor->user)->supervisors !== null) {
                 $this->mappedSupervisors(
                     $supervisor->user->supervisors->each->load(
-                        'user.moodleuser', 'user.roles'
+                        'user.roles'
                     )
                 );
             }

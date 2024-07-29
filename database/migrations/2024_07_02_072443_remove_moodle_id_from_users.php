@@ -13,6 +13,8 @@ class RemoveMoodleIdFromUsers extends Migration
 {
     /**
      * Run the migrations.
+     * Add fullname, firstname, and lastname sections to the database.
+     * Do not remove the moodle_id column.
      *
      * @return void
      */
@@ -38,10 +40,6 @@ class RemoveMoodleIdFromUsers extends Migration
                 'lastname' => $lastname
             ]);
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('moodle_id');
-        });
     }
 
     /**
@@ -52,7 +50,6 @@ class RemoveMoodleIdFromUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('moodle_id');
             $table->dropColumn(['fullname','firstname','lastname']);
         });
     }
