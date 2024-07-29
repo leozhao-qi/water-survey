@@ -84,8 +84,8 @@ class UsersController extends Controller
 
         $fullname = $email = $role = null;
         if (request('user')) {
-            $fullname = request('user')['full_name'];
-            $email = request('user')['email'];
+            $fullname = trim(request('user')['full_name']);
+            $email = trim(request('user')['email']);
         }
         if (request('role')) {
             $role = request('role');
@@ -102,7 +102,23 @@ class UsersController extends Controller
             return response()->json([
                 'data' => [
                     'type' => 'failure',
-                    'message' => 'User email already exists'
+                    'message' => 'Email ' . $email . ' already exists.'
+                ]
+            ]);
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'Email ' . $email . ' is not formatted like an email address.'
+                ]
+            ]);
+        }
+        if (!str_ends_with($email, "@ec.gc.ca")) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'Email ' . $email . ' is not an ec.gc.ca address.'
                 ]
             ]);
         }
