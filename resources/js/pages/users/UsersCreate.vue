@@ -1,19 +1,19 @@
 <template>
-    <div class="w-full lg:w-9/12">   
+    <div class="w-full lg:w-9/12">
         <h1 class="text-3xl font-bold mb-4">
             Add users
-        </h1> 
+        </h1>
 
         <div class="flex justify-center w-full mb-6 pb-6 border-b border-gray-200">
             <div>
-                <label 
+                <label
                     for="roles"
                     class="block text-gray-700 font-bold mb-2"
                 >
-                    Register users as...
+                    Register user as...
                 </label>
                 <div class="relative">
-                    <select 
+                    <select
                         id="roles"
                         v-model="role"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -35,27 +35,77 @@
             </div>
         </div>
 
-        <datatable 
-            :data="users"
-            :columns="columns"
-            :per-page="10"
-            :order-keys="['lastname', 'firstname']"
-            :order-key-directions="['asc', 'asc']"
-            :has-text-filter="true"
-            :checkable="true"
+        <form
+            @submit.prevent
         >
-            <button
-                @click.prevent="cancel"
-                class="btn btn-text text-red-500 mr-2"
-            >Cancel</button>
+            <div
+                class="w-full mb-4"
+            >
+                <label
+                    class="block text-gray-700 font-bold mb-2"
+                    :class="{ 'text-red-500': errors.full_name }"
+                    for="name"
+                >
+                    Full name
+                </label>
 
-            <button 
-                @click.prevent="store"
-                class="btn btn-blue"
-            >Create account{{ selected.length > 1 ? 's' : '' }}</button>
-        </datatable>
+                <input
+                    type="text"
+                    v-model="form.full_name"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto"
+                    :class="{ 'border-red-500': errors.full_name }"
+                    id="name"
+                >
+
+                <p
+                    v-if="errors.full_name"
+                    v-text="errors.full_name[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+
+            <div
+                class="w-full mb-4"
+            >
+                <label
+                    class="block text-gray-700 font-bold mb-2"
+                    :class="{ 'text-red-500': errors.email }"
+                    for="email"
+                >
+                    ec.gc.ca email
+                </label>
+
+                <input
+                    type="email"
+                    v-model="form.email"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto"
+                    id="email"
+                    :class="{ 'border-red-500': errors.email }"
+                >
+
+                <p
+                    v-if="errors.email"
+                    v-text="errors.email[0]"
+                    class="text-red-500 text-sm"
+                ></p>
+            </div>
+            <div
+                class="w-full"
+            >
+                <button
+                    @click.prevent="cancel"
+                    class="btn btn-text text-red-500 mr-2"
+                >Cancel</button>
+
+                <button
+                    @click.prevent="store"
+                    class="btn btn-blue"
+                >Create account</button>
+            </div>
+            <p class="block text-gray-700 mt-2" >A password will be sent to the email address above.</p>
+        </form>
     </div>
-</template>
+</template>`
 
 <script>
 import { map, forEach, reject, isEmpty } from 'lodash-es'
@@ -64,57 +114,57 @@ import ucfirst from '../../helpers/ucfirst'
 export default {
     data() {
         return {
-            users: [],
-            columns: [
-                { field: 'firstname', title: 'First name', sortable: true },
-                { field: 'lastname', title: 'Last name', sortable: true },
-                { field: 'email', title: 'Email', sortable: false }
-            ],
-            selected: [],
             roles: [],
-            role: ''
+            role: '',
+            form: {
+                full_name: '',
+                email: ''
+            }
         }
     },
 
     methods: {
-        ucfirst, 
-        
+        ucfirst,
+
         async store () {
-            let { data } = await axios.post(`${this.urlBase}/api/users/moodle`, {
+            let { data } = await axios.post(`${this.urlBase}/api/users/create`, {
                 role: this.role,
-                users: this.selected
-            })
+                user: this.form
+            });
 
-            this.reset()
+            this.reset();
+            window.events.$emit('datatable:clear');
 
-            window.events.$emit('datatable:clear')
-
-            this.$toasted.success(data.data.message)
+            if (data.data.type === 'failure') {
+                this.$toasted.error(data.data.message);
+            } else {
+                this.$toasted.success(data.data.message);
+            }
         },
 
         reset () {
-            this.selected = []
+            this.form = {
+                full_name: '',
+                email: ''
+            }
             this.roles = []
             this.role = ''
         },
 
         cancel () {
             this.reset()
-
             window.events.$emit('datatable:cancel')
         }
     },
 
     async mounted () {
-        let { data: users } = await axios.get(`${this.urlBase}/api/users/moodle/create`)
         let { data: roles } = await axios.get(`${this.urlBase}/api/roles`)
 
-        this.users = users
+        this.form = {
+            full_name: '',
+            email: ''
+        }
         this.roles = roles
-
-        window.events.$on('users:selected', users => {
-            this.selected = users
-        })
     }
 }
 </script>

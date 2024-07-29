@@ -16,10 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('users')->group(function () {
     Route::get('deactivations', 'Users\Api\UsersController@inactiveIndex');
     Route::get('{user}', 'Users\Api\UsersController@show');
-    Route::get('moodle/create', 'MoodleUsers\Api\MoodleUsersController@create');
     Route::post('{user}/role/{role}', 'Supervisors\Api\SupervisorsController@store');
     Route::post('{user}/packages', 'Packages\Api\PackageController@store');
-    Route::post('moodle', 'MoodleUsers\Api\MoodleUsersController@store');
     Route::put('{user}/password', 'Users\Api\PasswordChangeController@update');
     Route::put('{user}/appointment', 'Users\Api\AppointmentDateController@update');
     Route::put('{user}/role', 'Users\Api\RoleChangeController@update');
@@ -29,6 +27,7 @@ Route::prefix('users')->group(function () {
     Route::put('{user}/packages', 'Packages\Api\PackageController@add');
     Route::get('{user}/packages', 'Logbooks\Api\LogbookPackageController@index');
     Route::put('{user}/packages/{package}', 'Packages\Api\PackageController@update');
+    Route::post('create', 'Users\Api\UsersController@store');
 });
 
 Route::prefix('topics')->group(function () {

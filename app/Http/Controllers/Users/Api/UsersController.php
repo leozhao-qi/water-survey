@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Users\Api;
 
+use App\Mail\UserRegistered;
+use App\Supervisor;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Mail;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -30,7 +35,7 @@ class UsersController extends Controller
         return new UserResource(User::find($user->id));
     }
 
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         $user->delete();
 
@@ -38,6 +43,112 @@ class UsersController extends Controller
             'data' => [
                 'type' => 'success',
                 'message' => 'User successfully deleted'
+            ]
+        ], 200);
+    }
+
+    private function detect_names(string $full_name): array
+    {
+        $names = explode(' ', $full_name);
+        $num = count($names);
+
+        if ($num >= 2) {
+            return array(
+                "first_name" => implode(' ', array_slice($names, 0, -1)),
+                "last_name" => $names[count($names) - 1]
+            );
+        } else if ($num == 1) {
+            return array(
+                "first_name" => $names[0],
+                "last_name" => null
+            );
+        } else {
+            return array(
+                "first_name" => null,
+                "last_name" => null
+            );
+        }
+    }
+
+    /**
+     * Store a new user.
+     *
+     * @return JsonResponse
+     */
+    public function store(): JsonResponse
+    {
+        request()->validate([
+            'role' => 'required',
+            'user' => 'required'
+        ]);
+
+        $fullname = $email = $role = null;
+        if (request('user')) {
+            $fullname = trim(request('user')['full_name']);
+            $email = trim(request('user')['email']);
+        }
+        if (request('role')) {
+            $role = request('role');
+        }
+        if (empty($fullname) || empty($email) || empty($role)) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'User could not be added'
+                ]
+            ], 400);
+        }
+        if (User::where('email', $email)->exists()) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'Email ' . $email . ' already exists.'
+                ]
+            ]);
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'Email ' . $email . ' is not formatted like an email address.'
+                ]
+            ]);
+        }
+        if (!str_ends_with($email, "@ec.gc.ca")) {
+            return response()->json([
+                'data' => [
+                    'type' => 'failure',
+                    'message' => 'Email ' . $email . ' is not an ec.gc.ca address.'
+                ]
+            ]);
+        }
+
+        $names = $this->detect_names($fullname);
+
+        $newUser = User::create([
+            'email' => $email,
+            'active' => 1,
+            'password' => bcrypt($password = bin2hex(openssl_random_pseudo_bytes(5))),
+            'fullname' => $fullname,
+            'firstname' => $names["first_name"],
+            'lastname' => $names["last_name"]
+        ]);
+        $newUser->assignRole(
+            Role::whereName($role)->get()->first()
+        );
+
+        if ($newUser->hasRole(['manager', 'head_of_operations', 'supervisor'])) {
+            Supervisor::create([
+                'user_id' => $newUser->id
+            ]);
+        }
+
+        Mail::to($newUser)->send(new UserRegistered($newUser, $password));
+
+        return response()->json([
+            'data' => [
+                'type' => 'success',
+                'message' => 'Users successfully added'
             ]
         ], 200);
     }

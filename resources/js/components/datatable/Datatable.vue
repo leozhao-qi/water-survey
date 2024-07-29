@@ -1,8 +1,8 @@
 <template>
     <div class="w-full">
         <div class="flex w-full mb-4" v-if="hasTextFilter">
-            <input 
-                type="text" 
+            <input
+                type="text"
                 v-model="textFilter"
                 class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-auto"
                 placeholder="Search..."
@@ -15,7 +15,7 @@
         <table class="w-full">
             <thead>
                 <tr class="border-b-2 border-gray-300">
-                    <th 
+                    <th
                         v-if="checkable"
                         class="p-1"
                     ></th>
@@ -27,7 +27,7 @@
                         class="text-left p-1"
                     ></th>
 
-                    <th 
+                    <th
                         v-if="hasAction || hasEvent"
                         class="p-1"
                     ></th>
@@ -41,13 +41,13 @@
                     class="border-b border-gray-300"
                 >
                     <td v-if="checkable" class="p-1">
-                        <input 
-                            type="checkbox" 
+                        <input
+                            type="checkbox"
                             :value="item.id"
                             v-model="selected"
                         >
                     </td>
-                    
+
                     <td
                         v-for="column in columns"
                         :key="column.field"
@@ -57,16 +57,16 @@
 
                     <td v-if="hasAction || hasEvent" class="p-1">
                         <template v-if="hasAction">
-                            <a 
+                            <a
                                 :href="`${actionLink}/${item[actionId]}`"
                                 class="btn btn-text text-sm"
                             >
                                 {{ actionText }}
                             </a>
                         </template>
-                        
+
                         <template v-if="hasEvent">
-                            <button 
+                            <button
                                 @click.prevent="emitEvent(event, item)"
                                 class="btn btn-text text-sm text-blue-500"
                             >
@@ -88,7 +88,7 @@
 
 <script>
 import paginate from 'vuejs-paginate'
-import { orderBy, filter, forEach, find, map } from 'lodash-es'
+import { orderBy, filter } from 'lodash-es'
 
 export default {
     components: {
@@ -191,7 +191,7 @@ export default {
     },
 
     computed: {
-        filteredData () {  
+        filteredData () {
             let filtered = this.data
 
             if (this.orderKeys.length) {
@@ -202,16 +202,15 @@ export default {
 
             if (this.textFilter) {
                 filtered = filter(filtered, item => {
-                    let isIndexOf = false
+                    for (let step = 0; step < this.columns.length; step++) {
+                        if (item[this.columns[step].field] === null) {
 
-                    forEach(this.columns, column => {
-                        if (this.matches(item[column.field])) {
-                            isIndexOf = true
+                        } else if (item[this.columns[step].field].toString().toLowerCase().indexOf(this.textFilter.toLowerCase()) >= 0) {
+                            return true;
                         }
-                    })
-
-                    return isIndexOf
-                })
+                    }
+                    return false;
+                });
             }
 
             this.pages = Math.ceil(filtered.length / this.perPage)
@@ -237,10 +236,6 @@ export default {
     },
 
     methods: {
-        matches (item) {
-            return item.toString().toLowerCase().indexOf(this.textFilter.toLowerCase()) >= 0
-        },
-
         paginate (page) {
             this.currentPage = page
         },
